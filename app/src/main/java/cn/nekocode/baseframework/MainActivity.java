@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import cn.nekocode.baseframework.network.API;
+import cn.nekocode.baseframework.network.APIFactory;
+
+public class MainActivity extends BaseActivity {
+    API api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        api = APIFactory.getInstance();
     }
 
     @Override
