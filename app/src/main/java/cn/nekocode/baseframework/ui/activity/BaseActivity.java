@@ -1,5 +1,8 @@
 package cn.nekocode.baseframework.ui.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,11 +12,17 @@ import android.view.MenuItem;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class BaseActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+
+public abstract class BaseActivity<T extends Activity> extends AppCompatActivity {
     private static ArrayList<Handler> handlers = new ArrayList<Handler>();
     protected MyHandler handler = new MyHandler(this);
 
-    public BaseActivity _this;
+    public T _this;
+
+//    public static void start(BaseActivity context) {
+//        Intent intent = new Intent(context, );
+//    }
 
     public static void addHandler(Handler handler) {
         handlers.add(handler);
@@ -59,8 +68,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        _this = this;
+        _this = (T) this;
         addHandler(handler);
     }
 
@@ -118,7 +126,5 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void handler(Message msg) {
-
-    }
+    abstract public void handler(Message msg);
 }

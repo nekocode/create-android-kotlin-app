@@ -1,6 +1,7 @@
 package cn.nekocode.baseframework.ui.activity;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainActivity> {
     @InjectView(R.id.recyclerView)
     android.support.v7.widget.RecyclerView recyclerView;
 
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void success(ResultBean resultBean, Response response) {
                 String json = gson.toJson(resultBean);
+                Toast.makeText(_this, json, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -68,5 +70,9 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void handler(Message msg) {
     }
 }
