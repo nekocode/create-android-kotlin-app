@@ -35,6 +35,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'io.reactivex:rxandroid:0.25.0'
 }

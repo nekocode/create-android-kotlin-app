@@ -17,7 +17,7 @@ import cn.nekocode.baseframework.AppContext;
  */
 public class K {
     private static final String prefix = "memcache_";
-    private static HashMap<String, Object> caches = new HashMap<>();
+    private static HashMap<String, Object> map = new HashMap<>();
     private static Kryo kryo = new Kryo();
 
     public static void save(String fileName, Object obj) {
@@ -52,16 +52,18 @@ public class K {
     public static <T>T getMemCache(String key, Class<T> classType) {
         key = prefix + key;
 
-        T cache = (T) caches.get(key);
-        if(cache == null)
+        T cache = (T) map.get(key);
+        if(cache == null) {
             cache = load(key, classType);
+            map.put(key, cache);
+        }
         return cache;
     }
 
     public static void putMemCache(String key, Object object) {
         key = prefix + key;
 
-        caches.put(key, object);
+        map.put(key, object);
         if(object != null)
             save(key, object);
     }
