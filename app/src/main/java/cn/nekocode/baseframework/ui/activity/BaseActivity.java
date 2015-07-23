@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework;
+package cn.nekocode.baseframework.ui.activity;
 
 import android.os.Bundle;
 import android.os.Handler;

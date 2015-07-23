@@ -1,22 +1,47 @@
-package cn.nekocode.baseframework;
+package cn.nekocode.baseframework.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import cn.nekocode.baseframework.network.API;
-import cn.nekocode.baseframework.network.APIFactory;
+import com.google.gson.Gson;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import cn.nekocode.baseframework.R;
+import cn.nekocode.baseframework.bean.ResultBean;
+import cn.nekocode.baseframework.rest.API;
+import cn.nekocode.baseframework.rest.APIFactory;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends BaseActivity {
+    @InjectView(R.id.recyclerView)
+    android.support.v7.widget.RecyclerView recyclerView;
+
     API api;
+    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
         api = APIFactory.getInstance();
+        api.sugList("utf-8", "电动", new Callback<ResultBean>() {
+            @Override
+            public void success(ResultBean resultBean, Response response) {
+                String json = gson.toJson(resultBean);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(_this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

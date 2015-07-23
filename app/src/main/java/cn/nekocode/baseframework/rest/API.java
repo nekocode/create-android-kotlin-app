@@ -1,9 +1,9 @@
-package cn.nekocode.baseframework.network;
+package cn.nekocode.baseframework.rest;
 
 import java.util.List;
 import java.util.Map;
 
-import cn.nekocode.baseframework.beans.TestBean;
+import cn.nekocode.baseframework.bean.ResultBean;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -25,37 +25,41 @@ import retrofit.mime.TypedString;
  */
 public interface API {
     @GET("/users/{user}/repos")
-    List<TestBean> listTest(@Path("user") String user);
+    List<ResultBean> listTest(@Path("user") String user);
 
     @GET("/group/{id}/users")
-    List<TestBean> groupList(@Path("id") int groupId, @Query("sort") String sort);
+    List<ResultBean> groupList(@Path("id") int groupId, @Query("sort") String sort);
 
     @GET("/group/{id}/users")
-    List<TestBean> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
+    List<ResultBean> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
 
     @FormUrlEncoded
     @POST("/user/edit")
-    TestBean updateUser(@Field("first_name") String first, @Field("last_name") String last);
+    ResultBean updateUser(@Field("first_name") String first, @Field("last_name") String last);
 
     @Multipart
     @PUT("/user/photo")
-    TestBean updateUser(@Part("photo") TypedFile photo, @Part("description") TypedString description);
+    ResultBean updateUser(@Part("photo") TypedFile photo, @Part("description") TypedString description);
 
     @Headers("Cache-Control: max-age=640000")
     @GET("/widget/list")
-    List<TestBean> widgetList();
+    List<ResultBean> widgetList();
 
     @Headers({
             "Accept: application/vnd.github.v3.full+json",
             "User-Agent: Retrofit-Sample-App"
     })
     @GET("/users/{username}")
-    TestBean getUser(@Path("username") String username);
+    ResultBean getUser(@Path("username") String username);
 
     @GET("/user")
-    void getUser(@Header("Authorization") String authorization, Callback<TestBean> callback);
+    void getUser(@Header("Authorization") String authorization, Callback<ResultBean> callback);
 
     // Asynchronous execution requires the last parameter of the method be a Callback.
     @GET("/user/{id}/photo")
-    void getUserPhoto(@Path("id") int id, Callback<TestBean> cb);
+    void getUserPhoto(@Path("id") int id, Callback<ResultBean> cb);
+
+
+    @GET("/sug")
+    void sugList(@Query("code") String code, @Query("q") String q, Callback<ResultBean> cb);
 }

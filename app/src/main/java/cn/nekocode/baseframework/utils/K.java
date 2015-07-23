@@ -15,6 +15,9 @@ import java.io.FileOutputStream;
 public class K {
     private static Kryo kryo = new Kryo();
 
+    //文件名储存在这里
+    public static String K_USER_BEAN = "user_bean";
+
     public static void save(Context context, String fileName, Object obj) {
         try {
             FileOutputStream fo = context.openFileOutput(fileName, Context.MODE_PRIVATE);
