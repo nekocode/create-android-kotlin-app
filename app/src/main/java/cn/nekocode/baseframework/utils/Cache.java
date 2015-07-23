@@ -16,7 +16,7 @@ import cn.nekocode.baseframework.AppContext;
 /**
  * Created by Nekocode on 2014/11/24 0024.
  */
-public class C {
+public class Cache {
     private static final String MEMCACHE_PREFIX = "memcache_";
     private static HashMap<String, Object> map = new HashMap<>();
     private static Kryo kryo = new Kryo();

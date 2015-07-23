@@ -1,6 +1,6 @@
 package cn.nekocode.baseframework;
 
-import cn.nekocode.baseframework.utils.C;
+import cn.nekocode.baseframework.utils.Cache;
 
 /**
  * Created by nekocode on 2015/7/23.
@@ -27,7 +27,7 @@ public class Config {
 
     public static Setting loadSetting() {
         if(setting == null)
-            setting = C.load(FILE_SETTING, Setting.class);
+            setting = Cache.load(FILE_SETTING, Setting.class);
 
         if(setting == null)
             setting = new Setting();
@@ -37,11 +37,11 @@ public class Config {
 
     public static void saveSetting() {
         if(setting != null)
-            C.save(FILE_SETTING, setting);
+            Cache.save(FILE_SETTING, setting);
     }
 
     public static void resetSetting() {
-        C.delete(FILE_SETTING);
+        Cache.delete(FILE_SETTING);
         setting = new Setting();
         saveSetting();
     }
