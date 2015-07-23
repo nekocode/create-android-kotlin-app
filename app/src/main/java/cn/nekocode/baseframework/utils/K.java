@@ -8,19 +8,21 @@ import com.esotericsoftware.kryo.io.Output;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
+
+import cn.nekocode.baseframework.AppContext;
 
 /**
  * Created by Nekocode on 2014/11/24 0024.
  */
 public class K {
+    private static final String prefix = "memcache_";
+    private static HashMap<String, Object> caches = new HashMap<>();
     private static Kryo kryo = new Kryo();
 
-    //文件名储存在这里
-    public static String K_USER_BEAN = "user_bean";
-
-    public static void save(Context context, String fileName, Object obj) {
+    public static void save(String fileName, Object obj) {
         try {
-            FileOutputStream fo = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            FileOutputStream fo = AppContext.get().openFileOutput(fileName, Context.MODE_PRIVATE);
             Output output = new Output(fo);
 
             kryo.writeObject(output, obj);
@@ -30,10 +32,10 @@ public class K {
         }
     }
 
-    public static <E>E load(Context context, String fileName, Class<E> c) {
+    public static <E>E load(String fileName, Class<E> c) {
         E rlt = null;
         try {
-            FileInputStream fi = context.openFileInput(fileName);
+            FileInputStream fi = AppContext.get().openFileInput(fileName);
             Input input = new Input(fi);
             rlt = kryo.readObject(input, c);
             input.close();
@@ -45,5 +47,22 @@ public class K {
 
     public static void delete(Context context, String fileName) {
         context.deleteFile(fileName);
+    }
+
+    public static <T>T getMemCache(String key, Class<T> classType) {
+        key = prefix + key;
+
+        T cache = (T) caches.get(key);
+        if(cache == null)
+            cache = load(key, classType);
+        return cache;
+    }
+
+    public static void putMemCache(String key, Object object) {
+        key = prefix + key;
+
+        caches.put(key, object);
+        if(object != null)
+            save(key, object);
     }
 }

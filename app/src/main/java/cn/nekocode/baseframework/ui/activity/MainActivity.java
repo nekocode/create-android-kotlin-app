@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
     android.support.v7.widget.RecyclerView recyclerView;
 
     API api;
-    Gson gson = new Gson();
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        api = APIFactory.getInstance();
+        api = APIFactory.getInstance(this);
+        gson = APIFactory.getGson();
         api.sugList("utf-8", "电动", new Callback<ResultBean>() {
             @Override
             public void success(ResultBean resultBean, Response response) {

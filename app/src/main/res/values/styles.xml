@@ -1,8 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Actionbar color -->
+        <item name="colorPrimary">@color/theme_primary</item>
+        <!--Status bar color-->
+        <item name="colorPrimaryDark">@color/theme_primary</item>
+        <!--Window color-->
+        <item name="android:windowBackground">@color/white</item>
+        <!--<item name="selectableItemBackground">@drawable/selector_normal_item_white</item>-->
+
+    </style>
 </resources>
