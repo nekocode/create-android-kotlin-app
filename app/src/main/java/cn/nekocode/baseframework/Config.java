@@ -1,8 +1,6 @@
 package cn.nekocode.baseframework;
 
-import android.content.Context;
-
-import cn.nekocode.baseframework.utils.K;
+import cn.nekocode.baseframework.utils.C;
 
 /**
  * Created by nekocode on 2015/7/23.
@@ -23,13 +21,13 @@ public class Config {
 
     // Setting
     private static Setting setting;
-    static class Setting {
+    public static class Setting {
         boolean test = true;
     }
 
     public static Setting loadSetting() {
         if(setting == null)
-            setting = K.load(FILE_SETTING, Setting.class);
+            setting = C.load(FILE_SETTING, Setting.class);
 
         if(setting == null)
             setting = new Setting();
@@ -39,6 +37,12 @@ public class Config {
 
     public static void saveSetting() {
         if(setting != null)
-            K.save(FILE_SETTING, setting);
+            C.save(FILE_SETTING, setting);
+    }
+
+    public static void resetSetting() {
+        C.delete(FILE_SETTING);
+        setting = new Setting();
+        saveSetting();
     }
 }

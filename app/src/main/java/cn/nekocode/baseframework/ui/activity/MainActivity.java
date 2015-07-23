@@ -30,6 +30,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+//        Config.Setting setting = Config.loadSetting();
+//        Config.saveSetting();
+
         api = APIFactory.getInstance(this);
         gson = APIFactory.getGson();
         api.sugList("utf-8", "电动", new Callback<ResultBean>() {
