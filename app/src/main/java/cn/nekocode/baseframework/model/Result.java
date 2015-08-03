@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.bean;
+package cn.nekocode.baseframework.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by nekocode on 2015/7/17.
  */
-public class ResultBean implements Parcelable {
+public class Result implements Parcelable {
     @SerializedName("result")
     private List<List<String>> result;
 
@@ -45,23 +45,23 @@ public class ResultBean implements Parcelable {
         dest.writeList(this.cat);
     }
 
-    public ResultBean() {
+    public Result() {
     }
 
-    protected ResultBean(Parcel in) {
+    protected Result(Parcel in) {
         this.result = new ArrayList<List<String>>();
         in.readList(this.result, List.class.getClassLoader());
         this.cat = new ArrayList<List<String>>();
         in.readList(this.cat, List.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<ResultBean> CREATOR = new Parcelable.Creator<ResultBean>() {
-        public ResultBean createFromParcel(Parcel source) {
-            return new ResultBean(source);
+    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+        public Result createFromParcel(Parcel source) {
+            return new Result(source);
         }
 
-        public ResultBean[] newArray(int size) {
-            return new ResultBean[size];
+        public Result[] newArray(int size) {
+            return new Result[size];
         }
     };
 }

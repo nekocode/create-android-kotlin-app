@@ -11,13 +11,16 @@ import com.google.gson.Gson;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.nekocode.baseframework.R;
-import cn.nekocode.baseframework.bean.ResultBean;
+import cn.nekocode.baseframework.model.Result;
 import cn.nekocode.baseframework.rest.API;
 import cn.nekocode.baseframework.rest.APIFactory;
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity<MainActivity> {
     @InjectView(R.id.recyclerView)
@@ -37,18 +40,72 @@ public class MainActivity extends BaseActivity<MainActivity> {
 
         api = APIFactory.getInstance(this);
         gson = APIFactory.getGson();
-        api.sugList("utf-8", "电动", new Callback<ResultBean>() {
+
+        Observable<Result> observable = api.sugList("utf-8", "电动");
+        observable.subscribe(new Observer<Result>() {
             @Override
-            public void success(ResultBean resultBean, Response response) {
-                String json = gson.toJson(resultBean);
-                Toast.makeText(_this, json, Toast.LENGTH_SHORT).show();
+            public void onCompleted() {
+
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(_this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Result result) {
+                String json = gson.toJson(result);
+                Toast.makeText(_this, json, Toast.LENGTH_SHORT).show();
             }
         });
+
+//        Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
+//            @Override
+//            public void call(Subscriber<? super String> subscriber) {
+//                //订阅者回调 onNext 和 onCompleted
+//                subscriber.onNext("one");
+//                subscriber.onNext("two");
+//                subscriber.onNext("three");
+//                subscriber.onCompleted();
+//            }
+//        }).subscribeOn(Schedulers.io());
+//
+//        observable.observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Toast.makeText(_this, s, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//        observable.observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String s) {
+//                        Toast.makeText(_this, "2:" + s, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 
     @Override

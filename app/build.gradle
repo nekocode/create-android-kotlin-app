@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 22
@@ -30,12 +31,28 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Android support library
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
+
+    // DI
     compile 'com.jakewharton:butterknife:5.1.2'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    compile 'com.google.dagger:dagger:2.0'
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // HTTP client
     compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    // JSON library
     compile 'com.google.code.gson:gson:2.3.1'
+
+    // Image downloader & transformer
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Reactive library
     compile 'io.reactivex:rxandroid:0.25.0'
 }
