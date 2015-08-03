@@ -11,10 +11,9 @@ import java.util.List;
 /**
  * Created by nekocode on 2015/7/17.
  */
-public class Weather implements Parcelable {
+public class Weather {
     @SerializedName("weatherinfo")
     private WeatherInfo weatherInfo;
-
 
     public static class WeatherInfo implements Parcelable {
         @SerializedName("city")
@@ -63,31 +62,4 @@ public class Weather implements Parcelable {
     public void setWeatherInfo(WeatherInfo weatherInfo) {
         this.weatherInfo = weatherInfo;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.weatherInfo, flags);
-    }
-
-    public Weather() {
-    }
-
-    protected Weather(Parcel in) {
-        this.weatherInfo = in.readParcelable(WeatherInfo.class.getClassLoader());
-    }
-
-    public static final Creator<Weather> CREATOR = new Creator<Weather>() {
-        public Weather createFromParcel(Parcel source) {
-            return new Weather(source);
-        }
-
-        public Weather[] newArray(int size) {
-            return new Weather[size];
-        }
-    };
 }
