@@ -1,8 +1,6 @@
-package cn.nekocode.baseframework.ui.activity;
+package cn.nekocode.baseframework.ui.activity.helper;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,8 +9,6 @@ import android.view.MenuItem;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-
-import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends Activity> extends AppCompatActivity {
     private static ArrayList<Handler> handlers = new ArrayList<Handler>();

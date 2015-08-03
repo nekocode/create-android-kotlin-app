@@ -14,6 +14,7 @@ import cn.nekocode.baseframework.R;
 import cn.nekocode.baseframework.bean.ResultBean;
 import cn.nekocode.baseframework.rest.API;
 import cn.nekocode.baseframework.rest.APIFactory;
+import cn.nekocode.baseframework.ui.activity.helper.BaseActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
