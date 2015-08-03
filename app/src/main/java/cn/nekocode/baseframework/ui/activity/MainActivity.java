@@ -2,8 +2,10 @@ package cn.nekocode.baseframework.ui.activity;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,11 +25,13 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity<MainActivity> {
-    @InjectView(R.id.recyclerView)
-    android.support.v7.widget.RecyclerView recyclerView;
-
     API api;
     Gson gson;
+
+    @InjectView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @InjectView(R.id.textView)
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +45,35 @@ public class MainActivity extends BaseActivity<MainActivity> {
         api = APIFactory.getInstance(this);
         gson = APIFactory.getGson();
 
-        Observable<Result> observable = api.sugList("utf-8", "电动");
-        observable.subscribe(new Observer<Result>() {
+//        Observable<Result> observable = api.sugList("utf-8", "电动");
+//        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Result>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Result result) {
+//                String json = gson.toJson(result);
+//                textView.setText(json);
+//            }
+//        });
+
+        api.sugList("utf-8", "电动", new Callback<Result>() {
             @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Result result) {
+            public void success(Result result, Response response) {
                 String json = gson.toJson(result);
-                Toast.makeText(_this, json, Toast.LENGTH_SHORT).show();
+                textView.setText(json);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                textView.setText(error.getMessage());
             }
         });
 

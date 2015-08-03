@@ -61,6 +61,9 @@ public interface API {
     void getUserPhoto(@Path("id") int id, Callback<Result> cb);
 
 
+//    @GET("/sug")
+//    Observable<Result> sugList(@Query("code") String code, @Query("q") String q);
+
     @GET("/sug")
-    Observable<Result> sugList(@Query("code") String code, @Query("q") String q);
+    void sugList(@Query("code") String code, @Query("q") String q, Callback<Result> callback);
 }
