@@ -6,14 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.nekocode.baseframework.R;
-import cn.nekocode.baseframework.model.Result;
+import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.rest.API;
 import cn.nekocode.baseframework.rest.APIFactory;
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity;
@@ -45,35 +44,21 @@ public class MainActivity extends BaseActivity<MainActivity> {
         api = APIFactory.getInstance(this);
         gson = APIFactory.getGson();
 
-//        Observable<Result> observable = api.sugList("utf-8", "电动");
-//        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Result>() {
-//            @Override
-//            public void onCompleted() {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(Result result) {
-//                String json = gson.toJson(result);
-//                textView.setText(json);
-//            }
-//        });
-
-        api.sugList("utf-8", "电动", new Callback<Result>() {
+        Observable<Weather> observable = api.get();
+        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Weather>() {
             @Override
-            public void success(Result result, Response response) {
-                String json = gson.toJson(result);
-                textView.setText(json);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                textView.setText(error.getMessage());
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Weather result) {
+                textView.setText(result.getWeatherInfo().getCity());
             }
         });
 

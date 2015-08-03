@@ -21,7 +21,7 @@ import retrofit.converter.GsonConverter;
  * Created by nekocode on 2015/7/17.
  */
 public class APIFactory {
-    private static final String API_HOST_URL = "http://suggest.taobao.com";
+    private static final String API_HOST_URL = "http://www.weather.com.cn";
     private static API api;
     private static Gson gson;
     private static OkHttpClient okHttpClient;

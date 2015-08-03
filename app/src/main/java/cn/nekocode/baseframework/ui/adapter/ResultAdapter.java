@@ -11,17 +11,17 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.nekocode.baseframework.R;
-import cn.nekocode.baseframework.model.Result;
+import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.ui.adapter.helper.HelperAdapter;
 import cn.nekocode.baseframework.ui.adapter.helper.HelperItemViewHolder;
 
 /**
  * Created by nekocode on 2015/7/22.
  */
-public class ResultAdapter extends HelperAdapter<Result> {
+public class ResultAdapter extends HelperAdapter<Weather> {
     static final int TYPE_ITEM = 0;
 
-    public ResultAdapter(Context context, List<Result> list) {
+    public ResultAdapter(Context context, List<Weather> list) {
         super(context, list);
     }
 

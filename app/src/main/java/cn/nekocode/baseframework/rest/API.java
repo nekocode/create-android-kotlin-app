@@ -3,7 +3,7 @@ package cn.nekocode.baseframework.rest;
 import java.util.List;
 import java.util.Map;
 
-import cn.nekocode.baseframework.model.Result;
+import cn.nekocode.baseframework.model.Weather;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -26,44 +26,47 @@ import rx.Observable;
  */
 public interface API {
     @GET("/users/{user}/repos")
-    List<Result> listTest(@Path("user") String user);
+    List<Weather> listTest(@Path("user") String user);
 
     @GET("/group/{id}/users")
-    List<Result> groupList(@Path("id") int groupId, @Query("sort") String sort);
+    List<Weather> groupList(@Path("id") int groupId, @Query("sort") String sort);
 
     @GET("/group/{id}/users")
-    List<Result> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
+    List<Weather> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
 
     @FormUrlEncoded
     @POST("/user/edit")
-    Result updateUser(@Field("first_name") String first, @Field("last_name") String last);
+    Weather updateUser(@Field("first_name") String first, @Field("last_name") String last);
 
     @Multipart
     @PUT("/user/photo")
-    Result updateUser(@Part("photo") TypedFile photo, @Part("description") TypedString description);
+    Weather updateUser(@Part("photo") TypedFile photo, @Part("description") TypedString description);
 
     @Headers("Cache-Control: max-age=640000")
     @GET("/widget/list")
-    List<Result> widgetList();
+    List<Weather> widgetList();
 
     @Headers({
             "Accept: application/vnd.github.v3.full+json",
             "User-Agent: Retrofit-Sample-App"
     })
     @GET("/users/{username}")
-    Result getUser(@Path("username") String username);
+    Weather getUser(@Path("username") String username);
 
     @GET("/user")
-    void getUser(@Header("Authorization") String authorization, Callback<Result> callback);
+    void getUser(@Header("Authorization") String authorization, Callback<Weather> callback);
 
     // Asynchronous execution requires the last parameter of the method be a Callback.
     @GET("/user/{id}/photo")
-    void getUserPhoto(@Path("id") int id, Callback<Result> cb);
+    void getUserPhoto(@Path("id") int id, Callback<Weather> cb);
 
 
 //    @GET("/sug")
-//    Observable<Result> sugList(@Query("code") String code, @Query("q") String q);
+//    Observable<Weather> sugList(@Query("code") String code, @Query("q") String q);
 
     @GET("/sug")
-    void sugList(@Query("code") String code, @Query("q") String q, Callback<Result> callback);
+    void sugList(@Query("code") String code, @Query("q") String q, Callback<Weather> callback);
+
+    @GET("/adat/sk/101010100.html")
+    Observable<Weather> get();
 }
