@@ -67,6 +67,6 @@ public interface API {
     @GET("/sug")
     void sugList(@Query("code") String code, @Query("q") String q, Callback<Weather> callback);
 
-    @GET("/adat/sk/101010100.html")
-    Observable<Weather> get();
+    @GET("/adat/sk/{cityId}.html") //101010100
+    Observable<Weather> getWeather(@Path("cityId") String cityId);
 }

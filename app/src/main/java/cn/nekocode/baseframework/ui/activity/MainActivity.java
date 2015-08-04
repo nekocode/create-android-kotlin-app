@@ -3,9 +3,8 @@ package cn.nekocode.baseframework.ui.activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -16,14 +15,15 @@ import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.rest.API;
 import cn.nekocode.baseframework.rest.APIFactory;
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import cn.nekocode.baseframework.ui.listener.Refreshable;
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.subjects.BehaviorSubject;
 
-public class MainActivity extends BaseActivity<MainActivity> {
+public class MainActivity extends BaseActivity<MainActivity> implements Refreshable {
     API api;
     Gson gson;
 
@@ -44,95 +44,70 @@ public class MainActivity extends BaseActivity<MainActivity> {
         api = APIFactory.getInstance(this);
         gson = APIFactory.getGson();
 
-        Observable<Weather> observable = api.get();
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Weather>() {
-            @Override
-            public void onCompleted() {
+        refresh();
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Weather result) {
-                textView.setText(result.getWeatherInfo().getCity());
-            }
-        });
-
-//        Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
+//        runDelayed(new Runnable() {
 //            @Override
-//            public void call(Subscriber<? super String> subscriber) {
-//                //订阅者回调 onNext 和 onCompleted
-//                subscriber.onNext("one");
-//                subscriber.onNext("two");
-//                subscriber.onNext("three");
-//                subscriber.onCompleted();
+//            public void run() {
+//                behaviorSubject.onNext("hehe");
 //            }
-//        }).subscribeOn(Schedulers.io());
-//
-//        observable.observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
+//        }, 1000);
+
+
+//        Observable.from(new String[]{"101010100"}).flatMap(new Func1<String, Observable<Weather>>() {
+//            @Override
+//            public Observable<Weather> call(String s) {
+//                return api.getWeather(s);
+//            }
+//        }).filter(new Func1<Weather, Boolean>() {
+//            @Override
+//            public Boolean call(Weather weather) {
+//                return weather.getWeatherInfo().getCity().equals("北京");
+//            }
+//        }).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Weather>() {
 //                    @Override
 //                    public void onCompleted() {
-//
 //                    }
 //
 //                    @Override
 //                    public void onError(Throwable e) {
-//
 //                    }
 //
 //                    @Override
-//                    public void onNext(String s) {
-//                        Toast.makeText(_this, s, Toast.LENGTH_SHORT).show();
+//                    public void onNext(Weather weather) {
+//                        textView.setText(weather.getWeatherInfo().getCity());
 //                    }
 //                });
-//
-//        observable.observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String s) {
-//                        Toast.makeText(_this, "2:" + s, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void handler(Message msg) {
+    }
+
+    @Override
+    public void refresh(Object... objects) {
+        if(objects.length == 0) {
+            Observable<Weather> observable = api.getWeather("101010100");
+            observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Weather>() {
+                @Override
+                public void onCompleted() {
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                }
+
+                @Override
+                public void onNext(Weather weather) {
+                    refresh(weather);
+                }
+            });
+
+        } else {
+            Weather weather = (Weather) objects[0];
+            textView.setText(weather.getWeatherInfo().getCity());
+        }
     }
 }
