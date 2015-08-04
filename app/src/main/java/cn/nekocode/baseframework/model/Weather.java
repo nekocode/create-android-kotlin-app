@@ -15,7 +15,7 @@ public class Weather {
     @SerializedName("weatherinfo")
     private WeatherInfo weatherInfo;
 
-    public static class WeatherInfo implements Parcelable {
+    public static class WeatherInfo implements Parcelable, Cloneable {
         @SerializedName("city")
         private String city;
 
@@ -53,6 +53,14 @@ public class Weather {
                 return new WeatherInfo[size];
             }
         };
+
+        public WeatherInfo clone(){
+            try {
+                return (WeatherInfo) super.clone();
+            } catch(CloneNotSupportedException ex){
+                return null;
+            }
+        }
     }
 
     public WeatherInfo getWeatherInfo() {

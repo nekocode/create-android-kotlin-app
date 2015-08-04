@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.nekocode.baseframework.R;
@@ -46,6 +48,13 @@ public class MainActivity extends BaseActivity<MainActivity> implements Refresha
 
         refresh();
 
+        Weather.WeatherInfo weatherInfo = new Weather.WeatherInfo();
+        weatherInfo.setCity("1");
+
+        Weather.WeatherInfo weatherInfo2 = weatherInfo.clone();
+        weatherInfo2.setCity("2");
+
+        Object object;
 //        runDelayed(new Runnable() {
 //            @Override
 //            public void run() {
