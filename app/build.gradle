@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 22
@@ -25,6 +26,7 @@ android {
                     'src/main/res'
             ]
         }
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
@@ -47,4 +49,18 @@ dependencies {
 
     // Reactive library
     compile 'io.reactivex:rxandroid:0.25.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '0.12.1230'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
 }
