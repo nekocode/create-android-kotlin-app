@@ -10,8 +10,6 @@ import com.google.gson.Gson;
 
 import java.util.Objects;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import cn.nekocode.baseframework.R;
 import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.rest.API;
@@ -29,16 +27,10 @@ public class MainActivity extends BaseActivity<MainActivity> implements Refresha
     API api;
     Gson gson;
 
-    @InjectView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @InjectView(R.id.textView)
-    TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
 //        Config.Setting setting = Config.loadSetting();
 //        Config.saveSetting();
@@ -47,20 +39,6 @@ public class MainActivity extends BaseActivity<MainActivity> implements Refresha
         gson = APIFactory.getGson();
 
         refresh();
-
-        Weather.WeatherInfo weatherInfo = new Weather.WeatherInfo();
-        weatherInfo.setCity("1");
-
-        Weather.WeatherInfo weatherInfo2 = weatherInfo.clone();
-        weatherInfo2.setCity("2");
-
-        Object object;
-//        runDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                behaviorSubject.onNext("hehe");
-//            }
-//        }, 1000);
 
 
 //        Observable.from(new String[]{"101010100"}).flatMap(new Func1<String, Observable<Weather>>() {
@@ -116,7 +94,7 @@ public class MainActivity extends BaseActivity<MainActivity> implements Refresha
 
         } else {
             Weather weather = (Weather) objects[0];
-            textView.setText(weather.getWeatherInfo().getCity());
+//            textView.setText(weather.getWeatherInfo().getCity());
         }
     }
 }
