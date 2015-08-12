@@ -6,34 +6,34 @@ import android.view.LayoutInflater
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView
 import butterknife.bindView
 
 
 import cn.nekocode.baseframework.R;
 import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.ui.activity.MainActivity
-import cn.nekocode.baseframework.ui.adapter.helper.HelperItemViewHolder;
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.layoutInflater
+import org.jetbrains.anko.text
 import java.util
 import kotlin.platform.platformStatic
 
 /**
  * Created by nekocode on 2015/7/22.
  */
-class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object Type {
         public platformStatic val TYPE_ITEM: Int = 0;
     }
 
-    private val layoutInflater: LayoutInflater
-    init {
-        layoutInflater = LayoutInflater.from(context)
-    }
+    var onWeatherItemClickListener: ((Weather) -> Unit)? = null
+    var onWeatherItemLongClickListener: ((Weather) -> Boolean)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
             Type.TYPE_ITEM -> {
-                val v = layoutInflater.inflate(R.layout.item_result, parent, false)
+                val v = parent!!.getContext().layoutInflater.inflate(R.layout.item_result, parent, false)
                 return ItemViewHolder(v);
             }
 
@@ -52,18 +52,21 @@ class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerVie
         when(holder) {
             is ItemViewHolder -> {
                 holder.setData(list.get(position));
-                holder.onItemClickListener = {}
             }
         }
     }
 
-    private class ItemViewHolder(view: View): HelperItemViewHolder<Weather>(view) {
+    private inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        public val imageView: ImageView by bindView(R.id.imageView)
+        val imageView: ImageView by bindView(R.id.imageView)
+        val textView: TextView by bindView(R.id.textView)
 
-        override fun setData(weather : Weather) {
-            super.setData(weather)
-            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
+        fun setData(weather : Weather) {
+            itemView?.setOnClickListener() { onWeatherItemClickListener?.invoke(weather) }
+            itemView?.setOnLongClickListener() { onWeatherItemLongClickListener?.invoke(weather) ?: false }
+
+            textView.text = "hehe"
+//            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
         }
     }
 }
