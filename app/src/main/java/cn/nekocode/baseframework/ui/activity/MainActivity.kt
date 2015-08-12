@@ -26,12 +26,12 @@ import kotlinx.android.synthetic.activity_main.*;
 import kotlin.properties.Delegates
 
 public class MainActivity : BaseActivity<MainActivity>() {
-    val api: API
+    private val api: API
         get() {
             return APIFactory.getInstance(this)
         }
 
-    val gson: Gson
+    private val gson: Gson
         get() {
             return APIFactory.getGson()
         }
