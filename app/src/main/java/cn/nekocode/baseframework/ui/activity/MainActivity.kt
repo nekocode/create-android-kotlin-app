@@ -23,6 +23,7 @@ import rx.functions.Func1
 import rx.subjects.BehaviorSubject
 
 import kotlinx.android.synthetic.activity_main.*;
+import org.jetbrains.anko.text
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -36,31 +37,22 @@ public class MainActivity : BaseActivity<MainActivity>() {
         super<BaseActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        refresh()
+        setupViews()
     }
 
-    override fun handler(msg: Message) {
-    }
+    fun setupViews() {
+        val observable = api.getWeather("101010100")
+        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
+            override fun onCompleted() {
+            }
 
-    fun refresh(vararg objects: Any) {
-        if (objects.size() == 0) {
-            val observable = api.getWeather("101010100")
-            observable.observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
-                override fun onCompleted() {
-                }
+            override fun onError(e: Throwable) {
+            }
 
-                override fun onError(e: Throwable) {
-                }
-
-                override fun onNext(weather: Weather) {
-                    refresh(weather)
-                }
-            })
-
-        } else {
-            val weather = objects[0] as Weather
-            textView.setText(weather.getWeatherInfo().getCity())
-        }
+            override fun onNext(weather: Weather) {
+                textView.text = weather.getWeatherInfo().getCity()
+            }
+        })
 
         for(i in 0..10) {
             val weather = Weather()
@@ -73,5 +65,8 @@ public class MainActivity : BaseActivity<MainActivity>() {
 
         recyclerView.setLayoutManager(LinearLayoutManager(this))
         recyclerView.setAdapter(adapter)
+    }
+
+    override fun handler(msg: Message) {
     }
 }
