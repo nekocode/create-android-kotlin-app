@@ -13,6 +13,7 @@ import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.API
 import cn.nekocode.baseframework.rest.APIFactory
+import cn.nekocode.baseframework.rest.APIs.APIs
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import rx.Observable
@@ -37,6 +38,7 @@ public class MainActivity : BaseActivity<MainActivity>() {
         super<BaseActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        APIs.api.getWeather("101010100")
         setupViews()
     }
 
