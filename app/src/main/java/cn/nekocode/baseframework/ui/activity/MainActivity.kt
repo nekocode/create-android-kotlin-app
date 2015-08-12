@@ -15,7 +15,6 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.API
 import cn.nekocode.baseframework.rest.APIFactory
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
-import cn.nekocode.baseframework.ui.listener.Refreshable
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
@@ -26,7 +25,7 @@ import rx.subjects.BehaviorSubject
 import kotlinx.android.synthetic.activity_main.*;
 import kotlin.properties.Delegates
 
-public class MainActivity : BaseActivity<MainActivity>(), Refreshable {
+public class MainActivity : BaseActivity<MainActivity>() {
     val api: API
         get() {
             return APIFactory.getInstance(this)
@@ -44,7 +43,7 @@ public class MainActivity : BaseActivity<MainActivity>(), Refreshable {
         //        Config.Setting setting = Config.loadSetting();
         //        Config.saveSetting();
 
-        refresh()
+//        refresh()
 
 
         //        Observable.from(new String[]{"101010100"}).flatMap(new Func1<String, Observable<Weather>>() {
@@ -78,24 +77,24 @@ public class MainActivity : BaseActivity<MainActivity>(), Refreshable {
     override fun handler(msg: Message) {
     }
 
-    override fun refresh(vararg objects: Any) {
-        if (objects.size() == 0) {
-            val observable = api.getWeather("101010100")
-            observable.observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
-                override fun onCompleted() {
-                }
-
-                override fun onError(e: Throwable) {
-                }
-
-                override fun onNext(weather: Weather) {
-                    refresh(weather)
-                }
-            })
-
-        } else {
-            val weather = objects[0] as Weather
-            textView.setText(weather.getWeatherInfo().getCity())
-        }
-    }
+//    override fun refresh(vararg objects: Any) {
+//        if (objects.size() == 0) {
+//            val observable = api.getWeather("101010100")
+//            observable.observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
+//                override fun onCompleted() {
+//                }
+//
+//                override fun onError(e: Throwable) {
+//                }
+//
+//                override fun onNext(weather: Weather) {
+//                    refresh(weather)
+//                }
+//            })
+//
+//        } else {
+//            val weather = objects[0] as Weather
+//            textView.setText(weather.getWeatherInfo().getCity())
+//        }
+//    }
 }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.List;
 
 import cn.nekocode.baseframework.R;
 import cn.nekocode.baseframework.model.Weather;
@@ -18,7 +17,7 @@ import java.util
 /**
  * Created by nekocode on 2015/7/22.
  */
-class ResultAdapter(context: Context, list: List<Weather>?) : HelperAdapter<Weather>(context, list) {
+class ResultAdapter(context: Context, list: List<Weather>) : HelperAdapter<Weather>(context, list) {
 
     val TYPE_ITEM = 0;
 
@@ -26,7 +25,9 @@ class ResultAdapter(context: Context, list: List<Weather>?) : HelperAdapter<Weat
         when (viewType) {
             TYPE_ITEM -> {
                 val v = layoutInflater.inflate(R.layout.item_result, parent, false)
-                return ItemViewHolder(v);
+                return ItemViewHolder(v, {
+                    weather ->
+                });
             }
 
         }
@@ -34,40 +35,18 @@ class ResultAdapter(context: Context, list: List<Weather>?) : HelperAdapter<Weat
         throw UnsupportedOperationException()
     }
 
-    override fun getItemCount() = list?.size() ?:0
+    override fun getItemCount() = list?.size() ?: 0
 
-
-
-    public ResultAdapter(Context context, util.List<Weather> list) {
-        super(context, list);
+    override fun getItemViewType(position: Int) = when(position) {
+        else -> TYPE_ITEM
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        when(holder) {
+            is ItemViewHolder -> {
 
-    @Override
-    public int getItemViewType(int position) {
-        return TYPE_ITEM;
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case TYPE_ITEM:
-                View v = layoutInflater.inflate(R.layout.item_result, parent, false);
-                return new ItemViewHolder(v);
-        }
-
-        throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
-        if(holder instanceof ItemViewHolder) {
-
+            }
         }
     }
 
@@ -80,13 +59,19 @@ class ResultAdapter(context: Context, list: List<Weather>?) : HelperAdapter<Weat
 //    }
 
 
-    private class ItemViewHolder(view: View, var onItemClickListener: ((Weather) -> Unit)?) : HelperItemViewHolder(view) {
+    private class ItemViewHolder : HelperItemViewHolder {
 
         public val image: ImageView
+        public val onItemClickListener: ((Weather) -> Unit)?
+
+        constructor(view: View, onItemClickListener: ((Weather) -> Unit)?) : super(view) {
+            image = view.findViewById(R.id.imageView) as ImageView
+            $onItemClickListener = onItemClickListener
+        }
 
 
         fun setItem(weather : Weather) {
-            itemView?.setOnClickListener() { onItemClickListener?.invoke() }
+            itemView?.setOnClickListener() { onItemClickListener?.invoke(weather) }
 //            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(image)
         }
     }
