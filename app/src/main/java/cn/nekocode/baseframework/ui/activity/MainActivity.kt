@@ -29,7 +29,6 @@ import kotlin.properties.Delegates
 public class MainActivity : BaseActivity<MainActivity>() {
 
     val api: API = APIFactory.getInstance()
-    val gson: Gson = APIFactory.getGson()
     val list: ArrayList<Weather> = ArrayList()
     val adapter: ResultAdapter = ResultAdapter(list)
 
