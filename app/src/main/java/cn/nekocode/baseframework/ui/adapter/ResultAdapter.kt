@@ -21,8 +21,8 @@ import kotlin.platform.platformStatic
  * Created by nekocode on 2015/7/22.
  */
 class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        private platformStatic val TYPE_ITEM = 0;
+    companion object Type {
+        public platformStatic val TYPE_ITEM: Int = 0;
     }
 
     private val layoutInflater: LayoutInflater
@@ -32,7 +32,7 @@ class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerVie
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
-            TYPE_ITEM -> {
+            Type.TYPE_ITEM -> {
                 val v = layoutInflater.inflate(R.layout.item_result, parent, false)
                 return ItemViewHolder(v);
             }
@@ -45,7 +45,7 @@ class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerVie
     override fun getItemCount() = list.size()
 
     override fun getItemViewType(position: Int) = when(position) {
-        else -> TYPE_ITEM
+        else -> Type.TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -59,11 +59,11 @@ class ResultAdapter(val context: Context, val list: List<Weather>) : RecyclerVie
 
     private class ItemViewHolder(view: View): HelperItemViewHolder<Weather>(view) {
 
-        public val image: ImageView by bindView(R.id.imageView)
+        public val imageView: ImageView by bindView(R.id.imageView)
 
         override fun setData(weather : Weather) {
             super.setData(weather)
-            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(image)
+            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
         }
     }
 }

@@ -48,9 +48,13 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Reactive library
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'io.reactivex:rxkotlin:0.22.12'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    // Kotlin std library
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
 buildscript {
     ext.kotlin_version = '0.12.1230'
     repositories {

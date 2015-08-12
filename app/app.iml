@@ -94,16 +94,18 @@
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="kotlin-runtime-0.12.1230" level="project" />
+    <orderEntry type="library" exported="" name="rxkotlin-0.22.12" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
-    <orderEntry type="library" exported="" name="rxandroid-0.25.0" level="project" />
+    <orderEntry type="library" exported="" name="rxandroid-0.24.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="retrofit-1.9.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-1.0.12" level="project" />
+    <orderEntry type="library" exported="" name="funktionale-0.5.1_M12" level="project" />
+    <orderEntry type="library" exported="" name="rxjava-1.0.11" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-0.12.1230" level="project" />
     <orderEntry type="library" exported="" name="minlog-1.2" level="project" />
     <orderEntry type="library" exported="" name="kryo-3.0.0" level="project" />
