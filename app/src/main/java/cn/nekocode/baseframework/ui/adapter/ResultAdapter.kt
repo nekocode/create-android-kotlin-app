@@ -15,6 +15,8 @@ import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.ui.activity.MainActivity
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.onLongClick
 import org.jetbrains.anko.text
 import java.util
 import kotlin.platform.platformStatic
@@ -51,7 +53,7 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
             is ItemViewHolder -> {
-                holder.setData(list.get(position));
+                holder.setData(list[position]);
             }
         }
     }
@@ -59,11 +61,11 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
     private inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val imageView: ImageView by bindView(R.id.imageView)
-        val textView: TextView by bindView(R.id.textView)
+        val textView: TextView by bindView(R.id.textView2)
 
         fun setData(weather : Weather) {
-            itemView?.setOnClickListener() { onWeatherItemClickListener?.invoke(weather) }
-            itemView?.setOnLongClickListener() { onWeatherItemLongClickListener?.invoke(weather) ?: false }
+            itemView?.onClick { onWeatherItemClickListener?.invoke(weather) }
+            itemView?.onLongClick { onWeatherItemLongClickListener?.invoke(weather) ?: false }
 
             textView.text = "hehe"
 //            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)

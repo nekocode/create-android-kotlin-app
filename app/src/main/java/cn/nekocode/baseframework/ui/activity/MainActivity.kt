@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import android.widget.Toast
+import butterknife.bindView
 
 import com.google.gson.Gson
 
@@ -23,14 +24,17 @@ import rx.functions.Func1
 import rx.subjects.BehaviorSubject
 
 import kotlinx.android.synthetic.activity_main.*;
+import org.jetbrains.anko.find
 import org.jetbrains.anko.text
+import retrofit.RetrofitError
+import retrofit.client.Response
 import java.util.*
 import kotlin.properties.Delegates
 
 public class MainActivity : BaseActivity<MainActivity>() {
 
     val api: API = APIFactory.getInstance()
-    val list: ArrayList<Weather> = ArrayList()
+    val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +45,17 @@ public class MainActivity : BaseActivity<MainActivity>() {
     }
 
     fun setupViews() {
-        val observable = api.getWeather("101010100")
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
+//        api.getWeather("101010100", object : retrofit.Callback<Weather> {
+//            override fun success(weather: Weather?, response: Response?) {
+//                textView.text = weather?.getWeatherInfo()?.getCity() ?: "null"
+//            }
+//
+//            override fun failure(error: RetrofitError?) {
+//            }
+//
+//        })
+
+        api.getWeather("101010100").observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
             override fun onCompleted() {
             }
 

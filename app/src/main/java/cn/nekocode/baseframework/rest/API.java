@@ -60,7 +60,6 @@ public interface API {
     @GET("/user/{id}/photo")
     void getUserPhoto(@Path("id") int id, Callback<Weather> cb);
 
-
 //    @GET("/sug")
 //    Observable<Weather> sugList(@Query("code") String code, @Query("q") String q);
 
@@ -69,4 +68,7 @@ public interface API {
 
     @GET("/adat/sk/{cityId}.html") //101010100
     Observable<Weather> getWeather(@Path("cityId") String cityId);
+
+    @GET("/adat/sk/{cityId}.html") //101010100
+    void getWeather(@Path("cityId") String cityId, Callback<Weather> callback);
 }
