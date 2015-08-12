@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import cn.nekocode.baseframework.AppContext;
 import cn.nekocode.baseframework.Config;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -26,7 +27,7 @@ public class APIFactory {
     private static Gson gson;
     private static OkHttpClient okHttpClient;
 
-    public static API getInstance(Context context) {
+    public static API getInstance() {
         if(api != null) {
             return api;
         } else {
@@ -41,7 +42,7 @@ public class APIFactory {
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setEndpoint(API_HOST_URL)
                     .setConverter(new GsonConverter(getGson()))
-                    .setClient(new OkClient(getOkHttpClient(context)))
+                    .setClient(new OkClient(getOkHttpClient()))
                     .setRequestInterceptor(requestInterceptor)
                     .build();
 
@@ -60,9 +61,9 @@ public class APIFactory {
         return gson;
     }
 
-    public static OkHttpClient getOkHttpClient(Context context) {
+    public static OkHttpClient getOkHttpClient() {
         if(okHttpClient == null) {
-            File cacheDir = new File(context.getCacheDir(), Config.RESPONSE_CACHE_FILE);
+            File cacheDir = new File(AppContext.get().getCacheDir(), Config.RESPONSE_CACHE_FILE);
 
             okHttpClient = new OkHttpClient();
             okHttpClient.setCache(new Cache(cacheDir, Config.RESPONSE_CACHE_SIZE));

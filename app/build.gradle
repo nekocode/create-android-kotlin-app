@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 22
@@ -26,6 +26,7 @@ android {
                     'src/main/res'
             ]
         }
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
@@ -35,13 +36,6 @@ dependencies {
     // Android support library
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
-
-    // DI
-    compile 'com.jakewharton:butterknife:5.1.2'
-
-    compile 'com.google.dagger:dagger:2.0'
-    apt 'com.google.dagger:dagger-compiler:2.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // HTTP client
     compile 'com.squareup.okhttp:okhttp:2.4.0'
@@ -54,5 +48,25 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Reactive library
-    compile 'io.reactivex:rxandroid:0.25.0'
+    compile 'io.reactivex:rxkotlin:0.22.12'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    // Kotlin std library
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile "org.jetbrains.anko:anko:0.6.3-15"
+}
+
+buildscript {
+    ext.kotlin_version = '0.12.1230'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
 }
