@@ -7,17 +7,21 @@ import cn.nekocode.baseframework.rest.REST
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
+import rx.lang.kotlin.toSingletonObservable
 import java.io.File
+import kotlin.properties.Delegates
 
 /**
  * Created by nekocode on 2015/8/13.
  */
-public class C {
+public class K {
     companion object {
         private val kryo: Kryo = Kryo()
-        val map: MutableMap<Any, Any> = hashMapOf()
+        val map: MutableMap<Any, Any> by Delegates.lazy {
+            hashMapOf<Any, Any>()
+        }
 
-        fun save(fileName: String, obj: Any) {
+        fun write(fileName: String, obj: Any) {
             try {
                 val fo = App.instance.openFileOutput(fileName, Context.MODE_PRIVATE)
                 val output = Output(fo)
@@ -29,7 +33,7 @@ public class C {
             }
         }
 
-        fun <E> load(fileName: String, c: Class<E>): E? {
+        fun <E> read(fileName: String, c: Class<E>): E? {
             var rlt: E? = null
             try {
                 val fi = App.instance.openFileInput(fileName)

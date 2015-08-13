@@ -1,6 +1,8 @@
 package cn.nekocode.baseframework
 
 import android.app.Application
+import android.content.Context
+import java.io.File
 import kotlin.properties.Delegates
 
 /**
@@ -20,4 +22,5 @@ public class App : Application() {
             instanceTmp!!
         }
     }
+
 }

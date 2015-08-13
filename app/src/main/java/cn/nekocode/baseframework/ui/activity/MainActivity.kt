@@ -15,7 +15,7 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
-import cn.nekocode.baseframework.utils.C
+import cn.nekocode.baseframework.utils.K
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
