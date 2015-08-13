@@ -68,9 +68,3 @@ public class MainActivity : BaseActivity() {
     override fun handler(msg: Message) {
     }
 }
-
-
-
-//public var rx.Observable<T>.inandroid: rx.Observable<T>
-//    get() = observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-//    set(v) {}
