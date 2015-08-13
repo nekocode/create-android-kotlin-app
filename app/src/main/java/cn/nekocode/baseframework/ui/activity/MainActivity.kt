@@ -31,7 +31,7 @@ import retrofit.client.Response
 import java.util.*
 import kotlin.properties.Delegates
 
-public class MainActivity : BaseActivity<MainActivity>() {
+public class MainActivity : BaseActivity() {
 
     val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
@@ -40,8 +40,11 @@ public class MainActivity : BaseActivity<MainActivity>() {
         super<BaseActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        REST.api.getWeather("101010100")
         setupViews()
+
+        _this.runDelayed({
+            Toast.makeText(_this, "呵呵", Toast.LENGTH_SHORT).show()
+        }, 2000)
     }
 
     fun setupViews() {
