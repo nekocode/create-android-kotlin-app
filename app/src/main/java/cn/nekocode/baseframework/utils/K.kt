@@ -17,9 +17,6 @@ import kotlin.properties.Delegates
 public class K {
     companion object {
         private val kryo: Kryo = Kryo()
-        val map: MutableMap<Any, Any> by Delegates.lazy {
-            hashMapOf<Any, Any>()
-        }
 
         fun write(fileName: String, obj: Any) {
             try {
