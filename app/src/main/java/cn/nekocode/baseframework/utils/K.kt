@@ -48,7 +48,7 @@ public class K {
             App.instance.deleteFile(fileName)
         }
 
-        fun rmAll() {
+        fun clear() {
             val toDelete = File("/data/data/" + App.instance.getPackageName() + "/files")
 
             if (toDelete != null && toDelete.exists() && toDelete.isDirectory()) {
