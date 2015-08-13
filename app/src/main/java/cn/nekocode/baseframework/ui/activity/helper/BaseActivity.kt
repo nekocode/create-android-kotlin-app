@@ -95,28 +95,28 @@ open abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    class MyHandler : Handler {
-        private val mOuter: WeakReference<BaseActivity>
+    public abstract fun handler(msg: Message)
+}
 
-        constructor(activity: BaseActivity) {
-            mOuter = WeakReference(activity)
-        }
+class MyHandler : Handler {
+    private val mOuter: WeakReference<BaseActivity>
 
-        override fun handleMessage(msg: Message) {
-            if(mOuter.get() == null) {
-                deleteHandler(this)
-                return
-            } else {
-
-                if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                    (msg.obj as (()->Unit)).invoke()
-                    return
-                }
-
-                mOuter.get().handler(msg)
-            }
-        }
+    constructor(activity: BaseActivity) {
+        mOuter = WeakReference(activity)
     }
 
-    public abstract fun handler(msg: Message)
+    override fun handleMessage(msg: Message) {
+        if(mOuter.get() == null) {
+            BaseActivity.deleteHandler(this)
+            return
+        } else {
+
+            if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
+                (msg.obj as (()->Unit)).invoke()
+                return
+            }
+
+            mOuter.get().handler(msg)
+        }
+    }
 }

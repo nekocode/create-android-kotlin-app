@@ -1,5 +1,7 @@
 package cn.nekocode.baseframework.utils
 
+import android.content.Context
+import android.view.View
 import android.widget.Toast
 import cn.nekocode.baseframework.App
 import rx.Observable
@@ -20,3 +22,6 @@ public fun showToast(any: Any) {
             Toast.makeText(App.instance, any, Toast.LENGTH_SHORT).show()
     }
 }
+
+public val View.context: Context
+    get() = getContext()

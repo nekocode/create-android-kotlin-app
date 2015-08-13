@@ -37,7 +37,7 @@ public class MainActivity : BaseActivity() {
 
         runDelayed({
             showToast("呵呵哒")
-        }, 1000)
+        }, 3000)
     }
 
     fun setupViews() {

@@ -13,6 +13,7 @@ import butterknife.bindView
 import cn.nekocode.baseframework.R;
 import cn.nekocode.baseframework.model.Weather;
 import cn.nekocode.baseframework.ui.activity.MainActivity
+import cn.nekocode.baseframework.utils.context
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
@@ -68,7 +69,7 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
             itemView?.onLongClick { onWeatherItemLongClickListener?.invoke(weather) ?: false }
 
             textView.text = "hehe"
-//            Picasso.with(itemView.getContext()).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
+//            Picasso.with(itemView.context).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
         }
     }
 }
