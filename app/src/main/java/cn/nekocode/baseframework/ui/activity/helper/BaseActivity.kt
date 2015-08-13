@@ -95,7 +95,7 @@ open abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    inner class MyHandler : Handler {
+    class MyHandler : Handler {
         private val mOuter: WeakReference<BaseActivity>
 
         constructor(activity: BaseActivity) {
@@ -103,14 +103,18 @@ open abstract class BaseActivity : AppCompatActivity() {
         }
 
         override fun handleMessage(msg: Message) {
-            val outer = mOuter.get() ?: return
-
-            if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                (msg.obj as (()->Unit)).invoke()
+            if(mOuter.get() == null) {
+                deleteHandler(this)
                 return
-            }
+            } else {
 
-            outer.handler(msg)
+                if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
+                    (msg.obj as (()->Unit)).invoke()
+                    return
+                }
+
+                mOuter.get().handler(msg)
+            }
         }
     }
 

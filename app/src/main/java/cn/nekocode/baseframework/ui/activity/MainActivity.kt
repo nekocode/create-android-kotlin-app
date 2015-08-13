@@ -3,30 +3,21 @@ package cn.nekocode.baseframework.ui.activity
 import android.os.Bundle
 import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.widget.TextView
 import android.widget.Toast
-import butterknife.bindView
-
-import com.google.gson.Gson
 
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
-import cn.nekocode.baseframework.utils.Events
-import cn.nekocode.baseframework.utils.K
+import cn.nekocode.baseframework.utils.showToast
 import cn.nekocode.baseframework.utils.ui
-import rx.Observable
-import rx.Observer
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Func1
 import rx.subjects.BehaviorSubject
 
 import kotlinx.android.synthetic.activity_main.*;
-import org.jetbrains.anko.find
 import org.jetbrains.anko.text
 import retrofit.RetrofitError
 import retrofit.client.Response
@@ -43,6 +34,10 @@ public class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         setupViews()
+
+        runDelayed({
+            showToast("呵呵哒")
+        }, 1000)
     }
 
     fun setupViews() {

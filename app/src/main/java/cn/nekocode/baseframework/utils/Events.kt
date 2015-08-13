@@ -43,6 +43,3 @@ class Events {
     }
 }
 
-public fun <T> rx.Observable<T>.ui(): Observable<T> {
-    return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-}
