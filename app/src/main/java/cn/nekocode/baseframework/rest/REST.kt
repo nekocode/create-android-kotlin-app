@@ -1,6 +1,6 @@
 package cn.nekocode.baseframework.rest
 
-import cn.nekocode.baseframework.AppContext
+import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
 import cn.nekocode.baseframework.model.Weather
 import com.google.gson.Gson
@@ -33,7 +33,7 @@ public class REST {
         val api: APIs
 
         init {
-            val cacheDir = File(AppContext.get().getCacheDir(), Config.RESPONSE_CACHE_FILE)
+            val cacheDir = File(App.instance.getCacheDir(), Config.RESPONSE_CACHE_FILE)
             okHttpClient = OkHttpClient()
             okHttpClient.setCache(Cache(cacheDir, Config.RESPONSE_CACHE_SIZE.toLong()))
             okHttpClient.setConnectTimeout(Config.HTTP_CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)
@@ -55,7 +55,8 @@ public class REST {
                     .setClient(OkClient(okHttpClient))
                     .setRequestInterceptor(requestInterceptor).build()
 
-            api = restAdapter.create(javaClass<cn.nekocode.baseframework.rest.REST.APIs>())
+            api = restAdapter.create(javaClass<APIs>())
+//            api = restAdapter.create(api.javaClass)
         }
     }
 

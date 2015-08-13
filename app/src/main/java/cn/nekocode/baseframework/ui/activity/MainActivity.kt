@@ -15,6 +15,7 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
+import cn.nekocode.baseframework.utils.C
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
@@ -54,7 +55,6 @@ public class MainActivity : BaseActivity<MainActivity>() {
 //
 //        })
 
-//        api.getWeather("101010100")
 
         REST.api.getWeather("101010100").observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
             override fun onCompleted() {
