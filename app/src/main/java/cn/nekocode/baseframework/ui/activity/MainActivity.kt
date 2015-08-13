@@ -12,9 +12,7 @@ import com.google.gson.Gson
 
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
-import cn.nekocode.baseframework.rest.API
-import cn.nekocode.baseframework.rest.APIFactory
-import cn.nekocode.baseframework.rest.APIs.APIs
+import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import rx.Observable
@@ -34,7 +32,6 @@ import kotlin.properties.Delegates
 
 public class MainActivity : BaseActivity<MainActivity>() {
 
-    val api: API = APIFactory.getInstance()
     val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
@@ -42,7 +39,7 @@ public class MainActivity : BaseActivity<MainActivity>() {
         super<BaseActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        APIs.api.getWeather("101010100")
+        REST.api.getWeather("101010100")
         setupViews()
     }
 
@@ -57,7 +54,9 @@ public class MainActivity : BaseActivity<MainActivity>() {
 //
 //        })
 
-        api.getWeather("101010100").observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
+//        api.getWeather("101010100")
+
+        REST.api.getWeather("101010100").observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
             override fun onCompleted() {
             }
 
