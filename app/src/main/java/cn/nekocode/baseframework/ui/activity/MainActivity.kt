@@ -15,7 +15,9 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
+import cn.nekocode.baseframework.utils.Events
 import cn.nekocode.baseframework.utils.K
+import cn.nekocode.baseframework.utils.ui
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
@@ -41,34 +43,13 @@ public class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         setupViews()
-
-        _this.runDelayed({
-            Toast.makeText(_this, "呵呵", Toast.LENGTH_SHORT).show()
-        }, 2000)
     }
 
     fun setupViews() {
-//        api.getWeather("101010100", object : retrofit.Callback<Weather> {
-//            override fun success(weather: Weather?, response: Response?) {
-//                textView.text = weather?.getWeatherInfo()?.getCity() ?: "null"
-//            }
-//
-//            override fun failure(error: RetrofitError?) {
-//            }
-//
-//        })
+        textView.text = ""
 
-
-        REST.api.getWeather("101010100").observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Weather> {
-            override fun onCompleted() {
-            }
-
-            override fun onError(e: Throwable) {
-            }
-
-            override fun onNext(weather: Weather) {
-                textView.text = weather.getWeatherInfo().getCity()
-            }
+        REST.api.getWeather("101010100").ui().subscribe({
+            textView.text = it.getWeatherInfo().getCity()
         })
 
         for(i in 0..10) {
@@ -87,3 +68,9 @@ public class MainActivity : BaseActivity() {
     override fun handler(msg: Message) {
     }
 }
+
+
+
+//public var rx.Observable<T>.inandroid: rx.Observable<T>
+//    get() = observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//    set(v) {}

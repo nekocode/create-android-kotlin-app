@@ -14,7 +14,7 @@ import kotlin.properties.Delegates
 
 open abstract class BaseActivity : AppCompatActivity() {
     companion object {
-        private val handlers = ArrayList<MyHandler>()
+        private val handlers = arrayListOf<MyHandler>()
 
         fun addHandler(handler: MyHandler) {
             handlers.add(handler)

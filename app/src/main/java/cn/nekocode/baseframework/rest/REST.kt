@@ -56,7 +56,6 @@ public class REST {
                     .setRequestInterceptor(requestInterceptor).build()
 
             api = restAdapter.create(javaClass<APIs>())
-//            api = restAdapter.create(api.javaClass)
         }
     }
 
