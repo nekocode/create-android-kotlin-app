@@ -9,12 +9,13 @@ import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
 import rx.lang.kotlin.toSingletonObservable
 import java.io.File
+import kotlin.jvm.internal.Intrinsic
 import kotlin.properties.Delegates
 
 /**
  * Created by nekocode on 2015/8/13.
  */
-public class K {
+public class Cache {
     companion object {
         private val kryo: Kryo = Kryo()
 
@@ -30,8 +31,8 @@ public class K {
             }
         }
 
-        fun <E> read(fileName: String, c: Class<E>): E? {
-            var rlt: E? = null
+        fun <T> read(fileName: String, c: Class<T>): T? {
+            var rlt: T? = null
             try {
                 val fi = App.instance.openFileInput(fileName)
                 val input = Input(fi)
@@ -57,5 +58,15 @@ public class K {
                 }
             }
         }
+
+        fun set(fileName: String, obj: Any?){
+            if(obj != null) {
+                write(fileName, obj)
+            } else {
+                rm(fileName)
+            }
+        }
+
+        fun <T> get(fileName: String, c: Class<T>): T? = read(fileName, c)
     }
 }

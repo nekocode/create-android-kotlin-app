@@ -10,6 +10,7 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
+import cn.nekocode.baseframework.utils.Cache
 import cn.nekocode.baseframework.utils.showToast
 import cn.nekocode.baseframework.utils.ui
 import rx.Subscriber
