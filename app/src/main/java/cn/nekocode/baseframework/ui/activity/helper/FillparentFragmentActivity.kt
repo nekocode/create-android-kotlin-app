@@ -19,16 +19,16 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
 //    val toolbar: Toolbar by bindView(R.id.toolbar)
 
     val id_toolbar = 1
-    var toolbar: Toolbar? = null
+    val toolbar: Toolbar by bindView(id_toolbar)
 
     val id_fragment_content = 2
-    var fragment: Fragment? = null
+    val fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<BaseActivity>.onCreate(savedInstanceState)
 
         relativeLayout {
-            toolbar = include<Toolbar>(R.layout.toolbar) {
+            include<Toolbar>(R.layout.toolbar) {
                 id = id_toolbar
             }.layoutParams(width = matchParent, height = dip(50))
 
