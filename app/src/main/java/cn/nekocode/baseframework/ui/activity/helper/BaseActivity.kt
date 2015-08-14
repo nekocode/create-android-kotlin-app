@@ -35,6 +35,29 @@ open abstract class BaseActivity : AppCompatActivity() {
                 handler.sendMessage(msg)
             }
         }
+
+        class MyHandler : Handler {
+            private val mOuter: WeakReference<BaseActivity>
+
+            constructor(activity: BaseActivity) {
+                mOuter = WeakReference(activity)
+            }
+
+            override fun handleMessage(msg: Message) {
+                if(mOuter.get() == null) {
+                    BaseActivity.deleteHandler(this)
+                    return
+                } else {
+
+                    if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
+                        (msg.obj as (()->Unit)).invoke()
+                        return
+                    }
+
+                    mOuter.get().handler(msg)
+                }
+            }
+        }
     }
 
     protected val handler: MyHandler by Delegates.lazy {
@@ -96,27 +119,4 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     public abstract fun handler(msg: Message)
-}
-
-class MyHandler : Handler {
-    private val mOuter: WeakReference<BaseActivity>
-
-    constructor(activity: BaseActivity) {
-        mOuter = WeakReference(activity)
-    }
-
-    override fun handleMessage(msg: Message) {
-        if(mOuter.get() == null) {
-            BaseActivity.deleteHandler(this)
-            return
-        } else {
-
-            if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                (msg.obj as (()->Unit)).invoke()
-                return
-            }
-
-            mOuter.get().handler(msg)
-        }
-    }
 }
