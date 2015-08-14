@@ -17,7 +17,6 @@ public class MainActivity : SingleFragmentActivity() {
         }, 2000)
     }
 
-
     override fun fragmentClass(): Class<*> {
         return javaClass<TestFragment>()
     }

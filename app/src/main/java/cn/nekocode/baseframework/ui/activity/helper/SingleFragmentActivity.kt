@@ -38,10 +38,10 @@ open abstract class SingleFragmentActivity : BaseActivity() {
 
         if(fragment?.isDetached() ?: true) {
             fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle() ?: Bundle());
-        }
 
-        fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
-        fragmentTransaction.commit()
+            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
+            fragmentTransaction.commit()
+        }
     }
 
     abstract fun afterCreate()
