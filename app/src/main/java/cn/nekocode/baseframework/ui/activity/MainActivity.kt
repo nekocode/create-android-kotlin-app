@@ -15,7 +15,7 @@ public class MainActivity : FillparentFragmentActivity() {
     }
 
     override fun afterCreate() {
-        toolbar.setTitle("This is a test")
+        toolbar?.setTitle("This is a test")
     }
 
     override fun handler(msg: Message) {

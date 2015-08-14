@@ -8,8 +8,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:layout_below="@+id/toolbar" />
+        android:scrollbars="none" />
 
     <TextView
         android:layout_width="wrap_content"

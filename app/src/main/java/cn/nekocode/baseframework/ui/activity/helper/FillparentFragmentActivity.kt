@@ -11,17 +11,33 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.ui.fragment.TestFragment
+import org.jetbrains.anko.*
 import kotlin.properties.Delegates
 
 open abstract class FillparentFragmentActivity : BaseActivity() {
 
-    val toolbar: Toolbar by bindView(R.id.toolbar)
+//    val toolbar: Toolbar by bindView(R.id.toolbar)
 
+    val id_toolbar = 1
+    var toolbar: Toolbar? = null
+
+    val id_fragment_content = 2
     var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<BaseActivity>.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_single_fragment)
+
+        relativeLayout {
+            toolbar = include<Toolbar>(R.layout.toolbar) {
+                id = id_toolbar
+            }.layoutParams(width = matchParent, height = dip(50))
+
+            frameLayout() {
+                id = id_fragment_content
+            }.layoutParams(width = matchParent, height = matchParent) {
+                below(id_toolbar)
+            }
+        }
 
         setupFragment()
         afterCreate()
@@ -38,7 +54,7 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
         if (fragment?.isDetached() ?: true) {
             fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle.invoke());
 
-            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
+            fragmentTransaction.add(id_fragment_content, fragment, fragmentClass.getName());
         }
 
         fragmentTransaction.commit()
