@@ -36,7 +36,7 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
         fragment = fragmentManager.findFragmentByTag(fragmentClass.getName());
 
         if (fragment?.isDetached() ?: true) {
-            fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle);
+            fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle.invoke());
 
             fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
         }
@@ -48,5 +48,5 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
 
     abstract val fragmentClass: Class<*>
 
-    abstract val fragmentBundle: Bundle?
+    abstract val fragmentBundle: (()-> Bundle?)
 }
