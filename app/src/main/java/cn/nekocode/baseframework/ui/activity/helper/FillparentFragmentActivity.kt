@@ -33,17 +33,12 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
         val fragmentManager = getFragmentManager()
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        for(index in fragmentTags.indices) {
-            val fragmentClass = fragmentClasses[index]
-            val fragmentTag = fragmentTags[index]
+        fragment = fragmentManager.findFragmentByTag(fragmentClass.getName());
 
-            fragment = fragmentManager.findFragmentByTag(fragmentTag);
+        if (fragment?.isDetached() ?: true) {
+            fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle);
 
-            if(fragment?.isDetached() ?: true) {
-                fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundles?.get(index));
-
-                fragmentTransaction.add(R.id.fragment_container, fragment, fragmentTag);
-            }
+            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
         }
 
         fragmentTransaction.commit()
@@ -51,9 +46,7 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
 
     abstract fun afterCreate()
 
-    abstract val fragmentClasses: List<Class<*>>
+    abstract val fragmentClass: Class<*>
 
-    abstract val fragmentTags: List<String>
-
-    abstract val fragmentBundles: List<Bundle?>?
+    abstract val fragmentBundle: Bundle?
 }
