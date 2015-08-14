@@ -13,7 +13,7 @@ import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.ui.fragment.TestFragment
 import kotlin.properties.Delegates
 
-open abstract class SingleFragmentActivity : BaseActivity() {
+open abstract class FillparentFragmentActivity : BaseActivity() {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
 
