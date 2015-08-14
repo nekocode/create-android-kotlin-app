@@ -30,13 +30,3 @@ public fun showToast(any: Any) {
 
 public val View.context: Context
     get() = getContext()
-
-
-@suppress("NOTHING_TO_INLINE")
-public inline fun ViewManager.toolbar(): Toolbar = toolbar({})
-public inline fun ViewManager.toolbar(inlineOptions(InlineOption.ONLY_LOCAL_RETURN) init: Toolbar.() -> Unit): Toolbar = addView<Toolbar> {
-    ctx ->
-    val view = Toolbar(ctx)
-    view.init()
-    view
-}

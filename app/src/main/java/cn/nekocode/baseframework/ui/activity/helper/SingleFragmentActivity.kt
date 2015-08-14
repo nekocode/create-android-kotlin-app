@@ -4,6 +4,7 @@ import android.app.Fragment
 import android.os.Bundle
 import android.os.Message
 import android.support.v7.widget.Toolbar
+import butterknife.bindView
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
@@ -13,9 +14,7 @@ import kotlin.properties.Delegates
 
 open abstract class SingleFragmentActivity : BaseActivity() {
 
-    val toolbar: Toolbar by Delegates.lazy {
-        findViewById(R.id.toolbar) as Toolbar
-    }
+    val toolbar: Toolbar by bindView(R.id.toolbar)
 
     var fragment: Fragment? = null
 

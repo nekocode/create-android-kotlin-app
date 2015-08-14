@@ -24,32 +24,23 @@ import org.jetbrains.anko.text
 import kotlin.properties.Delegates
 
 public class TestFragment : Fragment() {
+    val textView: TextView by bindView(R.id.textView)
+    val recyclerView: RecyclerView? by bindView(R.id.recyclerView)
+
     val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
-
-    var textView: TextView? = null
-    var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val views = inflater.inflate(R.layout.fragment_test, container, false)
-
-        textView = views.find(R.id.textView)
-        recyclerView = views.find(R.id.recyclerView)
-
-        setupViews()
-
-        return views
+        return inflater.inflate(R.layout.fragment_test, container, false)
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-    }
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    fun setupViews() {
         textView?.text = ""
 
         REST.api.getWeather("101010100").ui().subscribe({
@@ -67,6 +58,10 @@ public class TestFragment : Fragment() {
 
         recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
         recyclerView?.setAdapter(adapter)
+    }
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
     }
 
     override fun onDetach() {

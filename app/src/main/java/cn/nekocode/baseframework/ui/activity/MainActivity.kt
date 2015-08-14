@@ -6,15 +6,10 @@ import cn.nekocode.baseframework.ui.activity.helper.SingleFragmentActivity
 import cn.nekocode.baseframework.ui.fragment.TestFragment
 import cn.nekocode.baseframework.utils.showToast
 
-
 public class MainActivity : SingleFragmentActivity() {
 
     override fun afterCreate() {
         toolbar.setTitle("This is a test")
-
-        runDelayed({
-            showToast("delay 2000")
-        }, 2000)
     }
 
     override fun fragmentClass(): Class<*> {
