@@ -4,6 +4,7 @@ import android.app.Fragment
 import android.os.Bundle
 import android.os.Message
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import butterknife.bindView
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
@@ -31,21 +32,28 @@ open abstract class SingleFragmentActivity : BaseActivity() {
     private fun setupFragment() {
         val fragmentManager = getFragmentManager()
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragmentClass = fragmentClass()
 
-        fragment = fragmentManager.findFragmentByTag(fragmentClass.getName());
+        for(index in fragmentTags.indices) {
+            val fragmentClass = fragmentClasses[index]
+            val fragmentTag = fragmentTags[index]
 
-        if(fragment?.isDetached() ?: true) {
-            fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle() ?: Bundle());
+            fragment = fragmentManager.findFragmentByTag(fragmentTag);
 
-            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentClass.getName());
-            fragmentTransaction.commit()
+            if(fragment?.isDetached() ?: true) {
+                fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundles?.get(index));
+
+                fragmentTransaction.add(R.id.fragment_container, fragment, fragmentTag);
+            }
         }
+
+        fragmentTransaction.commit()
     }
 
     abstract fun afterCreate()
 
-    abstract fun fragmentClass(): Class<*>
+    abstract val fragmentClasses: List<Class<*>>
 
-    abstract fun fragmentBundle(): Bundle?
+    abstract val fragmentTags: List<String>
+
+    abstract val fragmentBundles: List<Bundle?>?
 }

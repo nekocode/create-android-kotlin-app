@@ -8,16 +8,17 @@ import cn.nekocode.baseframework.utils.showToast
 
 public class MainActivity : SingleFragmentActivity() {
 
+    override val fragmentClasses: List<Class<*>>
+            = listOf(javaClass<TestFragment>())
+
+    override val fragmentTags: List<String>
+            = listOf("testFragment")
+
+    override val fragmentBundles: List<Bundle?>?
+            = null
+
     override fun afterCreate() {
         toolbar.setTitle("This is a test")
-    }
-
-    override fun fragmentClass(): Class<*> {
-        return javaClass<TestFragment>()
-    }
-
-    override fun fragmentBundle(): Bundle? {
-        return null
     }
 
     override fun handler(msg: Message) {
