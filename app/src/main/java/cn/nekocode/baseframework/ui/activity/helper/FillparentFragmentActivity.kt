@@ -22,7 +22,7 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
     val toolbar: Toolbar by bindView(id_toolbar)
 
     val id_fragment_content = 2
-    val fragment: Fragment? = null
+    var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<BaseActivity>.onCreate(savedInstanceState)
