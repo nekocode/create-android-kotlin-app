@@ -41,7 +41,7 @@ public val View.context: Context
 public inline fun Activity.dialogFragment(content: String): DialogFragment = dialogFragment({})
 public inline fun Activity.dialogFragment(inlineOptions(InlineOption.ONLY_LOCAL_RETURN) init: DialogFragment.() -> Unit): DialogFragment = ({
     val dialog = DialogFragment()
-    dialog.setCancelable(true)
+    dialog.init()
     dialog
 }).invoke()
 

@@ -42,6 +42,10 @@ open abstract class SingleFragmentActivity : BaseActivity() {
             }
         }
 
+        dialogFragment {
+            cancelable = true
+        }
+
         setupFragment()
         afterCreate()
 
