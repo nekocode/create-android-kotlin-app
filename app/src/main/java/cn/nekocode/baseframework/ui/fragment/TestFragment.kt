@@ -25,7 +25,7 @@ import kotlin.properties.Delegates
 
 public class TestFragment : Fragment() {
     val textView: TextView by bindView(R.id.textView)
-    val recyclerView: RecyclerView? by bindView(R.id.recyclerView)
+    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
     val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
@@ -41,10 +41,10 @@ public class TestFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textView?.text = ""
+        textView.text = ""
 
         REST.api.getWeather("101010100").ui().subscribe({
-            textView?.text = it.getWeatherInfo().getCity()
+            textView.text = it.getWeatherInfo().getCity()
         })
 
         for(i in 0..10) {
@@ -56,8 +56,8 @@ public class TestFragment : Fragment() {
             Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show()
         }
 
-        recyclerView?.setLayoutManager(LinearLayoutManager(getActivity()))
-        recyclerView?.setAdapter(adapter)
+        recyclerView.setLayoutManager(LinearLayoutManager(getActivity()))
+        recyclerView.setAdapter(adapter)
     }
 
     override fun onAttach(activity: Activity) {

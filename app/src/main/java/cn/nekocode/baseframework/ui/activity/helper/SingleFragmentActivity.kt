@@ -3,6 +3,7 @@ package cn.nekocode.baseframework.ui.activity.helper
 import android.app.Fragment
 import android.os.Bundle
 import android.os.Message
+import android.support.v4.app.DialogFragment
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import butterknife.bindView
@@ -11,10 +12,12 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.ui.fragment.TestFragment
+import cn.nekocode.baseframework.utils.cancelable
+import cn.nekocode.baseframework.utils.dialogFragment
 import org.jetbrains.anko.*
 import kotlin.properties.Delegates
 
-open abstract class FillparentFragmentActivity : BaseActivity() {
+open abstract class SingleFragmentActivity : BaseActivity() {
 
 //    val toolbar: Toolbar by bindView(R.id.toolbar)
 
@@ -32,7 +35,7 @@ open abstract class FillparentFragmentActivity : BaseActivity() {
                 id = id_toolbar
             }.layoutParams(width = matchParent, height = dip(50))
 
-            frameLayout() {
+            frameLayout {
                 id = id_fragment_content
             }.layoutParams(width = matchParent, height = matchParent) {
                 below(id_toolbar)
