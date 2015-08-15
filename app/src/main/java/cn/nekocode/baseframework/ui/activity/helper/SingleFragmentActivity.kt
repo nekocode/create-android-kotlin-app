@@ -42,9 +42,11 @@ open abstract class SingleFragmentActivity : BaseActivity() {
             }
         }
 
-        dialogFragment {
+        val dialog1 = dialogFragment {
             cancelable = true
         }
+
+        val dialog2 = dialogFragment("呵呵哒")
 
         setupFragment()
         afterCreate()
