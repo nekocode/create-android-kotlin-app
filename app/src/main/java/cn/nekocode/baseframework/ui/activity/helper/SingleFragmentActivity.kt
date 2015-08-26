@@ -12,8 +12,6 @@ import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.ui.activity.helper.BaseActivity
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.ui.fragment.TestFragment
-import cn.nekocode.baseframework.utils.cancelable
-import cn.nekocode.baseframework.utils.dialogFragment
 import org.jetbrains.anko.*
 import kotlin.properties.Delegates
 
@@ -41,12 +39,6 @@ open abstract class SingleFragmentActivity : BaseActivity() {
                 below(id_toolbar)
             }
         }
-
-        val dialog1 = dialogFragment {
-            cancelable = true
-        }
-
-        val dialog2 = dialogFragment("呵呵哒")
 
         setupFragment()
         afterCreate()

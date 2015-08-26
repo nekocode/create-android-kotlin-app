@@ -35,17 +35,3 @@ public fun showToast(any: Any) {
 
 public val View.context: Context
     get() = getContext()
-
-
-@suppress("NOTHING_TO_INLINE")
-public inline fun Activity.dialogFragment(content: String): DialogFragment = dialogFragment({})
-public inline fun Activity.dialogFragment(inlineOptions(InlineOption.ONLY_LOCAL_RETURN) init: DialogFragment.() -> Unit): DialogFragment = ({
-    val dialog = DialogFragment()
-    dialog.init()
-    dialog
-}).invoke()
-
-public var DialogFragment.cancelable: Boolean
-    get() = isCancelable()
-    set(value) = setCancelable(value)
-
