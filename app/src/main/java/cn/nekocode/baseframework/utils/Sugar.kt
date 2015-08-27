@@ -20,7 +20,7 @@ import rx.Observable
  * Created by nekocode on 2015/8/13.
  */
 
-public fun <T> rx.Observable<T>.ui(): Observable<T> {
+public fun <T> rx.Observable<T>.onUI(): Observable<T> {
     return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
 }
 

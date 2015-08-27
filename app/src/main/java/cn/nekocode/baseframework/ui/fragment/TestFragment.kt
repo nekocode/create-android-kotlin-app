@@ -18,7 +18,7 @@ import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
-import cn.nekocode.baseframework.utils.ui
+import cn.nekocode.baseframework.utils.onUI
 import org.jetbrains.anko.find
 import org.jetbrains.anko.text
 import kotlin.properties.Delegates
@@ -43,7 +43,7 @@ public class TestFragment : Fragment() {
 
         textView.text = ""
 
-        REST.api.getWeather("101010100").ui().subscribe({
+        REST.api.getWeather("101010100").onUI().subscribe({
             textView.text = it.getWeatherInfo().getCity()
         })
 
