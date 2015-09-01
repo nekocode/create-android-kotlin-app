@@ -7,6 +7,9 @@ import kotlin.platform.platformStatic
  */
 public class Config {
     companion object {
+        // app
+        public platformStatic val APP_NAME: String = "nekoo"
+
         public platformStatic val USER_AGENT: String = "TestApp"
 
         // OkHttp

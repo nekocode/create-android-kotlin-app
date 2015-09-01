@@ -109,8 +109,8 @@
     <orderEntry type="library" exported="" name="kotlin-stdlib-0.12.1230" level="project" />
     <orderEntry type="library" exported="" name="minlog-1.2" level="project" />
     <orderEntry type="library" exported="" name="kryo-3.0.0" level="project" />
-    <orderEntry type="library" exported="" name="okio-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="anko-0.6.3-15" level="project" />
+    <orderEntry type="library" exported="" name="okio-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="objenesis-1.2" level="project" />
     <orderEntry type="library" exported="" name="reflectasm-1.09-shaded" level="project" />
   </component>

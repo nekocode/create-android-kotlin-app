@@ -15,9 +15,11 @@ import android.widget.Toolbar
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
+import cn.nekocode.baseframework.model.TestData
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
+import cn.nekocode.baseframework.utils.Cache
 import cn.nekocode.baseframework.utils.onUI
 import org.jetbrains.anko.find
 import org.jetbrains.anko.text
@@ -51,6 +53,10 @@ public class TestFragment : Fragment() {
             val weather = Weather()
             list.add(weather)
         }
+
+        // cache test
+        Cache["hehe"] = TestData("heheheh")
+        val strtest = Cache["hehe", javaClass<TestData>()]
 
         adapter.onWeatherItemClickListener = {
             Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show()
