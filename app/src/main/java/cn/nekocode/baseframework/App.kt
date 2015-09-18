@@ -21,7 +21,7 @@ public class App : Application() {
     companion object {
         private var instanceTmp: App? = null
 
-        public val instance: App by Delegates.lazy {
+        public val instance: App by lazy {
             instanceTmp!!
         }
     }

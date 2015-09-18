@@ -38,27 +38,30 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
 
     // HTTP client
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
+//    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
 
     // JSON library
-    compile 'com.google.code.gson:gson:2.3.1'
+//    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
 
     // Image downloader & transformer
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Reactive library
-    compile 'io.reactivex:rxkotlin:0.22.12'
-    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.reactivex:rxkotlin:0.22.13'
+    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
     // Kotlin std library
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile "org.jetbrains.anko:anko:0.6.3-15"
+    compile 'org.jetbrains.anko:anko-sdk15:0.7' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.7' // In case you need support.v4 bindings
 }
 
 buildscript {
-    ext.kotlin_version = '0.12.1230'
+    ext.kotlin_version = '0.13.1513'
     repositories {
         mavenCentral()
     }

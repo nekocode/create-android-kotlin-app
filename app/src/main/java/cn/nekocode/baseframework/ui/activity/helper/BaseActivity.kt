@@ -1,18 +1,15 @@
 package cn.nekocode.baseframework.ui.activity.helper
 
-import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 
 import java.lang.ref.WeakReference
-import java.util.ArrayList
 import kotlin.properties.Delegates
 
-open abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     companion object {
         private val handlers = arrayListOf<MyHandler>()
 
@@ -65,7 +62,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     public val _this: BaseActivity by Delegates.lazy {
-        this!!
+        this
     }
 
     public fun sendMsg(message: Message) {
@@ -95,7 +92,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             android.R.id.home -> this.finish()
         }
         return super.onOptionsItemSelected(item)

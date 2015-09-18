@@ -1,14 +1,9 @@
 package cn.nekocode.toast.utils
 
-import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
-import android.webkit.MimeTypeMap
-import android.widget.Toast
 import cn.nekocode.baseframework.Config
 
 import java.io.BufferedInputStream
@@ -34,11 +29,11 @@ public class FileUtils {
         }
 
         public fun getAppRootPath(): String {
-            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_ROOT + File.separator
+            return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator
         }
 
         public fun getAppCachePath(): String {
-            return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APP_ROOT + File.separator + "cache" + File.separator
+            return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator + "cache" + File.separator
         }
 
         public fun createAppRootDirs() {
@@ -63,10 +58,10 @@ public class FileUtils {
             }
 
             val file = File(pathOfFileToSave)
-            val name = file.getName()
+            val name = file.name
             val newPath = getAppRootPath() + name
             try {
-                createNewFileInSDCard(context, newPath)
+                createNewFileInSDCard(newPath)
                 copyFile(file, File(newPath))
                 return true
             } catch (e: IOException) {
@@ -76,15 +71,15 @@ public class FileUtils {
 
         }
 
-        public fun createNewFileInSDCard(context: Context, absolutePath: String): File? {
-            isExternalStorageMounted() ?: return null
-            !TextUtils.isEmpty(absolutePath) ?: return null
+        public fun createNewFileInSDCard(absolutePath: String): File? {
+            if (!isExternalStorageMounted()) return null
+            if (TextUtils.isEmpty(absolutePath)) return null
 
             val file = File(absolutePath)
             if (file.exists()) {
                 return file
             } else {
-                val dir = file.getParentFile()
+                val dir = file.parentFile
                 if (!dir.exists()) {
                     dir.mkdirs()
                 }
@@ -106,7 +101,7 @@ public class FileUtils {
             if (path.exists()) {
                 val files = path.listFiles() ?: return true
                 for (i in files.indices) {
-                    if (files[i].isDirectory()) {
+                    if (files[i].isDirectory) {
                         rmDirectory(files[i])
                     } else {
                         files[i].delete()
@@ -125,7 +120,7 @@ public class FileUtils {
                 outBuff = BufferedOutputStream(FileOutputStream(targetFile))
 
                 val b = ByteArray(1024 * 5)
-                val len: Int
+                var len: Int
 
                 while(true) {
                     len = inBuff.read(b).toInt()

@@ -1,7 +1,6 @@
 package cn.nekocode.baseframework.ui.fragment
 
 import android.app.Activity
-import android.net.Uri
 import android.os.Bundle
 import android.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
@@ -21,9 +19,6 @@ import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.Cache
 import cn.nekocode.baseframework.utils.onUI
-import org.jetbrains.anko.find
-import org.jetbrains.anko.text
-import kotlin.properties.Delegates
 
 public class TestFragment : Fragment() {
     val textView: TextView by bindView(R.id.textView)
@@ -46,7 +41,7 @@ public class TestFragment : Fragment() {
         textView.text = ""
 
         REST.api.getWeather("101010100").onUI().subscribe({
-            textView.text = it.getWeatherInfo().getCity()
+            textView.text = it.weatherInfo.city
         })
 
         for(i in 0..10) {
@@ -54,16 +49,16 @@ public class TestFragment : Fragment() {
             list.add(weather)
         }
 
-        // cache test
-        Cache["hehe"] = TestData("heheheh")
-        val strtest = Cache["hehe", javaClass<TestData>()]
+        // cache test：can not use kotlin data class...
+        Cache["hehe"] = String("heheheh".toByteArray())
+        val strtest = Cache["hehe", String::class.java]
 
         adapter.onWeatherItemClickListener = {
-            Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "click", Toast.LENGTH_SHORT).show()
         }
 
-        recyclerView.setLayoutManager(LinearLayoutManager(getActivity()))
-        recyclerView.setAdapter(adapter)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = adapter
     }
 
     override fun onAttach(activity: Activity) {
