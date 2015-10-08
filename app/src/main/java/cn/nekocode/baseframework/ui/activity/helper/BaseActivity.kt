@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 
 import java.lang.ref.WeakReference
-import kotlin.properties.Delegates
 
 abstract class BaseActivity : AppCompatActivity() {
     companion object {
@@ -57,11 +56,11 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected val handler: MyHandler by Delegates.lazy {
+    protected val handler: MyHandler by lazy {
         MyHandler(this)
     }
 
-    public val _this: BaseActivity by Delegates.lazy {
+    public val _this: BaseActivity by lazy {
         this
     }
 

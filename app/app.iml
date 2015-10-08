@@ -100,22 +100,22 @@
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
-    <orderEntry type="library" exported="" name="anko-common-0.7" level="project" />
+    <orderEntry type="library" exported="" name="kotlin-stdlib-0.14.449" level="project" />
     <orderEntry type="library" exported="" name="rxkotlin-0.22.13" level="project" />
     <orderEntry type="library" exported="" name="retrofit-2.0.0-beta1" level="project" />
+    <orderEntry type="library" exported="" name="anko-sdk15-0.7.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="kotlin-runtime-0.14.449" level="project" />
     <orderEntry type="library" exported="" name="rxandroid-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
-    <orderEntry type="library" exported="" name="kotlin-runtime-0.13.1513" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.0.14" level="project" />
     <orderEntry type="library" exported="" name="minlog-1.2" level="project" />
-    <orderEntry type="library" exported="" name="anko-sdk15-0.7" level="project" />
+    <orderEntry type="library" exported="" name="anko-support-v4-0.7.1" level="project" />
     <orderEntry type="library" exported="" name="kryo-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="converter-gson-2.0.0-beta1" level="project" />
-    <orderEntry type="library" exported="" name="anko-support-v4-0.7" level="project" />
-    <orderEntry type="library" exported="" name="kotlin-stdlib-0.13.1513" level="project" />
+    <orderEntry type="library" exported="" name="anko-common-0.7.1" level="project" />
     <orderEntry type="library" exported="" name="objenesis-1.2" level="project" />
     <orderEntry type="library" exported="" name="reflectasm-1.09-shaded" level="project" />
   </component>

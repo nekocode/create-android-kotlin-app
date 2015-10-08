@@ -52,7 +52,7 @@ public class FileUtils {
             }
         }
 
-        public fun saveToAppDir(context: Context, pathOfFileToSave: String): Boolean {
+        public fun saveToAppDir(pathOfFileToSave: String): Boolean {
             if (!isExternalStorageMounted()) {
                 return false
             }

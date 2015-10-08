@@ -2,15 +2,10 @@ package cn.nekocode.baseframework.utils
 
 import android.content.Context
 import cn.nekocode.baseframework.App
-import cn.nekocode.baseframework.model.Weather
-import cn.nekocode.baseframework.rest.REST
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
-import rx.lang.kotlin.toSingletonObservable
 import java.io.File
-import kotlin.jvm.internal.Intrinsic
-import kotlin.properties.Delegates
 
 /**
  * Created by nekocode on 2015/8/13.
@@ -50,16 +45,16 @@ public class Cache {
         }
 
         fun clear() {
-            val toDelete = File("/data/data/" + App.instance.getPackageName() + "/files")
+            val toDelete = File("/data/data/" + App.instance.packageName + "/files")
 
-            if (toDelete != null && toDelete.exists() && toDelete.isDirectory()) {
+            if (toDelete.exists() && toDelete.isDirectory) {
                 for (item in toDelete.listFiles()!!) {
                     item.delete()
                 }
             }
         }
 
-        fun set(fileName: String, obj: Any?){
+        operator fun set(fileName: String, obj: Any?){
             if(obj != null) {
                 write(fileName, obj)
             } else {
@@ -67,6 +62,6 @@ public class Cache {
             }
         }
 
-        fun <T> get(fileName: String, c: Class<T>): T? = read(fileName, c)
+        operator fun <T> get(fileName: String, c: Class<T>): T? = read(fileName, c)
     }
 }

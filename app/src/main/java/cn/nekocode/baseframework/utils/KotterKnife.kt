@@ -54,13 +54,12 @@ public fun <T : View> SupportFragment.bindOptionalViews(vararg ids: Int): ReadOn
 public fun <T : View> ViewHolder.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
 
 private fun findView<T : View>(thisRef: Any, id: Int): T? {
-    @suppress("UNCHECKED_CAST")
     return when (thisRef) {
         is View -> thisRef.findViewById(id)
         is Activity -> thisRef.findViewById(id)
         is Dialog -> thisRef.findViewById(id)
-        is Fragment -> thisRef.getView().findViewById(id)
-        is SupportFragment -> thisRef.getView().findViewById(id)
+        is Fragment -> thisRef.view.findViewById(id)
+        is SupportFragment -> thisRef.view.findViewById(id)
         is ViewHolder -> thisRef.itemView.findViewById(id)
         else -> throw IllegalStateException("Unable to find views on type.")
     } as T?
@@ -69,16 +68,16 @@ private fun findView<T : View>(thisRef: Any, id: Int): T? {
 private class ViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any, T> {
     private val lazy = Lazy<T>()
 
-    override fun get(thisRef: Any, desc: PropertyMetadata): T = lazy.get {
+    override operator fun get(thisRef: Any, property: PropertyMetadata): T = lazy.get {
         findView<T>(thisRef, id)
-                ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
+                ?: throw IllegalStateException("View ID $id for '${property.name}' not found.")
     }
 }
 
 private class OptionalViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any, T?> {
     private val lazy = Lazy<T?>()
 
-    override fun get(thisRef: Any, desc: PropertyMetadata): T? = lazy.get {
+    override operator fun get(thisRef: Any, property: PropertyMetadata): T? = lazy.get {
         findView<T>(thisRef, id)
     }
 }
@@ -86,10 +85,10 @@ private class OptionalViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any,
 private class ViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T>> {
     private var lazy = Lazy<List<T>>()
 
-    override fun get(thisRef: Any, desc: PropertyMetadata): List<T> = lazy.get {
+    override operator fun get(thisRef: Any, property: PropertyMetadata): List<T> = lazy.get {
         ids.map { id ->
             findView<T>(thisRef, id)
-                    ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
+                    ?: throw IllegalStateException("View ID $id for '${property.name}' not found.")
         }
     }
 }
@@ -97,7 +96,7 @@ private class ViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<An
 private class OptionalViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T>> {
     private var lazy = Lazy<List<T>>()
 
-    override fun get(thisRef: Any, desc: PropertyMetadata): List<T> = lazy.get {
+    override operator fun get(thisRef: Any, property: PropertyMetadata): List<T> = lazy.get {
         ids.map { id -> findView<T>(thisRef, id) }.filterNotNull()
     }
 }
@@ -107,11 +106,10 @@ private class Lazy<T> {
 
     private var value: Any? = EMPTY
 
-    fun get(initializer: () -> T): T {
+    operator fun get(initializer: () -> T): T {
         if (value == EMPTY) {
             value = initializer.invoke()
         }
-        @suppress("UNCHECKED_CAST")
         return value as T
     }
 }

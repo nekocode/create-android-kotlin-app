@@ -13,34 +13,34 @@ import java.util.*
 public class MediaUtils {
     companion object {
         public fun scanFiles(context: Context, paths: Array<String>, mimeTypes: Array<String>?, callback: MediaScannerConnection.OnScanCompletedListener?) {
-            if (null != paths && paths.size() != 0) {
+            if (paths.size() != 0) {
                 MediaScannerConnection.scanFile(context, paths, mimeTypes, callback)
             }
         }
 
         public fun scanFiles(context: Context, paths: Array<String>) {
-            if (null != paths && paths.size() != 0) {
+            if (paths.size() != 0) {
                 MediaScannerConnection.scanFile(context, paths, null, null)
             }
         }
 
         // TODO: "MediaStore.MediaColumns.DATA" may be not right
         public fun removeImageFromMediaLib(context: Context, filePath: String): Int {
-            val resolver = context.getContentResolver()
+            val resolver = context.contentResolver
             return resolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.MediaColumns.DATA + "=?", arrayOf(filePath))
         }
 
         // TODO
         public fun removeAudioFromMediaLib(context: Context, filePath: String): Int {
-            val resolver = context.getContentResolver()
+            val resolver = context.contentResolver
             return resolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.MediaColumns.DATA + "=?", arrayOf(filePath))
         }
 
         // TODO
         public fun removeVideoFromMediaLib(context: Context, filePath: String): Int {
-            val resolver = context.getContentResolver()
+            val resolver = context.contentResolver
             return resolver.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.MediaColumns.DATA + "=?", arrayOf(filePath))
         }

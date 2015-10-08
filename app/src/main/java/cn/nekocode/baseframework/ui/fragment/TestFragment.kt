@@ -13,12 +13,12 @@ import android.widget.Toast
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
-import cn.nekocode.baseframework.model.TestData
 import cn.nekocode.baseframework.model.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.Cache
 import cn.nekocode.baseframework.utils.onUI
+import org.jetbrains.anko.find
 
 public class TestFragment : Fragment() {
     val textView: TextView by bindView(R.id.textView)
