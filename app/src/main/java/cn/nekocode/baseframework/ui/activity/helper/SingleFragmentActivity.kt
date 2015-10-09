@@ -39,15 +39,14 @@ abstract class SingleFragmentActivity : BaseActivity() {
     }
 
     private fun setupFragment() {
-        val fragmentManager = getFragmentManager()
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        fragment = fragmentManager.findFragmentByTag(fragmentClass.getName());
+        fragment = fragmentManager.findFragmentByTag(fragmentClass.name);
 
-        if (fragment?.isDetached() ?: true) {
-            fragment = Fragment.instantiate(this, fragmentClass.getName(), fragmentBundle.invoke());
+        if (fragment?.isDetached ?: true) {
+            fragment = Fragment.instantiate(this, fragmentClass.name, fragmentBundle.invoke());
 
-            fragmentTransaction.add(id_fragment_content, fragment, fragmentClass.getName());
+            fragmentTransaction.add(id_fragment_content, fragment, fragmentClass.name);
         }
 
         fragmentTransaction.commit()

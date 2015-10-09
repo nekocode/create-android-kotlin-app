@@ -1,5 +1,6 @@
 package cn.nekocode.baseframework.ui.activity.helper
 
+import android.app.Fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -62,6 +63,19 @@ abstract class BaseActivity : AppCompatActivity() {
 
     public val _this: BaseActivity by lazy {
         this
+    }
+
+    fun <T: Fragment> initFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T? {
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        var fragment = fragmentManager.findFragmentByTag(tag) as T?
+        if (fragment?.isDetached ?: true) {
+            fragment = fragmentClass.newInstance()
+
+            fragmentTransaction.add(containerId, fragment, tag).commit()
+        }
+
+        return fragment
     }
 
     public fun sendMsg(message: Message) {
