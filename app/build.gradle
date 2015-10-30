@@ -39,29 +39,29 @@ dependencies {
 
     // HTTP client
 //    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
 
     // JSON library
 //    compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
 
     // Image downloader & transformer
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Reactive library
-    compile 'io.reactivex:rxkotlin:0.22.13'
-    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
+    compile 'io.reactivex:rxkotlin:0.24.100'
+    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
     compile 'io.reactivex:rxandroid:1.0.1'
 
     // Kotlin std library
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile 'org.jetbrains.anko:anko-sdk15:0.7.1' // sdk19, sdk21, sdk23 are also available
-    compile 'org.jetbrains.anko:anko-support-v4:0.7.1' // In case you need support.v4 bindings
+    compile 'org.jetbrains.anko:anko-sdk15:0.7.2' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.7.2' // In case you need support.v4 bindings
 }
 
 buildscript {
-    ext.kotlin_version = '0.14.449'
+    ext.kotlin_version = '1.0.0-beta-1038'
     repositories {
         mavenCentral()
     }

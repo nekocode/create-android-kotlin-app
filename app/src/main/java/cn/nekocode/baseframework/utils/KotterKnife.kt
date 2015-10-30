@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import android.view.ViewGroup
 import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 import android.support.v4.app.Fragment as SupportFragment
 
 public fun <T : View> ViewGroup.bindView(id: Int): ReadOnlyProperty<Any, T> = ViewBinding(id)
@@ -68,7 +69,7 @@ private fun findView<T : View>(thisRef: Any, id: Int): T? {
 private class ViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any, T> {
     private val lazy = Lazy<T>()
 
-    override operator fun get(thisRef: Any, property: PropertyMetadata): T = lazy.get {
+    override fun getValue(thisRef: Any, property: KProperty<*>): T = lazy.get {
         findView<T>(thisRef, id)
                 ?: throw IllegalStateException("View ID $id for '${property.name}' not found.")
     }
@@ -77,7 +78,7 @@ private class ViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any, T> {
 private class OptionalViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any, T?> {
     private val lazy = Lazy<T?>()
 
-    override operator fun get(thisRef: Any, property: PropertyMetadata): T? = lazy.get {
+    override fun getValue(thisRef: Any, property: KProperty<*>): T? = lazy.get {
         findView<T>(thisRef, id)
     }
 }
@@ -85,7 +86,7 @@ private class OptionalViewBinding<T : View>(val id: Int) : ReadOnlyProperty<Any,
 private class ViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T>> {
     private var lazy = Lazy<List<T>>()
 
-    override operator fun get(thisRef: Any, property: PropertyMetadata): List<T> = lazy.get {
+    override fun getValue(thisRef: Any, property: KProperty<*>): List<T> = lazy.get {
         ids.map { id ->
             findView<T>(thisRef, id)
                     ?: throw IllegalStateException("View ID $id for '${property.name}' not found.")
@@ -96,7 +97,7 @@ private class ViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<An
 private class OptionalViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T>> {
     private var lazy = Lazy<List<T>>()
 
-    override operator fun get(thisRef: Any, property: PropertyMetadata): List<T> = lazy.get {
+    override fun getValue(thisRef: Any, property: KProperty<*>): List<T> = lazy.get {
         ids.map { id -> findView<T>(thisRef, id) }.filterNotNull()
     }
 }

@@ -39,9 +39,9 @@ public class TestFragment : Fragment() {
 
         textView.text = ""
 
-        REST.api.getWeather("101010100").onUI().subscribe({
-            textView.text = it.weatherInfo.city
-        })
+//        REST.api.getWeather("101010100").onUI().subscribe({       // todo: fix
+//            textView.text = it.weatherInfo.city
+//        })
 
         for(i in 0..10) {
             val weather = Weather()
