@@ -39,7 +39,7 @@ public class REST {
             gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
             val client = OkHttpClient()
-            client.interceptors().add(Interceptor {
+            client.networkInterceptors().add(Interceptor {
                 val response = it.proceed(it.request())
                 // Do anything with response here
                 response
@@ -49,7 +49,8 @@ public class REST {
                     .baseUrl(REST.API_HOST_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .client(client).build()
+                    .client(client)
+                    .build()
 
             api = restAdapter.create(APIs::class.java)
         }

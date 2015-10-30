@@ -1,6 +1,5 @@
 package cn.nekocode.toast.utils
 
-import android.content.Context
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
