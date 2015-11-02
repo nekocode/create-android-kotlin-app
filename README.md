@@ -1,13 +1,7 @@
 # README
 
-### features
+### Kotlin
 - **kotlin version: `1.0.0-beta-1038`**
-- **offer BaseActivity**
-  - safe message functions
-  - _this val
-  - initFragment
-- **offer SingleFragmentActivity helper**
-- **useful utils adapt to kotlin**
 
 
 ### Libraries
