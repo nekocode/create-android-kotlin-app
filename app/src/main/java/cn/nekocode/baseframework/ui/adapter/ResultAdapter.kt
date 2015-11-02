@@ -36,7 +36,7 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
         throw UnsupportedOperationException()
     }
 
-    override fun getItemCount() = list.size()
+    override fun getItemCount() = list.size
 
     override fun getItemViewType(position: Int) = when(position) {
         else -> Type.TYPE_ITEM

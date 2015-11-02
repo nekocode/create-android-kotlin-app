@@ -61,10 +61,6 @@ abstract class BaseActivity : AppCompatActivity() {
         MyHandler(this)
     }
 
-    public val _this: BaseActivity by lazy {
-        this
-    }
-
     fun <T: Fragment> initFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T? {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
