@@ -19,7 +19,7 @@ public class MainActivity : SingleFragmentActivity() {
 
         if(model == null) {
             toolbar.title = "This is a test"
-            val intent = intentFor<MainActivity>(Pair("test", Model(5, 0)))
+            val intent = intentFor<MainActivity>("test" to Model(5, 0))
             startActivity(intent)
         } else {
             toolbar.title = "Intent: " + model.test1 + "," + model.test2
