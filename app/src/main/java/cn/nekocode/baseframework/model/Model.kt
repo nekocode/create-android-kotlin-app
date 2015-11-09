@@ -9,7 +9,7 @@ import android.os.Parcelable
 
 data class Model(var test1: Int, var test2: Int): Parcelable {
 
-    constructor(source: Parcel) : this(source.readInt(), source.readInt())
+    constructor(source: Parcel): this(source.readInt(), source.readInt())
 
     override fun describeContents(): Int {
         return 0
