@@ -19,7 +19,7 @@ public class Storage {
                     .build();
         }
 
-        operator fun set(key: String, obj: Any?){
+        operator fun set(key: String, obj: Any?) {
             if(obj != null) {
                 Hawk.put(key, obj)
             } else {

@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+#Gson
+-keep class com.google.gson.** { *; }
+-keepattributes Signature
