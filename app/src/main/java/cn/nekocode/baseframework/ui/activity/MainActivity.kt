@@ -4,6 +4,7 @@ import android.os.Message
 import cn.nekocode.baseframework.model.Model
 import cn.nekocode.baseframework.ui.activity.helper.SingleFragmentActivity
 import cn.nekocode.baseframework.ui.fragment.TestFragment
+import cn.nekocode.baseframework.utils.showToast
 import org.jetbrains.anko.intentFor
 
 public class MainActivity : SingleFragmentActivity() {
@@ -15,15 +16,7 @@ public class MainActivity : SingleFragmentActivity() {
     }
 
     override fun afterCreate() {
-        val model = intent.getParcelableExtra<Model>("test")
-
-        if(model == null) {
-            toolbar.title = "This is a test"
-            val intent = intentFor<MainActivity>("test" to Model(5, 0))
-            startActivity(intent)
-        } else {
-            toolbar.title = "Intent: " + model.test1 + "," + model.test2
-        }
+        toolbar.title = "This is a test"
     }
 
     override fun handler(msg: Message) {

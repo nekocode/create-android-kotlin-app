@@ -8,9 +8,6 @@ import cn.nekocode.baseframework.R
 import org.jetbrains.anko.*
 
 abstract class SingleFragmentActivity : BaseActivity() {
-
-//    val toolbar: Toolbar by bindView(R.id.toolbar)
-
     val id_toolbar = 1
     val toolbar: Toolbar by bindView(id_toolbar)
 

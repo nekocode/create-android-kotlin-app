@@ -1,6 +1,7 @@
 package cn.nekocode.baseframework
 
 import android.app.Application
+import cn.nekocode.baseframework.utils.Storage
 import cn.nekocode.toast.utils.FileUtils
 
 /**
@@ -13,6 +14,7 @@ public class App : Application() {
         instanceTmp = this
 
         FileUtils.createAppRootDirs()
+        Storage.init(this)
     }
 
     companion object {
