@@ -62,19 +62,6 @@ abstract class BaseActivity : AppCompatActivity() {
         MyHandler(this)
     }
 
-    fun <T: Fragment> initFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T? {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        var fragment = fragmentManager.findFragmentByTag(tag) as T?
-        if (fragment?.isDetached ?: true) {
-            fragment = fragmentClass.newInstance()
-
-            fragmentTransaction.add(containerId, fragment, tag).commit()
-        }
-
-        return fragment
-    }
-
     public fun sendMsg(message: Message) {
         val msg = Message()
         msg.copyFrom(message)

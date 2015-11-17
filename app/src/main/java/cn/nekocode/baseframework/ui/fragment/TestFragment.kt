@@ -19,7 +19,7 @@ import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.Storage
 import cn.nekocode.baseframework.utils.onUI
-import com.orhanobut.hawk.Hawk
+import cn.nekocode.baseframework.utils.showToast
 
 public class TestFragment : Fragment() {
     val textView: TextView by bindView(R.id.textView)
@@ -56,7 +56,7 @@ public class TestFragment : Fragment() {
         val model: Model? = Storage["test"]
 
         adapter.onWeatherItemClickListener = {
-            Toast.makeText(activity, "click", Toast.LENGTH_SHORT).show()
+            showToast("click")
         }
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
