@@ -17,8 +17,8 @@ import org.jetbrains.anko.onLongClick
  * Created by nekocode on 2015/7/22.
  */
 class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object Type {
-        public @JvmStatic val TYPE_ITEM: Int = 0;
+    object Type {
+        const val TYPE_ITEM: Int = 0;
     }
 
     var onWeatherItemClickListener: ((Weather) -> Unit)? = null

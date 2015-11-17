@@ -2,6 +2,7 @@ package cn.nekocode.baseframework.rest
 
 import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
+import cn.nekocode.baseframework.model.Model
 import cn.nekocode.baseframework.model.Weather
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 public class REST {
     companion object {
-        public @JvmStatic val API_HOST_URL: String = "http://www.weather.com.cn/"
+        val API_HOST_URL: String = "http://www.weather.com.cn/"
 
         val okHttpClient: OkHttpClient
         val gson: Gson

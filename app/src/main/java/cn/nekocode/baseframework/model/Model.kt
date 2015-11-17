@@ -21,8 +21,8 @@ data class Model(var test1: Int, var test2: Int): Parcelable {
     }
 
     companion object {
-        @JvmStatic final val CREATOR: Parcelable.Creator<Model> = object : Parcelable.Creator<Model> {
-            override fun createFromParcel(source: Parcel): Model{
+        @JvmField final val CREATOR: Parcelable.Creator<Model> = object : Parcelable.Creator<Model> {
+            override fun createFromParcel(source: Parcel): Model {
                 return Model(source)
             }
 
