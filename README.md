@@ -4,7 +4,7 @@
 
 
 ### Kotlin
-- **kotlin version: `1.0.0-beta-1103`**
+- **kotlin version: `1.0.0-beta-2423`**
 
 
 ### Libraries
