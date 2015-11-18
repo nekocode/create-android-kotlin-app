@@ -1,11 +1,8 @@
 package cn.nekocode.baseframework.ui.activity
 
 import android.os.Message
-import cn.nekocode.baseframework.model.Model
 import cn.nekocode.baseframework.ui.activity.helper.SingleFragmentActivity
 import cn.nekocode.baseframework.ui.fragment.TestFragment
-import cn.nekocode.baseframework.utils.showToast
-import org.jetbrains.anko.intentFor
 
 public class MainActivity : SingleFragmentActivity() {
 
