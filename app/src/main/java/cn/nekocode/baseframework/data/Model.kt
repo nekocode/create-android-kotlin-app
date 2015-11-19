@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.model
+package cn.nekocode.baseframework.data
 
 import android.os.Parcel
 import android.os.Parcelable

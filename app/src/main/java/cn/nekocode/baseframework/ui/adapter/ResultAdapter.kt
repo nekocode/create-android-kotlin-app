@@ -8,7 +8,7 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R;
-import cn.nekocode.baseframework.model.Weather;
+import cn.nekocode.baseframework.data.Weather;
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick

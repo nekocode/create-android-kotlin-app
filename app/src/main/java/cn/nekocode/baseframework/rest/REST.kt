@@ -2,8 +2,8 @@ package cn.nekocode.baseframework.rest
 
 import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
-import cn.nekocode.baseframework.model.Model
-import cn.nekocode.baseframework.model.Weather
+import cn.nekocode.baseframework.data.Model
+import cn.nekocode.baseframework.data.Weather
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.okhttp.Cache

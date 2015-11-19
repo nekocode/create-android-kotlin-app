@@ -13,8 +13,8 @@ import android.widget.Toast
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
-import cn.nekocode.baseframework.model.Model
-import cn.nekocode.baseframework.model.Weather
+import cn.nekocode.baseframework.data.Model
+import cn.nekocode.baseframework.data.Weather
 import cn.nekocode.baseframework.rest.REST
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.Storage
