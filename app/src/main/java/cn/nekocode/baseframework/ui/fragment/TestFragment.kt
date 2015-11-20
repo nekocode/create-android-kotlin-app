@@ -15,21 +15,28 @@ import butterknife.bindView
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.data.Model
 import cn.nekocode.baseframework.data.Weather
-import cn.nekocode.baseframework.rest.REST
+import cn.nekocode.baseframework.data.net.REST
+import cn.nekocode.baseframework.presenter.StorageTestPresenter
+import cn.nekocode.baseframework.presenter.WeatherPresenter
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.Storage
 import cn.nekocode.baseframework.utils.onUI
 import cn.nekocode.baseframework.utils.showToast
 
-public class TestFragment : Fragment() {
+public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
     val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
+    val weatherPresenter = WeatherPresenter(this)
+    val storageTestPresenter = StorageTestPresenter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        weatherPresenter.created()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,28 +46,22 @@ public class TestFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textView.text = ""
-
-        REST.api.getWeather("101010100").onUI().subscribe({
-            textView.text = it.weatherInfo.city
-        })
-
-
         for(i in 0..10) {
             val weather = Weather()
             list.add(weather)
         }
 
-        // Storage test
-        Storage["test"] = Model(5, 1)
-        val model: Model? = Storage["test"]
-
-        adapter.onWeatherItemClickListener = {
-            showToast("click")
-        }
-
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
+
+        adapter.onWeatherItemClickListener = {
+            storageTestPresenter.testStorage()
+            showToast("storage test")
+        }
+    }
+
+    override fun setWeather(weather: Weather) {
+        textView.text = weather.weatherInfo.city
     }
 
     override fun onAttach(activity: Activity) {
@@ -69,5 +70,10 @@ public class TestFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        storageTestPresenter.destory()
     }
 }

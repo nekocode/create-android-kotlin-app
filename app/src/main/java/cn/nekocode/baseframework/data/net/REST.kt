@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.rest
+package cn.nekocode.baseframework.data.net
 
 import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
