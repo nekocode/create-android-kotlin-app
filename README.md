@@ -27,11 +27,11 @@ com.nekocode.baseframework
 └─ Config.kt
 ```
 
-**Data Layer：**非传统意义的 **Model** 层，包含 `bean` 和 `repo`。其中 repo 包含 `net repo` 和 `disk repo` 等仓库，用于从不同途径获取数据。
+- **Data Layer：**非传统意义的 **Model** 层，包含 `bean` 和 `repo`。其中 repo 包含 `net repo` 和 `disk repo` 等仓库，用于从不同途径获取数据。
 
-**View Layer：**视图层，包括各种 `activity`，`adapter`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、输出、更新等）。
+- **View Layer：**视图层，包括各种 `activity`，`adapter`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、输出、更新等）。
 
-**Presenter Layer：**程序逻辑层。将业务逻辑从 Activity、Fragment 中剥离并抽象成 `Presenter `。负责**「View 与 Model 层之间的逻辑交互」**。
+- **Presenter Layer：**程序逻辑层。将业务逻辑从 Activity、Fragment 中剥离并抽象成 `Presenter `。负责**「View 与 Model 层之间的逻辑交互」**。
 
 
 ### Related articles
