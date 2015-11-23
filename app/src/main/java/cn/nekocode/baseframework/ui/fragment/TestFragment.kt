@@ -19,7 +19,7 @@ import cn.nekocode.baseframework.data.net.REST
 import cn.nekocode.baseframework.presenter.StorageTestPresenter
 import cn.nekocode.baseframework.presenter.WeatherPresenter
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
-import cn.nekocode.baseframework.utils.Storage
+import cn.nekocode.baseframework.data.local.Storage
 import cn.nekocode.baseframework.utils.onUI
 import cn.nekocode.baseframework.utils.showToast
 

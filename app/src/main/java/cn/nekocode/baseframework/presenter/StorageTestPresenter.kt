@@ -2,7 +2,7 @@ package cn.nekocode.baseframework.presenter
 
 import cn.nekocode.baseframework.data.Model
 import cn.nekocode.baseframework.presenter.helper.Presenter
-import cn.nekocode.baseframework.utils.Storage
+import cn.nekocode.baseframework.data.local.Storage
 
 /**
  * Created by nekocode on 2015/11/20.
