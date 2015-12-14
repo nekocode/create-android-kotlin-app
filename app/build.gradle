@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc3"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "cn.nekocode.baseframework"
