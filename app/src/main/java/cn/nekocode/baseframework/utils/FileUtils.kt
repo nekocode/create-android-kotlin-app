@@ -3,6 +3,7 @@ package cn.nekocode.toast.utils
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
+import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
 
 import java.io.BufferedInputStream
@@ -31,11 +32,15 @@ public class FileUtils {
             return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator
         }
 
-        public fun getAppCachePath(): String {
-            return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator + "cache" + File.separator
+        public fun getExternalAppDataPath(): String {
+            return Environment.getExternalStorageDirectory().absolutePath + "/Android/data/" + App.instance.packageName + File.separator
         }
 
-        public fun createAppRootDirs() {
+        public fun getExternalAppCachePath(): String {
+            return getExternalAppDataPath() + "cache" + File.separator
+        }
+
+        public fun createAppDirs() {
             if (!isExternalStorageMounted()) {
                 Log.e("createAppRootDirs", "sdcard unavailiable")
             }
@@ -45,7 +50,12 @@ public class FileUtils {
                 dir.mkdirs()
             }
 
-            dir = File(getAppCachePath())
+            dir = File(getExternalAppDataPath())
+            if (!dir.exists()) {
+                dir.mkdirs()
+            }
+
+            dir = File(getExternalAppCachePath())
             if (!dir.exists()) {
                 dir.mkdirs()
             }

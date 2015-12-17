@@ -14,7 +14,7 @@ public class App : Application() {
         super.onCreate()
         instanceTmp = this
 
-        FileUtils.createAppRootDirs()
+        FileUtils.createAppDirs()
         Storage.init(this)
         LeakCanary.install(this)
     }

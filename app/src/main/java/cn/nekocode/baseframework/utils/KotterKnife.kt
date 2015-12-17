@@ -54,7 +54,7 @@ public fun <T : View> Fragment.bindOptionalViews(vararg ids: Int): ReadOnlyPrope
 public fun <T : View> SupportFragment.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
 public fun <T : View> ViewHolder.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
 
-private fun findView<T : View>(thisRef: Any, id: Int): T? {
+private fun <T : View> findView(thisRef: Any, id: Int): T? {
     return when (thisRef) {
         is View -> thisRef.findViewById(id)
         is Activity -> thisRef.findViewById(id)
