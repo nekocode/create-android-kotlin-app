@@ -8,7 +8,7 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R;
-import cn.nekocode.baseframework.data.Weather;
+import cn.nekocode.baseframework.data.Model
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick
@@ -16,13 +16,13 @@ import org.jetbrains.anko.onLongClick
 /**
  * Created by nekocode on 2015/7/22.
  */
-class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ResultAdapter(private val list: List<Model.WeatherInfo>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     object Type {
         const val TYPE_ITEM: Int = 0;
     }
 
-    var onWeatherItemClickListener: ((Weather) -> Unit)? = null
-    var onWeatherItemLongClickListener: ((Weather) -> Boolean)? = null
+    var onWeatherItemClickListener: ((Model.WeatherInfo) -> Unit)? = null
+    var onWeatherItemLongClickListener: ((Model.WeatherInfo) -> Boolean)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
@@ -55,11 +55,11 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
         val imageView: ImageView by bindView(R.id.imageView)
         val textView: TextView by bindView(R.id.textView2)
 
-        fun setData(weather : Weather) {
-            itemView?.onClick { onWeatherItemClickListener?.invoke(weather) }
-            itemView?.onLongClick { onWeatherItemLongClickListener?.invoke(weather) ?: false }
+        fun setData(weatherInfo : Model.WeatherInfo) {
+            itemView?.onClick { onWeatherItemClickListener?.invoke(weatherInfo) }
+            itemView?.onLongClick { onWeatherItemLongClickListener?.invoke(weatherInfo) ?: false }
 
-            textView.text = "hehe"
+            textView.text = weatherInfo.city
 //            Picasso.with(itemView.context).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
         }
     }

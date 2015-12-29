@@ -9,25 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.data.Model
-import cn.nekocode.baseframework.data.Weather
-import cn.nekocode.baseframework.data.net.REST
 import cn.nekocode.baseframework.presenter.StorageTestPresenter
 import cn.nekocode.baseframework.presenter.WeatherPresenter
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
-import cn.nekocode.baseframework.data.local.Storage
-import cn.nekocode.baseframework.utils.onUI
 import cn.nekocode.baseframework.utils.showToast
 
 public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
-    val list: MutableList<Weather> = linkedListOf()
+    val list: MutableList<Model.WeatherInfo> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
     val weatherPresenter = WeatherPresenter(this)
@@ -47,7 +42,7 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         super.onViewCreated(view, savedInstanceState)
 
         for(i in 0..10) {
-            val weather = Weather()
+            val weather = Model.WeatherInfo("城市")
             list.add(weather)
         }
 
@@ -60,8 +55,8 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         }
     }
 
-    override fun setWeather(weather: Weather) {
-        textView.text = weather.weatherInfo.city
+    override fun setWeatherInfo(weatherInfo: Model.WeatherInfo) {
+        textView.text = weatherInfo.city
     }
 
     override fun onAttach(activity: Activity) {

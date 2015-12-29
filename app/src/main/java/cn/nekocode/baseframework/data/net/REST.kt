@@ -3,7 +3,6 @@ package cn.nekocode.baseframework.data.net
 import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
 import cn.nekocode.baseframework.data.Model
-import cn.nekocode.baseframework.data.Weather
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.okhttp.Cache
@@ -58,6 +57,6 @@ public class REST {
 
     interface APIs {
         @GET("adat/sk/{cityId}.html") //101010100
-        fun getWeather(@Path("cityId") cityId: String): Observable<Weather>
+        fun getWeather(@Path("cityId") cityId: String): Observable<Model.Weather>
     }
 }

@@ -11,7 +11,7 @@ class StorageTestPresenter: Presenter {
 
     fun testStorage() {
         // storage testing
-        Storage["test"] = Model(5, 1)
+        Storage["test"] = Model.ParcelableTest(5, true)
         val model: Model? = Storage["test"]
     }
 

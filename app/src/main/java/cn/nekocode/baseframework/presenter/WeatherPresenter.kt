@@ -1,6 +1,6 @@
 package cn.nekocode.baseframework.presenter
 
-import cn.nekocode.baseframework.data.Weather
+import cn.nekocode.baseframework.data.Model
 import cn.nekocode.baseframework.data.net.REST
 import cn.nekocode.baseframework.presenter.helper.Presenter
 import cn.nekocode.baseframework.utils.onUI
@@ -10,13 +10,13 @@ import cn.nekocode.baseframework.utils.onUI
  */
 class WeatherPresenter(val itf: WeatherPresenter.ViewInterface): Presenter {
     interface ViewInterface {
-        fun setWeather(weather: Weather)
+        fun setWeatherInfo(weatherInfo: Model.WeatherInfo)
     }
 
     fun created() {
-        REST.api.getWeather("101010100").onUI().subscribe({
-            itf.setWeather(it)
-        })
+        REST.api.getWeather("101010100").onUI().subscribe {
+            itf.setWeatherInfo(it.weatherInfo)
+        }
     }
 
     override fun resume() {
