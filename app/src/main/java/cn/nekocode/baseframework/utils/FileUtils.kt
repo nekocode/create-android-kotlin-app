@@ -1,4 +1,4 @@
-package cn.nekocode.toast.utils
+package cn.nekocode.baseframework.utils
 
 import android.os.Environment
 import android.text.TextUtils

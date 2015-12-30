@@ -2,7 +2,7 @@ package cn.nekocode.baseframework
 
 import android.app.Application
 import cn.nekocode.baseframework.data.local.Storage
-import cn.nekocode.toast.utils.FileUtils
+import cn.nekocode.baseframework.utils.FileUtils
 
 /**
  * Created by nekocode on 2015/7/22.
