@@ -12,7 +12,7 @@ class StorageTestPresenter: Presenter {
     fun testStorage() {
         // storage testing
         Storage["test"] = Model.ParcelableTest(5, true)
-        val model: Model? = Storage["test"]
+        val model: Model.ParcelableTest? = Storage["test"]
     }
 
     override fun resume() {
