@@ -1,8 +1,8 @@
-package cn.nekocode.baseframework.data.modules
+package cn.nekocode.baseframework.data.module
 
 import cn.nekocode.baseframework.data.dto.Weather
-import cn.nekocode.baseframework.data.services.Local
-import cn.nekocode.baseframework.data.services.Net
+import cn.nekocode.baseframework.data.service.Local
+import cn.nekocode.baseframework.data.service.Net
 import com.google.gson.annotations.SerializedName
 import rx.Notification
 import rx.Observable

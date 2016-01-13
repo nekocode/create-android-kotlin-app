@@ -1,8 +1,8 @@
 package cn.nekocode.baseframework.presenter
 
 import cn.nekocode.baseframework.data.dto.Weather
-import cn.nekocode.baseframework.data.modules.WeatherModule
-import cn.nekocode.baseframework.data.services.Net
+import cn.nekocode.baseframework.data.module.WeatherModule
+import cn.nekocode.baseframework.data.service.Net
 import cn.nekocode.baseframework.presenter.helper.Presenter
 import cn.nekocode.baseframework.utils.onUI
 

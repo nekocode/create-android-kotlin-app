@@ -12,8 +12,11 @@
 ```
 com.nekocode.baseframework
 ├─ data
-│  ├─ net
-│  └─ local
+│  ├─ dto
+│  ├─ module
+│  └─ service
+│      ├─ Local.kt
+│      └─ Net.kt
 │ 
 ├─ presenter
 │ 
@@ -30,20 +33,20 @@ com.nekocode.baseframework
 ```
 
 ### Layer
-- **Data Layer：**非传统意义的 **Model** 层，包含 `bean` 和 `repo`。其中 repo 包含 `net repo` 和 `local repo` 等仓库，用于从不同途径获取数据。
+- **Data Layer：**非传统意义的 **Model** 层，包含 `dto`（Data Transfer Object）、`service` 和 `module`。其中 service 包含 `Net` 和 `Local` 等不同服务，用于从不同途径获取数据。module 负责处理业务逻辑，并通过 **dto 或基本类型** 与 Presenter 层进行交互。
 - **View Layer：**视图层，包括各种 `activity`，`adapter`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、界面输出、更新等）。
-- **Presenter Layer：**程序逻辑层。将逻辑从 Activity、Fragment 中剥离并抽象成 `Presenter `。负责**「View 与 Model 层之间的控制与交互」**。
+- **Presenter Layer：**控制逻辑层。是**「Model 与 View 层中间的交互控制层」**。
 
 
 
 ### Kotlin
-- **kotlin version: `1.0.0-beta-3595`**
+- **kotlin version: `1.0.0-beta-4584`**
 
 
 ### Libraries
 - anko: **`0.7.2`**
 - rxkotlin: **`0.30.1`**
-- retrofit: **`2.0.0-beta1`**
+- retrofit: **`2.0.0-beta3`**
 - picasso: **`2.5.2`**
 - hawk: **`1.20`**
 

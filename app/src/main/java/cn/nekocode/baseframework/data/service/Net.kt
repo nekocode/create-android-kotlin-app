@@ -1,8 +1,8 @@
-package cn.nekocode.baseframework.data.services
+package cn.nekocode.baseframework.data.service
 
 import cn.nekocode.baseframework.App
 import cn.nekocode.baseframework.Config
-import cn.nekocode.baseframework.data.modules.WeatherModule
+import cn.nekocode.baseframework.data.module.WeatherModule
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Cache

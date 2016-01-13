@@ -1,7 +1,7 @@
 package cn.nekocode.baseframework
 
 import android.app.Application
-import cn.nekocode.baseframework.data.services.Local
+import cn.nekocode.baseframework.data.service.Local
 import cn.nekocode.baseframework.utils.FileUtils
 
 /**

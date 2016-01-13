@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.data.services
+package cn.nekocode.baseframework.data.service
 
 import android.content.Context
 import com.orhanobut.hawk.Hawk
