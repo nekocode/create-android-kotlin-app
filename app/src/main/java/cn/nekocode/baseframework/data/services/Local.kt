@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.data.local
+package cn.nekocode.baseframework.data.services
 
 import android.content.Context
 import com.orhanobut.hawk.Hawk
@@ -9,7 +9,7 @@ import com.orhanobut.hawk.LogLevel
  * Created by nekocode on 2015/11/13.
  * Simple file-object storage
  */
-public class Storage {
+public class Local {
     companion object {
         fun init(context: Context) {
             Hawk.init(context)

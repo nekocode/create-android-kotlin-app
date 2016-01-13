@@ -12,8 +12,7 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
-import cn.nekocode.baseframework.data.Model
-import cn.nekocode.baseframework.presenter.StorageTestPresenter
+import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.presenter.WeatherPresenter
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.showToast
@@ -22,11 +21,10 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
-    val list: MutableList<Model.WeatherInfo> = linkedListOf()
+    val list: MutableList<Weather> = linkedListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
     val weatherPresenter = WeatherPresenter(this)
-    val storageTestPresenter = StorageTestPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +40,7 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         super.onViewCreated(view, savedInstanceState)
 
         for(i in 0..10) {
-            val weather = Model.WeatherInfo("城市")
+            val weather = Weather("城市")
             list.add(weather)
         }
 
@@ -50,13 +48,12 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         recyclerView.adapter = adapter
 
         adapter.onWeatherItemClickListener = {
-            storageTestPresenter.testStorage()
-            showToast("storage test")
+            showToast("Clicked Item.")
         }
     }
 
-    override fun setWeatherInfo(weatherInfo: Model.WeatherInfo) {
-        textView.text = weatherInfo.city
+    override fun setWeatherInfo(weather: Weather) {
+        textView.text = weather.city
     }
 
     override fun onAttach(activity: Activity) {
@@ -69,6 +66,6 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
 
     override fun onDestroy() {
         super.onDestroy()
-        storageTestPresenter.destory()
+        weatherPresenter.destory()
     }
 }

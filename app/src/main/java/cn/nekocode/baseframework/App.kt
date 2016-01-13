@@ -1,7 +1,7 @@
 package cn.nekocode.baseframework
 
 import android.app.Application
-import cn.nekocode.baseframework.data.local.Storage
+import cn.nekocode.baseframework.data.services.Local
 import cn.nekocode.baseframework.utils.FileUtils
 
 /**
@@ -14,7 +14,7 @@ public class App : Application() {
         instanceTmp = this
 
         FileUtils.createAppDirs()
-        Storage.init(this)
+        Local.init(this)
 //        LeakCanary.install(this)
     }
 

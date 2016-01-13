@@ -31,7 +31,7 @@ android {
 }
 
 def appcompatVersion = "23.1.1"
-def retrofitVersion = "2.0.0-beta1"
+def retrofitVersion = "2.0.0-beta3"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -40,11 +40,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:$appcompatVersion"
     compile "com.android.support:recyclerview-v7:$appcompatVersion"
 
-    // HTTP client
-    compile "com.squareup.retrofit:retrofit:$retrofitVersion"
-
-    // JSON library
-    compile "com.squareup.retrofit:converter-gson:$retrofitVersion"
+    // Retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
     compile 'com.github.orhanobut:hawk:1.20'
@@ -53,13 +52,13 @@ dependencies {
     compile "com.squareup.picasso:picasso:2.5.2"
 
     // Reactive library
-    compile "com.squareup.retrofit:adapter-rxjava:$retrofitVersion"
     compile "io.reactivex:rxkotlin:0.30.1"
     compile "io.reactivex:rxandroid:1.1.0"
 
     // Kotlin std library
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    // DSL
     compile "org.jetbrains.anko:anko-sdk15:0.7.2" // sdk19, sdk21, sdk23 are also available
     compile "org.jetbrains.anko:anko-support-v4:0.7.2" // In case you need support.v4 bindings
 
@@ -68,7 +67,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-3595'
+    ext.kotlin_version = '1.0.0-beta-4584'
     repositories {
         mavenCentral()
     }
@@ -76,7 +75,4 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
-}
-repositories {
-    mavenCentral()
 }
