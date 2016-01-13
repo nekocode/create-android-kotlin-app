@@ -4,6 +4,7 @@ import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.data.services.Local
 import cn.nekocode.baseframework.data.services.Net
 import com.google.gson.annotations.SerializedName
+import rx.Notification
 import rx.Observable
 import rx.schedulers.Schedulers
 
@@ -13,10 +14,19 @@ import rx.schedulers.Schedulers
 object WeatherModule {
     data class WeatherWrapper(@SerializedName("weatherinfo") val weather: Weather)
 
-    fun getWeather(cityId: String): Observable<Weather> {
-        // Business Logic
-        // TODO: Cache to local
-
-        return Net.api.getWeather(cityId).subscribeOn(Schedulers.io()).map { it.weather }
-    }
+    // Bussines Logic
+    fun getWeather(cityId: String): Observable<Weather> =
+            Net.api.getWeather(cityId).subscribeOn(Schedulers.io())
+            .map { it.weather }
+            .doOnEach {
+                if(it.kind == Notification.Kind.OnNext) {
+                    // Cache weather to local cache
+                    Local["weather"] = it.value
+                }
+            }
+            .onErrorResumeNext {
+                // Fetech weather from local cache
+                val weather: Weather? = Local["weather"]
+                Observable.just(weather)
+            }
 }
