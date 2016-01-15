@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.data.module
+package cn.nekocode.baseframework.data.model
 
 import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.data.service.Local
@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by nekocode on 2016/1/13.
  */
-object WeatherModule {
+object WeatherModel {
     data class WeatherWrapper(@SerializedName("weatherinfo") val weather: Weather)
 
     // Bussines Logic

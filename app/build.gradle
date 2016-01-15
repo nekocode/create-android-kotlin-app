@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "cn.nekocode.baseframework"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -31,7 +31,6 @@ android {
 }
 
 def appcompatVersion = "23.1.1"
-def retrofitVersion = "2.0.0-beta3"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -40,15 +39,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$appcompatVersion"
     compile "com.android.support:recyclerview-v7:$appcompatVersion"
 
-    // Retrofit
-    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
-
-    // Storage library
-    compile 'com.github.orhanobut:hawk:1.20'
-
-    // Image downloader & transformer
+    // Art
     compile "com.squareup.picasso:picasso:2.5.2"
 
     // Reactive library
@@ -64,6 +55,9 @@ dependencies {
 
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
 //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+
+    // Other Projects
+    compile project(":data")
 }
 
 buildscript {
