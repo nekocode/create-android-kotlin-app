@@ -2,7 +2,7 @@ package cn.nekocode.baseframework.presenter
 
 import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.data.model.WeatherModel
-import cn.nekocode.baseframework.presenter.helper.Presenter
+import cn.nekocode.baseframework.presenter.component.Presenter
 import cn.nekocode.baseframework.utils.onUI
 
 /**

@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.ui.activity.helper
+package cn.nekocode.baseframework.ui.activity.component
 
 import android.app.Fragment
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.presenter.helper
+package cn.nekocode.baseframework.presenter.component
 
 /**
  * Created by nekocode on 2015/11/20.
