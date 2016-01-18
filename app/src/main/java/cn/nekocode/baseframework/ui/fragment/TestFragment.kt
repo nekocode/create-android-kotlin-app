@@ -62,10 +62,10 @@ public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
 
     override fun onDetach() {
         super.onDetach()
+        weatherPresenter.detach()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        weatherPresenter.destory()
     }
 }
