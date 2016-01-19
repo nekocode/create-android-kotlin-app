@@ -73,7 +73,7 @@ public class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubje
     override fun call(observable: Observable<T>): Observable<T> {
         return observable.takeUntil(
                 eventBehavior.skipWhile {
-                    it != Presenter.Event.DESTROY || it != Presenter.Event.DETACH
+                    it != Presenter.Event.DESTROY && it != Presenter.Event.DETACH
                 }
         )
     }
