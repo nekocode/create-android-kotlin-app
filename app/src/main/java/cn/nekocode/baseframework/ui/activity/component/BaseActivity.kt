@@ -46,8 +46,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 } else {
 
                     if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                        val runnable = msg.obj as ()->Unit
-                        runnable.invoke()
+                        val runnable = (msg.obj as WeakReference<()->Unit>).get()
+                        runnable?.invoke()
                         return
                     }
 
@@ -78,7 +78,7 @@ abstract class BaseActivity : AppCompatActivity() {
         msg.what = -101
         msg.arg1 = -102
         msg.arg2 = -103
-        msg.obj = runnable
+        msg.obj = WeakReference<()->Unit>(runnable)
         handler.sendMessageDelayed(msg, delayMillis.toLong())
     }
 
