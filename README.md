@@ -4,6 +4,19 @@
 - [**『Android 还可以这样开发』 - 知乎专栏**](http://zhuanlan.zhihu.com/kotandroid)  
 ![](art/logo.png)
 
+### Why kotlin
+- [**#前言#**](http://zhuanlan.zhihu.com/kotandroid/20313799)
+- [**#kotlin# 你好怪兽**](http://zhuanlan.zhihu.com/kotandroid/20314409)
+- [**#kotlin# Activity 之朝花夕拾**](http://zhuanlan.zhihu.com/kotandroid/20349241)
+
+### Why MVP
+- [**#android# MVP 的尝试**](http://zhuanlan.zhihu.com/kotandroid/20358928)
+
+### Why Rx
+- [**#android# Everything is a stream**](http://zhuanlan.zhihu.com/kotandroid/20498267)
+- [**#kotlin# 小心 Rx 的生命周期**](http://zhuanlan.zhihu.com/kotandroid/20514727)
+
+
 ## Description
 这是一个采用 **MVP** 模式进行设计的 Android DEMO Application。它使用 **kotlin** 和 java 混合构建。
 ![](art/layer.png)
