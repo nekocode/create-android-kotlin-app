@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
  * Created by nekocode on 2015/8/13 0013.
  */
 
-public class Net {
+class Net {
     companion object {
         // Host
         val API_HOST_URL: String = "http://www.weather.com.cn/"

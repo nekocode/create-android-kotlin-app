@@ -9,7 +9,7 @@ import com.orhanobut.hawk.LogLevel
  * Created by nekocode on 2015/11/13.
  * Simple file-object storage
  */
-public class Local {
+class Local {
     companion object {
         fun init(context: Context) {
             Hawk.init(context)

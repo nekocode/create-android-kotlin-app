@@ -16,11 +16,11 @@ import java.io.IOException
 /**
  * Created by nekocode on 2015/4/23 0023.
  */
-public class FileUtils {
+class FileUtils {
     companion object {
         private val APP_ROOT = Config.APP_NAME
 
-        public fun isExternalStorageMounted(): Boolean {
+        fun isExternalStorageMounted(): Boolean {
             val canRead = Environment.getExternalStorageDirectory().canRead()
             val onlyRead = Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED_READ_ONLY
             val unMounted = Environment.getExternalStorageState() == Environment.MEDIA_UNMOUNTED
@@ -28,19 +28,19 @@ public class FileUtils {
             return canRead && !onlyRead && !unMounted
         }
 
-        public fun getAppRootPath(): String {
+        fun getAppRootPath(): String {
             return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator
         }
 
-        public fun getExternalAppDataPath(): String {
+        fun getExternalAppDataPath(): String {
             return Environment.getExternalStorageDirectory().absolutePath + "/Android/data/" + App.instance.packageName + File.separator
         }
 
-        public fun getExternalAppCachePath(): String {
+        fun getExternalAppCachePath(): String {
             return getExternalAppDataPath() + "cache" + File.separator
         }
 
-        public fun createAppDirs() {
+        fun createAppDirs() {
             if (!isExternalStorageMounted()) {
                 Log.e("createAppRootDirs", "sdcard unavailiable")
             }
@@ -61,7 +61,7 @@ public class FileUtils {
             }
         }
 
-        public fun saveToAppDir(pathOfFileToSave: String): Boolean {
+        fun saveToAppDir(pathOfFileToSave: String): Boolean {
             if (!isExternalStorageMounted()) {
                 return false
             }
@@ -80,7 +80,7 @@ public class FileUtils {
 
         }
 
-        public fun createNewFileInSDCard(absolutePath: String): File? {
+        fun createNewFileInSDCard(absolutePath: String): File? {
             if (!isExternalStorageMounted()) return null
             if (TextUtils.isEmpty(absolutePath)) return null
 
@@ -98,7 +98,7 @@ public class FileUtils {
                         return file
                     }
                 } catch (e: IOException) {
-                    Log.e("createNewFileInSDCard", e.getMessage())
+                    Log.e("createNewFileInSDCard", e.message)
                     return null
                 }
             }
@@ -106,7 +106,7 @@ public class FileUtils {
 
         }
 
-        public fun rmDirectory(path: File): Boolean {
+        fun rmDirectory(path: File): Boolean {
             if (path.exists()) {
                 val files = path.listFiles() ?: return true
                 for (i in files.indices) {

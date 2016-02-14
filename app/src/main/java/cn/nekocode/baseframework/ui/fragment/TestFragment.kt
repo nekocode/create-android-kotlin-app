@@ -17,11 +17,11 @@ import cn.nekocode.baseframework.presenter.WeatherPresenter
 import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.showToast
 
-public class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
+class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
-    val list: MutableList<Weather> = linkedListOf()
+    val list: MutableList<Weather> = arrayListOf()
     val adapter: ResultAdapter = ResultAdapter(list)
 
     val weatherPresenter = WeatherPresenter(this)

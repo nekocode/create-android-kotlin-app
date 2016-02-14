@@ -8,7 +8,7 @@ import rx.subjects.BehaviorSubject
  * inspired by: https://github.com/trello/RxLifecycle
  */
 open class Presenter {
-    public enum class Event {
+    enum class Event {
         // Activity Events
         CREATE,
         START,
@@ -24,7 +24,7 @@ open class Presenter {
         DETACH
     }
 
-    public val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
+    val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
     final fun create() {
         eventBehavior.onNext(Event.CREATE)
@@ -67,7 +67,7 @@ open class Presenter {
     }
 }
 
-public class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Presenter.Event>):
+class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Presenter.Event>):
         Observable.Transformer<T, T> {
 
     override fun call(observable: Observable<T>): Observable<T> {
@@ -79,7 +79,7 @@ public class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubje
     }
 }
 
-public fun <T> rx.Observable<T>.on(presenter: Presenter):
+fun <T> rx.Observable<T>.on(presenter: Presenter):
         Observable<T> {
 
     return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())

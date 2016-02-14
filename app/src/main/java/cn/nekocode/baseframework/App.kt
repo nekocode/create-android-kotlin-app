@@ -7,7 +7,7 @@ import cn.nekocode.baseframework.utils.FileUtils
 /**
  * Created by nekocode on 2015/7/22.
  */
-public class App : Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -22,7 +22,7 @@ public class App : Application() {
     companion object {
         private var instanceTmp: App? = null
 
-        public val instance: App by lazy {
+        val instance: App by lazy {
             instanceTmp!!
         }
     }

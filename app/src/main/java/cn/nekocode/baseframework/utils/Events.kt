@@ -13,7 +13,7 @@ import rx.subjects.PublishSubject
  */
 class Events {
     companion object {
-        public fun text(editText: EditText): Observable<String> {
+        fun text(editText: EditText): Observable<String> {
             val behaviourSubject: BehaviorSubject<String> = BehaviorSubject.create(editText.text.toString());
             editText.addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -29,7 +29,7 @@ class Events {
             return behaviourSubject
         }
 
-        public fun click(view: View): Observable<Any> {
+        fun click(view: View): Observable<Any> {
             val subject: PublishSubject<Any> = PublishSubject.create()
             view.setOnClickListener({subject.onNext(Any())})
             return subject

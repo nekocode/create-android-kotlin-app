@@ -61,19 +61,19 @@ abstract class BaseActivity : AppCompatActivity() {
         MyHandler(this)
     }
 
-    public fun sendMsg(message: Message) {
+    fun sendMsg(message: Message) {
         val msg = Message()
         msg.copyFrom(message)
         handler.sendMessage(msg)
     }
 
-    public fun sendMsgDelayed(message: Message, delayMillis: Int) {
+    fun sendMsgDelayed(message: Message, delayMillis: Int) {
         val msg = Message()
         msg.copyFrom(message)
         handler.sendMessageDelayed(msg, delayMillis.toLong())
     }
 
-    public fun runDelayed(runnable: ()->Unit, delayMillis: Int) {
+    fun runDelayed(runnable: ()->Unit, delayMillis: Int) {
         val msg = Message()
         msg.what = -101
         msg.arg1 = -102
@@ -111,5 +111,5 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    public abstract fun handler(msg: Message)
+    abstract fun handler(msg: Message)
 }

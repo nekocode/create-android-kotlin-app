@@ -4,7 +4,7 @@ import android.os.Message
 import cn.nekocode.baseframework.ui.activity.component.SingleFragmentActivity
 import cn.nekocode.baseframework.ui.fragment.TestFragment
 
-public class MainActivity : SingleFragmentActivity() {
+class MainActivity : SingleFragmentActivity() {
 
     override val fragmentClass = TestFragment::class.java
 
