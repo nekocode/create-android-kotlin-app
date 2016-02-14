@@ -53,12 +53,12 @@ com.nekocode.baseframework
 
 
 ### Kotlin
-- **kotlin version: `1.0.0-beta-4584`**
+- **kotlin version: `1.0.0-rc-1036`**
 
 
 ### Libraries
-- anko: **`0.7.2`**
-- rxkotlin: **`0.30.1`**
+- anko: **`0.8.2`**
+- rxkotlin: **`0.40.1`**
 - retrofit: **`2.0.0-beta3`**
 - picasso: **`2.5.2`**
 - hawk: **`1.20`**
