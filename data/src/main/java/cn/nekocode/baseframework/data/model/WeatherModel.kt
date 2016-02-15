@@ -1,9 +1,9 @@
 package cn.nekocode.baseframework.data.model
 
 import cn.nekocode.baseframework.data.dto.Weather
-import cn.nekocode.baseframework.data.service.Local
 import cn.nekocode.baseframework.data.service.Net
 import com.google.gson.annotations.SerializedName
+import com.orhanobut.hawk.Hawk
 import rx.Notification
 import rx.Observable
 import rx.schedulers.Schedulers
@@ -21,12 +21,12 @@ object WeatherModel {
             .doOnEach {
                 if(it.kind == Notification.Kind.OnNext) {
                     // Cache weather to local cache
-                    Local["weather"] = it.value
+                    Hawk.put("weather", it.value)
                 }
             }
             .onErrorResumeNext {
                 // Fetech weather from local cache
-                val weather: Weather? = Local["weather"]
+                val weather: Weather? = Hawk.get("weather")
                 Observable.just(weather)
             }
 }

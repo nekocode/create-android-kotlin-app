@@ -14,9 +14,8 @@ class App : Application() {
         instanceTmp = this
 
         FileUtils.createAppDirs()
-//        LeakCanary.install(this)
-
         DataLayer.hook(this)
+//        LeakCanary.install(this)
     }
 
     companion object {

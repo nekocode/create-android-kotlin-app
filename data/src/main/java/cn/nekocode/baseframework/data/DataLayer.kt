@@ -1,7 +1,9 @@
 package cn.nekocode.baseframework.data
 
 import android.app.Application
-import cn.nekocode.baseframework.data.service.Local
+import com.orhanobut.hawk.Hawk
+import com.orhanobut.hawk.HawkBuilder
+import com.orhanobut.hawk.LogLevel
 
 /**
  * Created by nekocode on 2016/1/15.
@@ -15,7 +17,12 @@ class DataLayer {
 
         fun hook(app: Application) {
             appTmp = app
-            Local.init(app)
+
+            Hawk.init(app)
+                    .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+                    .setStorage(HawkBuilder.newSqliteStorage(app))
+                    .setLogLevel(LogLevel.FULL)
+                    .build();
         }
     }
 }
