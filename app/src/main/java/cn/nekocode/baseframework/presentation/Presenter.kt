@@ -1,5 +1,6 @@
 package cn.nekocode.baseframework.presentation
 
+import android.os.Bundle
 import rx.Observable
 import rx.subjects.BehaviorSubject
 
@@ -26,7 +27,7 @@ open class Presenter {
 
     val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
-    open fun onCreate() {
+    open fun onCreate(bundle: Bundle?) {
         eventBehavior.onNext(Event.CREATE)
     }
 

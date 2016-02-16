@@ -27,7 +27,7 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        weatherPresenter.onCreate()
+        weatherPresenter.onCreate(arguments)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

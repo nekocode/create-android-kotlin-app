@@ -8,7 +8,7 @@ class MainActivity : SingleFragmentActivity() {
     override val fragmentClass = TestFragment::class.java
 
     override val fragmentBundle by lazy {
-        null
+        intent.extras
     }
 
     override fun afterCreate() {
