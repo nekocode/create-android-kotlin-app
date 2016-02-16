@@ -1,8 +1,8 @@
 package cn.nekocode.baseframework.presentation.main
 
-import android.app.Activity
 import android.os.Bundle
 import android.app.Fragment
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -54,8 +54,9 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         textView.text = weather.city
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        weatherPresenter.onAttach()
     }
 
     override fun onDetach() {
