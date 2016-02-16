@@ -12,7 +12,8 @@ class WeatherPresenter(val view: WeatherPresenter.ViewInterface): Presenter() {
         fun setWeatherInfo(weather: Weather)
     }
 
-    fun created() {
+    override fun onCreate() {
+        super.onCreate()
         WeatherModel.getWeather("101010100").on(this).subscribe {
             view.setWeatherInfo(it)
         }
