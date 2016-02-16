@@ -7,7 +7,7 @@ import cn.nekocode.baseframework.presentation.Presenter
 /**
  * Created by nekocode on 2015/11/20.
  */
-class WeatherPresenter(val view: ViewInterface): Presenter() {
+class WeatherPresenter(val view: WeatherPresenter.ViewInterface): Presenter() {
     interface ViewInterface {
         fun setWeatherInfo(weather: Weather)
     }
