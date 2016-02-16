@@ -19,7 +19,7 @@ android {
     }
 }
 
-def retrofitVersion = "2.0.0-beta3"
+def retrofitVersion = "2.0.0-beta4"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -37,7 +37,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.0-rc-1036'
+    ext.kotlin_version = '1.0.0'
     repositories {
         mavenCentral()
     }
