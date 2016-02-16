@@ -1,8 +1,7 @@
-package cn.nekocode.baseframework.ui.activity
+package cn.nekocode.baseframework.presentation.main
 
 import android.os.Message
-import cn.nekocode.baseframework.ui.activity.component.SingleFragmentActivity
-import cn.nekocode.baseframework.ui.fragment.TestFragment
+import cn.nekocode.baseframework.presentation.SingleFragmentActivity
 
 class MainActivity : SingleFragmentActivity() {
 

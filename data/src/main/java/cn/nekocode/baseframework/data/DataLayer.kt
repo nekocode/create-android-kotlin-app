@@ -8,21 +8,21 @@ import com.orhanobut.hawk.LogLevel
 /**
  * Created by nekocode on 2016/1/15.
  */
-class DataLayer {
+class DataLayer(val app: Application) {
     companion object {
-        var appTmp: Application? = null
-        val app: Application by lazy {
-            appTmp!!
+        var instanceTmp: DataLayer? = null
+        val instance: DataLayer by lazy {
+            instanceTmp!!
         }
+    }
 
-        fun hook(app: Application) {
-            appTmp = app
+    init {
+        DataLayer.instanceTmp = this
 
-            Hawk.init(app)
-                    .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
-                    .setStorage(HawkBuilder.newSqliteStorage(app))
-                    .setLogLevel(LogLevel.FULL)
-                    .build();
-        }
+        Hawk.init(app)
+                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+                .setStorage(HawkBuilder.newSqliteStorage(app))
+                .setLogLevel(LogLevel.FULL)
+                .build();
     }
 }

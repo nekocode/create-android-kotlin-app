@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.ui.adapter;
+package cn.nekocode.baseframework.presentation.main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

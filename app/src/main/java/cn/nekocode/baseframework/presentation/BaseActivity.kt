@@ -1,5 +1,6 @@
-package cn.nekocode.baseframework.ui.activity.component
+package cn.nekocode.baseframework.presentation
 
+import android.R
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -41,12 +42,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
             override fun handleMessage(msg: Message) {
                 if(mOuter.get() == null) {
-                    BaseActivity.deleteHandler(this)
+                    deleteHandler(this)
                     return
                 } else {
 
                     if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                        val runnable = (msg.obj as WeakReference<()->Unit>).get()
+                        val runnable = (msg.obj as WeakReference<() -> Unit>).get()
                         runnable?.invoke()
                         return
                     }
@@ -78,7 +79,7 @@ abstract class BaseActivity : AppCompatActivity() {
         msg.what = -101
         msg.arg1 = -102
         msg.arg2 = -103
-        msg.obj = WeakReference<()->Unit>(runnable)
+        msg.obj = WeakReference<() -> Unit>(runnable)
         handler.sendMessageDelayed(msg, delayMillis.toLong())
     }
 
@@ -89,7 +90,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> this.finish()
+            R.id.home -> this.finish()
         }
         return super.onOptionsItemSelected(item)
     }

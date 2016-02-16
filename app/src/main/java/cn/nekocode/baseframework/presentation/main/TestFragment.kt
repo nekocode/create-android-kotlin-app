@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.ui.fragment
+package cn.nekocode.baseframework.presentation.main
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,8 +13,6 @@ import butterknife.bindView
 
 import cn.nekocode.baseframework.R
 import cn.nekocode.baseframework.data.dto.Weather
-import cn.nekocode.baseframework.presenter.WeatherPresenter
-import cn.nekocode.baseframework.ui.adapter.ResultAdapter
 import cn.nekocode.baseframework.utils.showToast
 
 class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
@@ -62,7 +60,7 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
 
     override fun onDetach() {
         super.onDetach()
-        weatherPresenter.detach()
+        weatherPresenter.onDetach()
     }
 
     override fun onDestroy() {

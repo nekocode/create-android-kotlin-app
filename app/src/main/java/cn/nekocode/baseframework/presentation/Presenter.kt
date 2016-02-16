@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.presenter.component
+package cn.nekocode.baseframework.presentation
 
 import rx.Observable
 import rx.subjects.BehaviorSubject
@@ -26,63 +26,62 @@ open class Presenter {
 
     val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
-    final fun create() {
+    open fun onCreate() {
         eventBehavior.onNext(Event.CREATE)
     }
 
-    final fun start() {
+    open fun onStart() {
         eventBehavior.onNext(Event.START)
     }
 
-    final fun resume() {
+    open fun onResume() {
         eventBehavior.onNext(Event.RESUME)
     }
 
-    final fun pause() {
+    open fun onPause() {
         eventBehavior.onNext(Event.PAUSE)
     }
 
-    final fun stop() {
+    open fun onStop() {
         eventBehavior.onNext(Event.STOP)
     }
 
-    final fun destory() {
+    open fun onDestory() {
         eventBehavior.onNext(Event.DESTROY)
     }
 
-    final fun attach() {
+    open fun onAttach() {
         eventBehavior.onNext(Event.ATTACH)
     }
 
-    final fun createView() {
+    open fun onCreateView() {
         eventBehavior.onNext(Event.CREATE_VIEW)
     }
 
-    final fun destoryView() {
+    open fun onDestoryView() {
         eventBehavior.onNext(Event.DESTROY_VIEW)
     }
 
-    final fun detach() {
+    open fun onDetach() {
         eventBehavior.onNext(Event.DETACH)
     }
-}
 
-class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Presenter.Event>):
-        Observable.Transformer<T, T> {
+    class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Presenter.Event>):
+            Observable.Transformer<T, T> {
 
-    override fun call(observable: Observable<T>): Observable<T> {
-        return observable.takeUntil(
-                eventBehavior.skipWhile {
-                    it != Presenter.Event.DESTROY && it != Presenter.Event.DETACH
-                }
-        )
+        override fun call(observable: Observable<T>): Observable<T> {
+            return observable.takeUntil(
+                    eventBehavior.skipWhile {
+                        it != Presenter.Event.DESTROY && it != Presenter.Event.DETACH
+                    }
+            )
+        }
+    }
+
+    fun <T> rx.Observable<T>.on(presenter: Presenter):
+            Observable<T> {
+
+        return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .compose(NormalCheckLifeCycleTransformer<T>(presenter.eventBehavior))
     }
 }
-
-fun <T> rx.Observable<T>.on(presenter: Presenter):
-        Observable<T> {
-
-    return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-            .compose(NormalCheckLifeCycleTransformer<T>(presenter.eventBehavior))
-}
-

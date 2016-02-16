@@ -1,14 +1,13 @@
-package cn.nekocode.baseframework.presenter
+package cn.nekocode.baseframework.presentation.main
 
 import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.data.model.WeatherModel
-import cn.nekocode.baseframework.presenter.component.Presenter
-import cn.nekocode.baseframework.presenter.component.on
+import cn.nekocode.baseframework.presentation.Presenter
 
 /**
  * Created by nekocode on 2015/11/20.
  */
-class WeatherPresenter(val view: WeatherPresenter.ViewInterface): Presenter() {
+class WeatherPresenter(val view: ViewInterface): Presenter() {
     interface ViewInterface {
         fun setWeatherInfo(weather: Weather)
     }
