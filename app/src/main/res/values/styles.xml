@@ -10,9 +10,9 @@
         <item name="android:windowNoTitle">true</item>
 
         <!-- Actionbar color -->
-        <item name="colorPrimary">@color/theme_primary</item>
+        <item name="colorPrimary">@color/color_primary</item>
         <!--Status bar color-->
-        <item name="colorPrimaryDark">@color/theme_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary</item>
         <!--Window color-->
         <item name="android:windowBackground">@color/white</item>
         <!--<item name="selectableItemBackground">@drawable/selector_normal_item_white</item>-->

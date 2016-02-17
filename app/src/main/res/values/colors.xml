@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme_primary">#ff588dba</color>
-    <color name="theme_primary_dark">#3C5896</color>
-    <color name="theme_primary_light">#88588dba</color>
+    <color name="color_primary">#ff588dba</color>
+    <color name="color_primary_dark">#3C5896</color>
+    <color name="color_primary_light">#88588dba</color>
 
     <color name="gray1">#f1f2f1</color>
     <color name="gray2">#F2F2F2</color>

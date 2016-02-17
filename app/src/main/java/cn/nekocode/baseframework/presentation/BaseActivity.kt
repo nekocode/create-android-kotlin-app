@@ -112,5 +112,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    abstract fun handler(msg: Message)
+    open fun handler(msg: Message) {
+
+    }
 }
