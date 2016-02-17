@@ -1,4 +1,4 @@
-# README/[中文文档](/README.cn)
+# README/[中文文档](/README_CN.md)
 
 ## Related articles
 - [**Zhihu Column**](http://zhuanlan.zhihu.com/kotandroid)  
