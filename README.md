@@ -1,5 +1,7 @@
 # README/[中文文档](/README_CN.md)
 
+[![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Related articles
 - [**Zhihu Column**](http://zhuanlan.zhihu.com/kotandroid)  
 ![](art/logo.png)
