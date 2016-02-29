@@ -36,7 +36,7 @@ class Net {
         val api: APIs
 
         init {
-            val cacheDir = File(DataLayer.instance.app.cacheDir, RESPONSE_CACHE_FILE)
+            val cacheDir = File(DataLayer.app.cacheDir, RESPONSE_CACHE_FILE)
             okHttpClient = OkHttpClient.Builder()
                     .cache(Cache(cacheDir, RESPONSE_CACHE_SIZE.toLong()))
                     .connectTimeout(HTTP_CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)

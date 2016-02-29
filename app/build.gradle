@@ -30,8 +30,6 @@ android {
     }
 }
 
-def appcompatVersion = "23.1.1"
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -47,7 +45,7 @@ dependencies {
     compile "io.reactivex:rxandroid:1.1.0"
 
     // Kotlin std library
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // DSL
     compile "org.jetbrains.anko:anko-sdk15:0.8.2" // sdk19, sdk21, sdk23 are also available
@@ -61,12 +59,11 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.0'
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
     }
 }

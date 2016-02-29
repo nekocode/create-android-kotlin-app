@@ -3,8 +3,6 @@ package cn.nekocode.baseframework.utils
 import android.app.Fragment
 import android.app.FragmentManager
 import android.app.FragmentTransaction
-import android.content.Context
-import android.view.View
 import android.widget.Toast
 import cn.nekocode.baseframework.App
 import rx.Observable
@@ -27,10 +25,6 @@ fun showToast(any: Any?) {
             return
     }
 }
-
-val View.context: Context
-    get() = getContext()
-
 
 fun <T: Fragment> FragmentTransaction.addFragment(containerId: Int, tag: String, fragmentClass: Class<T>, fragmentManager: FragmentManager): T? {
     var fragment = fragmentManager.findFragmentByTag(tag) as T?
