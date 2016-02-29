@@ -1,6 +1,7 @@
 package cn.nekocode.baseframework
 
 import android.app.Application
+import cn.nekocode.baseframework.component.Component
 import cn.nekocode.baseframework.data.DataLayer
 import cn.nekocode.baseframework.utils.FileUtils
 import kotlin.properties.Delegates
@@ -16,6 +17,7 @@ class App : Application() {
 
         FileUtils.createAppDirs()
         DataLayer.hook(this)
+        Component.inject(this)
     }
 
     companion object {

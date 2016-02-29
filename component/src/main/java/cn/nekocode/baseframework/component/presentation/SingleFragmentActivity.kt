@@ -1,10 +1,10 @@
-package cn.nekocode.baseframework.presentation
+package cn.nekocode.baseframework.component.presentation
 
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import butterknife.bindView
-import cn.nekocode.baseframework.R
+import cn.nekocode.baseframework.component.presentation.BaseActivity
 import org.jetbrains.anko.*
 
 abstract class SingleFragmentActivity : BaseActivity() {
@@ -14,13 +14,16 @@ abstract class SingleFragmentActivity : BaseActivity() {
     val id_fragment_content = 2
     var fragment: Fragment? = null
 
+    abstract val toolbarLayoutId: Int
+    open var toolbarHeight = 50
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         relativeLayout {
-            include<Toolbar>(R.layout.toolbar) {
+            include<Toolbar>(toolbarLayoutId) {
                 id = id_toolbar
-            }.lparams(width = matchParent, height = dip(50))
+            }.lparams(width = matchParent, height = dip(toolbarHeight))
 
             frameLayout {
                 id = id_fragment_content

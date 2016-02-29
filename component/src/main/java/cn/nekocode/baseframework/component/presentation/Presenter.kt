@@ -1,7 +1,8 @@
-package cn.nekocode.baseframework.presentation
+package cn.nekocode.baseframework.component.presentation
 
 import android.os.Bundle
 import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.BehaviorSubject
 
 /**
@@ -67,22 +68,22 @@ open class Presenter {
         eventBehavior.onNext(Event.DETACH)
     }
 
-    class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Presenter.Event>):
+    class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Event>):
             Observable.Transformer<T, T> {
 
         override fun call(observable: Observable<T>): Observable<T> {
             return observable.takeUntil(
                     eventBehavior.skipWhile {
-                        it != Presenter.Event.DESTROY && it != Presenter.Event.DETACH
+                        it != Event.DESTROY && it != Event.DETACH
                     }
             )
         }
     }
 
-    fun <T> rx.Observable<T>.on(presenter: Presenter):
+    fun <T> Observable<T>.on(presenter: Presenter):
             Observable<T> {
 
-        return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+        return observeOn(AndroidSchedulers.mainThread())
                 .compose(NormalCheckLifeCycleTransformer<T>(presenter.eventBehavior))
     }
 }

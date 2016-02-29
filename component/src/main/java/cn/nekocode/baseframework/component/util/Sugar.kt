@@ -1,26 +1,27 @@
-package cn.nekocode.baseframework.utils
+package cn.nekocode.baseframework.component.util
 
 import android.app.Fragment
 import android.app.FragmentManager
 import android.app.FragmentTransaction
 import android.widget.Toast
-import cn.nekocode.baseframework.App
+import cn.nekocode.baseframework.component.Component
 import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
 
 /**
  * Created by nekocode on 2015/8/13.
  */
 
-fun <T> rx.Observable<T>.onUI(): Observable<T> {
-    return observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+fun <T> Observable<T>.onUI(): Observable<T> {
+    return observeOn(AndroidSchedulers.mainThread())
 }
 
 fun showToast(any: Any?) {
     when(any) {
         is Int ->
-            Toast.makeText(App.instance, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(Component.app, any, Toast.LENGTH_SHORT).show()
         is String ->
-            Toast.makeText(App.instance, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(Component.app, any, Toast.LENGTH_SHORT).show()
         null ->
             return
     }

@@ -1,9 +1,9 @@
 package cn.nekocode.baseframework.presentation.main
 
 import android.os.Bundle
+import cn.nekocode.baseframework.component.presentation.Presenter
 import cn.nekocode.baseframework.data.dto.Weather
 import cn.nekocode.baseframework.data.model.WeatherModel
-import cn.nekocode.baseframework.presentation.Presenter
 
 /**
  * Created by nekocode on 2015/11/20.

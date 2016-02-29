@@ -12,8 +12,8 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.baseframework.R
+import cn.nekocode.baseframework.component.util.showToast
 import cn.nekocode.baseframework.data.dto.Weather
-import cn.nekocode.baseframework.utils.showToast
 
 class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
