@@ -47,7 +47,7 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         recyclerView.adapter = adapter
 
         adapter.onWeatherItemClickListener = {
-            showToast("Clicked Item.")
+            activity.showToast("Clicked Item.")
             activity.navigateToPage2("Page 2")
         }
     }

@@ -59,16 +59,4 @@ dependencies {
 }
 ```
 
-Inject to the application:
-```kotlin
-class App : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        Component.inject(this)
-    }
-
-}
-```
 

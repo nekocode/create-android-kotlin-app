@@ -4,7 +4,6 @@ import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import butterknife.bindView
-import cn.nekocode.baseframework.component.presentation.BaseActivity
 import org.jetbrains.anko.*
 
 abstract class SingleFragmentActivity : BaseActivity() {

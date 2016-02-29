@@ -3,8 +3,8 @@ package cn.nekocode.baseframework.component.util
 import android.app.Fragment
 import android.app.FragmentManager
 import android.app.FragmentTransaction
+import android.content.Context
 import android.widget.Toast
-import cn.nekocode.baseframework.component.Component
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 
@@ -16,12 +16,12 @@ fun <T> Observable<T>.onUI(): Observable<T> {
     return observeOn(AndroidSchedulers.mainThread())
 }
 
-fun showToast(any: Any?) {
+fun Context.showToast(any: Any?) {
     when(any) {
         is Int ->
-            Toast.makeText(Component.app, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, any, Toast.LENGTH_SHORT).show()
         is String ->
-            Toast.makeText(Component.app, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, any, Toast.LENGTH_SHORT).show()
         null ->
             return
     }
