@@ -7,8 +7,8 @@ import cn.nekocode.baseframework.sample.R
 class MainActivity : SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
     override var toolbarHeight = 50
-    override val fragmentClass = TestFragment::class.java
 
+    override val fragmentClass = TestFragment::class.java
     override val fragmentBundle by lazy {
         intent.extras
     }

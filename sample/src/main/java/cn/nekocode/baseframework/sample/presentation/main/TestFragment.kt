@@ -14,6 +14,7 @@ import cn.nekocode.baseframework.component.util.showToast
 
 import cn.nekocode.baseframework.sample.R
 import cn.nekocode.baseframework.sample.data.dto.Weather
+import cn.nekocode.baseframework.sample.presentation.navigateToPage2
 
 class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val textView: TextView by bindView(R.id.textView)
@@ -47,6 +48,7 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
 
         adapter.onWeatherItemClickListener = {
             showToast("Clicked Item.")
+            activity.navigateToPage2("Page 2")
         }
     }
 

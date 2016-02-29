@@ -25,6 +25,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".presentation.page2.Page2Activity" />
+
     </application>
 
 </manifest>
