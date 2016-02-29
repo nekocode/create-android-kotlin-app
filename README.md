@@ -6,6 +6,34 @@
 - [**Zhihu Column**](http://zhuanlan.zhihu.com/kotandroid)  
 ![](art/logo.png)
 
+## Component Library
+Add the JitPack repository to your build.gradle:
+```gradle
+repositories {
+    maven { url "https://jitpack.io" }
+}
+```
+
+Add the dependency:
+```gradle
+dependencies {
+    compile 'com.github.nekocode:ToolbarIndicator:v1.0'
+}
+```
+
+Inject to the application:
+```kotlin
+class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        Component.inject(this)
+    }
+
+}
+```
+
 ## Description
 This is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
 ![](art/layer.png)
