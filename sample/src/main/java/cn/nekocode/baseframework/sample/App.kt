@@ -2,7 +2,7 @@ package cn.nekocode.baseframework.sample
 
 import android.app.Application
 import cn.nekocode.baseframework.sample.data.DataLayer
-import cn.nekocode.baseframework.sample.utils.FileUtils
+import cn.nekocode.baseframework.sample.util.FileUtils
 import kotlin.properties.Delegates
 
 /**

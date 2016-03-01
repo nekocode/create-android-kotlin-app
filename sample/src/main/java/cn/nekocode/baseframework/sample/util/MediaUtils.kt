@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.sample.utils
+package cn.nekocode.baseframework.sample.util
 
 import android.content.Context
 import android.media.MediaScannerConnection
