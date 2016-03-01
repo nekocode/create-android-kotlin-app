@@ -54,7 +54,7 @@ repositories {
 Add the dependency:
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotlin_android_base_framework:v0.2'
+    compile 'com.github.nekocode:kotlin_android_base_framework:0.2.1'
 }
 ```
 
