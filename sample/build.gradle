@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 127
-        versionName "0.2"
+        versionName projectVersion
     }
     buildTypes {
         release {
@@ -36,6 +36,7 @@ dependencies {
     // Lib Projects
     compile project(":data")
     compile project(":component")
+//    compile "com.github.nekocode:kotlin_android_base_framework:$projectVersion"
 
     // Art
     compile "com.squareup.picasso:picasso:2.5.2"
