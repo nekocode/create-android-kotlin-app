@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Description
-This is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
+**Kotgo** is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
 ![](art/layer.png)
 
 ### Related articles
@@ -54,7 +54,7 @@ repositories {
 Add the dependency:
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotlin_android_base_framework:0.2.1'
+    compile 'com.github.nekocode:kotgo:0.2.1'
 }
 ```
 
