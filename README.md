@@ -1,12 +1,13 @@
 # README/[中文文档](/README_CN.md)
 
-[![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
-You can fast create a new kotgo template project use the following command. Just change the `NewProjectName` and `com.package.path` arguments to you want, and then paste and excute at a Terminal prompt. Have fun!
+You can fast create a new kotgo template project use the following command. Just paste and excute it at a Terminal prompt. Have fun!
 ```bash
-python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)" NewProjectName com.package.path
+python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
+Of course, you can also download the python script to your local disk to run it.
 
 ## Description
 **Kotgo** is an android development framework using **MVP** architecture. It built with both **kotlin** and java.

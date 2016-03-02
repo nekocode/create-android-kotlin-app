@@ -253,16 +253,11 @@ class ProjectFactory:
 
 
 def main():
-    if len(sys.argv) != 3:
-        print 'Usage:   ./project_creator.py <projectName> <packagePath>'
-        print 'Example: ./project_creator.py NewProject com.test.newproject'
-
-    else:
-        project_name = sys.argv[1]
-        package_path = sys.argv[2]
-        template_zip = download_lastest_src()
-        factory = ProjectFactory(template_zip)
-        factory.create_project(project_name, package_path)
+    project_name = raw_input('Input new project name: ')
+    package_path = raw_input('Input the full package path (such as com.company.test): ')
+    template_zip = download_lastest_src()
+    factory = ProjectFactory(template_zip)
+    factory.create_project(project_name, package_path)
 
 
 if __name__ == '__main__' and requests is not None:
