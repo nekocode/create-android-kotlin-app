@@ -3,8 +3,8 @@
 [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
-To create a new android application project using the kotgo template, change the **NewProjectName** and **com.package.path** args to you want in the following command, paste and excute at a Terminal prompt.
-```
+To create a new android application project using the kotgo template, change the `NewProjectName` and `com.package.path` args to you want in the following command, paste and excute at a Terminal prompt.
+```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)" NewProjectName com.package.path
 ```
 
@@ -67,7 +67,7 @@ dependencies {
 ### Some Features
 #### SingleFragmentActivity
 It helps you fast create an activity with only one single fragment. And it extends from the BaseActivity, you can use the safe message handling functions from it.
-```
+```kotlin
 class TestActivity : SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
     override var toolbarHeight = 50
@@ -91,7 +91,7 @@ class TestActivity : SingleFragmentActivity() {
 
 #### Base Presenter
 It helps you to binding the activity and fragment lifecycle to RxJava. It terminates all the rx subscriptions when destoring or detaching.
-```
+```kotlin
 class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val weatherPresenter = WeatherPresenter(this)
 
@@ -99,8 +99,6 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
         super.onCreate(savedInstanceState)
         weatherPresenter.onCreate(arguments)
     }
-
-    // ...
 
     override fun onDetach() {
         super.onDetach()
