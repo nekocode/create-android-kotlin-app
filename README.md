@@ -25,11 +25,10 @@ com.nekocode.baseframework
 │  └─ service
 │ 
 ├─ presentation
-│ 
-├─ utils
-│ 
-├─ view
-│ 
+│  └─ screen_one
+│     ├─ Presenter.kt
+│     └─ Activity.kt
+│
 ├─ App.kt
 └─ Config.kt
 ```

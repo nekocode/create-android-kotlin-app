@@ -30,6 +30,7 @@ Kotgo 是一个采用 **MVP** 模式进行设计的 Android 应用框架。它�
 
 ### Package structure
 ```
+```
 com.nekocode.baseframework
 ├─ data
 │  ├─ dto
@@ -38,13 +39,13 @@ com.nekocode.baseframework
 │  └─ service
 │ 
 ├─ presentation
-│ 
-├─ utils
-│ 
-├─ view
-│ 
+│  └─ screen_one
+│     ├─ Presenter.kt
+│     └─ Activity.kt
+│
 ├─ App.kt
 └─ Config.kt
+```
 ```
 
 ### Layer
