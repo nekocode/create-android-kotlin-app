@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
-To create a new android application project using the kotgo template, change the `NewProjectName` and `com.package.path` args to you want in the following command, paste and excute at a Terminal prompt.
+You can fast create a new kotgo template project use the following command. Just change the `NewProjectName` and `com.package.path` arguments to you want, and then paste and excute at a Terminal prompt. Have fun!
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)" NewProjectName com.package.path
 ```

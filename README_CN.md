@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## 快速创建项目
-修改下面命令行中的 `NewProjectName` 和 `com.package.path`，并粘贴到命令行中执行。它能为你快速创建一个使用 Kotgo 模板生成的项目。
+你可以使用下面的命令快速创建一个用 Kotgo 模板生成的项目。只需要修改 `NewProjectName` 和 `com.package.path` 成你的项目名以及包路径，并粘贴到命令行中执行就可以了。
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)" NewProjectName com.package.path
 ```
