@@ -35,7 +35,7 @@ com.nekocode.baseframework
 ```
 
 ### Layer
-- **Data Layer:** It likes the traditional **Model Layer**, includes `dto`(Data Transfer Object), `service`,`model`, `exception` or other element directories. It uses the dtos or other meta object to interact with the Presenter Layer.
+- **Data Layer:** It likes the traditional **Model Layer**, includes `dto`(Data Transfer Object), `service`, `model`, `exception` or other element directories. It uses the dtos or other meta object to interact with the Presenter Layer.
 - **View Layer:** Including `activity`, `adapter`, `fragment`, `view`. Only concerned with the user interaction, as well as view manipulation (animation, interface input, output and update, etc.).
 - **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
 
@@ -65,8 +65,8 @@ dependencies {
 ```
 
 ### Some Features
-#### SingleFragmentActivity
-It helps you fast create an activity with only one single fragment. And it extends from the BaseActivity, you can use the safe message handling functions from it.
+##### SingleFragmentActivity
+It helps you fast create an activity with only one single fragment. And it extends from the BaseActivity, you can also use the safe message handling functions from the BaseActivity.
 ```kotlin
 class TestActivity : SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
@@ -89,8 +89,8 @@ class TestActivity : SingleFragmentActivity() {
 }
 ```
 
-#### Base Presenter
-It helps you to binding the activity and fragment lifecycle to RxJava. It terminates all the rx subscriptions when destoring or detaching.
+##### Base Presenter
+It helps you to binding the activity and fragment lifecycle to RxJava. It terminates all the rx subscriptions when the page is destoring or detaching.
 ```kotlin
 class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
     val weatherPresenter = WeatherPresenter(this)
@@ -107,6 +107,6 @@ class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
 }
 ```
 
-#### Others
-It contains the [KotterKnife](https://github.com/JakeWharton/kotterknife) and some extensions using the kotlin syntactic sugar. Check the `Sugar.kt` for more details.
+##### Others
+It also contains the [KotterKnife](https://github.com/JakeWharton/kotterknife) and some extensions using the kotlin syntactic sugar. Check the `Sugar.kt` for more details.
 
