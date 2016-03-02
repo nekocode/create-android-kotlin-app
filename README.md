@@ -9,7 +9,7 @@ python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/
 ```
 
 ## Description
-This is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
+**Kotgo** is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
 ![](art/layer.png)
 
 ### Related articles
@@ -60,7 +60,7 @@ repositories {
 And then add the dependency to build.gradle in your app or module directory:
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotlin_android_base_framework:0.2.1'
+    compile 'com.github.nekocode:kotgo:0.2.1'
 }
 ```
 
