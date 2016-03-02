@@ -1,6 +1,6 @@
 # README/[中文文档](/README_CN.md)
 
-[![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotlin_android_base_framework.svg)](https://jitpack.io/nekocode/kotlin_android_base_framework) [![Join the chat at https://gitter.im/nekocode/kotlin_android_base_framework](https://badges.gitter.im/nekocode/kotlin_android_base_framework.svg)](https://gitter.im/nekocode/kotlin_android_base_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
 You can fast create a new kotgo template project use the following command. Just paste and excute it at a Terminal prompt. Have fun!
