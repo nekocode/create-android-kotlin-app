@@ -63,8 +63,6 @@ def unzip_src_package(zipfile_name):
 class TextProcesser:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.file = open(file_path, 'r')
-        self.new_file = open(file_path + '.new', 'w')
         self.commands = []
 
     def rm_line_has_text(self, text):
@@ -88,34 +86,35 @@ class TextProcesser:
         return self
 
     def finish(self):
-        for line in self.file.readlines():
-            write = True
-            end = False
-            for cmd in self.commands:
-                if cmd[0] == 'rm_line' and cmd[1] in line:
-                    write = False
+        with open(self.file_path, 'r') as src_file, open(self.file_path + '.new', 'w') as new_file:
+            for line in src_file.readlines():
+                write = True
+                end = False
+                for cmd in self.commands:
+                    if cmd[0] == 'rm_line' and cmd[1] in line:
+                        write = False
+                        break
+
+                    elif cmd[0] == 'rm_comment' and \
+                            (line.startswith('/**') or line.startswith(' * ') or line.startswith(' */')):
+                        write = False
+                        break
+
+                    elif cmd[0] == 'end_util' and line.startswith(cmd[1]):
+                        end = True
+                        break
+
+                    elif cmd[0] == 'replace':
+                        line = line.replace(cmd[1], cmd[2])
+
+                    elif cmd[0] == 'replace_header' and (line.startswith('package') or line.startswith('import')):
+                        line = line.replace(cmd[1], cmd[2])
+
+                if end:
                     break
 
-                elif cmd[0] == 'rm_comment' and \
-                        (line.startswith('/**') or line.startswith(' * ') or line.startswith(' */')):
-                    write = False
-                    break
-
-                elif cmd[0] == 'end_util' and line.startswith(cmd[1]):
-                    end = True
-                    break
-
-                elif cmd[0] == 'replace':
-                    line = line.replace(cmd[1], cmd[2])
-
-                elif cmd[0] == 'replace_header' and (line.startswith('package') or line.startswith('import')):
-                    line = line.replace(cmd[1], cmd[2])
-
-            if end:
-                break
-
-            if write:
-                self.new_file.write(line)
+                if write:
+                    new_file.write(line)
 
         shutil.move(self.file_path + '.new', self.file_path)
 
@@ -148,10 +147,12 @@ class ProjectFactory:
         # settings.gradle
         TextProcesser('settings.gradle').replace_all_text('sample', 'app').finish()
 
-        # rm readme
+        # rm unnessary files
         os.remove('README.md')
         os.remove('README_CN.md')
         shutil.rmtree('art')
+        if os.path.exists('project_creator.py'):
+            os.remove('project_creator.py')
 
         # =================
         #       app
