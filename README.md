@@ -51,7 +51,7 @@ com.nekocode.baseframework
 - otto: **`1.3.8`**
 
 ### Screenshots
-**Thanks to [gank.io](http://gank.io/). The sample App fetchs beautiful girl photos' information from it.**  
+Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
 ![](art/screenshot.png)
 
 ## Use Component Library
