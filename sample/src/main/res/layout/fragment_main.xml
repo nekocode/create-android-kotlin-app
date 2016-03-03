@@ -9,12 +9,4 @@
         android:layout_height="match_parent"
         android:scrollbars="none" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="New Text"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
 </RelativeLayout>

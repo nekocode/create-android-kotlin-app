@@ -8,7 +8,8 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.baseframework.sample.R;
-import cn.nekocode.baseframework.sample.data.dto.Weather
+import cn.nekocode.baseframework.sample.data.dto.Meizi
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick
@@ -16,18 +17,18 @@ import org.jetbrains.anko.onLongClick
 /**
  * Created by nekocode on 2015/7/22.
  */
-class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     object Type {
         const val TYPE_ITEM: Int = 0;
     }
 
-    var onWeatherItemClickListener: ((Weather) -> Unit)? = null
-    var onWeatherItemLongClickListener: ((Weather) -> Boolean)? = null
+    var onMeiziItemClickListener: ((Meizi) -> Unit)? = null
+    var onMeiziItemLongClickListener: ((Meizi) -> Boolean)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
             Type.TYPE_ITEM -> {
-                val v = parent!!.context.layoutInflater.inflate(R.layout.item_result, parent, false)
+                val v = parent!!.context.layoutInflater.inflate(R.layout.item_meizi, parent, false)
                 return ItemViewHolder(v);
             }
 
@@ -53,14 +54,16 @@ class ResultAdapter(private val list: List<Weather>) : RecyclerView.Adapter<Recy
     private inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val imageView: ImageView by bindView(R.id.imageView)
-        val textView: TextView by bindView(R.id.textView2)
+        val textView: TextView by bindView(R.id.textView)
+        val textView2: TextView by bindView(R.id.textView2)
 
-        fun setData(weather : Weather) {
-            itemView?.onClick { onWeatherItemClickListener?.invoke(weather) }
-            itemView?.onLongClick { onWeatherItemLongClickListener?.invoke(weather) ?: false }
+        fun setData(meizi : Meizi) {
+            itemView?.onClick { onMeiziItemClickListener?.invoke(meizi) }
+            itemView?.onLongClick { onMeiziItemLongClickListener?.invoke(meizi) ?: false }
 
-            textView.text = weather.city
-//            Picasso.with(itemView.context).load(weather.getWeatherInfo().getCity()).centerCrop().fit().into(imageView)
+            Picasso.with(itemView.context).load(meizi.url).centerCrop().fit().into(imageView)
+            textView.text = meizi.id
+            textView2.text = "${meizi.who} - ${meizi.type}"
         }
     }
 }

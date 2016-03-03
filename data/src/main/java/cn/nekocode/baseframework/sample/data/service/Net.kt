@@ -1,7 +1,7 @@
 package cn.nekocode.baseframework.sample.data.service
 
 import cn.nekocode.baseframework.sample.data.DataLayer
-import cn.nekocode.baseframework.sample.data.model.WeatherModel
+import cn.nekocode.baseframework.sample.data.dto.Meizi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 class Net {
     companion object {
         // Host
-        val API_HOST_URL: String = "http://www.weather.com.cn/"
+        val API_HOST_URL: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
 
         // OkHttp Config
         val RESPONSE_CACHE_FILE: String = "reponse_cache"
@@ -55,8 +55,10 @@ class Net {
         }
     }
 
+    data class ResponseWrapper<T>(val error: Boolean, val results: List<T>)
+
     interface APIs {
-        @GET("adat/sk/{cityId}.html") //101010100
-        fun getWeather(@Path("cityId") cityId: String): Observable<WeatherModel.WeatherWrapper>
+        @GET("{count}/{pageNum}")
+        fun getMeizi(@Path("count") count: Int, @Path("pageNum") pageNum: Int): Observable<ResponseWrapper<Meizi>>
     }
 }
