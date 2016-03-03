@@ -1,12 +1,9 @@
 package cn.nekocode.baseframework.sample.presentation.page2
 
-import android.app.Fragment
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Message
 import cn.nekocode.baseframework.component.presentation.SingleFragmentActivity
 import cn.nekocode.baseframework.sample.R
+import cn.nekocode.baseframework.sample.data.dto.Meizi
 
 /**
  * Created by nekocode on 16/2/29.
@@ -14,19 +11,16 @@ import cn.nekocode.baseframework.sample.R
 class Page2Activity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
 
-    override val fragmentClass = Page2MainFragment::class.java
+    override val fragmentClass = Page2Fragment::class.java
     override val fragmentBundle by lazy {
         intent.extras
     }
 
     override fun afterCreate() {
-        toolbar.title = intent.getStringExtra("title")
+        val meizi = intent.getParcelableExtra<Meizi>("meizi")
+        toolbar.title = meizi.who
     }
 
-    class Page2MainFragment: Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_page2, container, false)
-        }
+    override fun handler(msg: Message) {
     }
-
 }

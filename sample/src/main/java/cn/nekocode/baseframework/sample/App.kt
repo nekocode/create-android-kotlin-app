@@ -1,8 +1,9 @@
 package cn.nekocode.baseframework.sample
 
 import android.app.Application
+import cn.nekocode.baseframework.component.util.FileUtils
+import cn.nekocode.baseframework.component.util.MainThreadBus
 import cn.nekocode.baseframework.sample.data.DataLayer
-import cn.nekocode.baseframework.sample.util.FileUtils
 import kotlin.properties.Delegates
 
 /**
@@ -14,12 +15,13 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        FileUtils.createAppDirs()
+        FileUtils.createAppDirs(this)
         DataLayer.hook(this)
     }
 
     companion object {
         var instance by Delegates.notNull<App>()
+        val bus = MainThreadBus()
     }
 
 }

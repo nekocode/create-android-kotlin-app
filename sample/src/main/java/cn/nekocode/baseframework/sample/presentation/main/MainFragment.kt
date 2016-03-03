@@ -1,36 +1,36 @@
 package cn.nekocode.baseframework.sample.presentation.main
 
 import android.os.Bundle
-import android.app.Fragment
-import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import butterknife.bindView
-import cn.nekocode.baseframework.component.util.showToast
+import cn.nekocode.baseframework.component.presentation.BaseFragment
+import cn.nekocode.baseframework.component.presentation.Presenter
+import cn.nekocode.baseframework.sample.App
 
 import cn.nekocode.baseframework.sample.R
 import cn.nekocode.baseframework.sample.data.dto.Meizi
 import cn.nekocode.baseframework.sample.presentation.navigateToPage2
 
-class MainFragment : Fragment(), MeiziPresenter.ViewInterface {
-    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
+class MainFragment : BaseFragment(), MeiziPresenter.ViewInterface {
+    override val layoutId: Int = R.layout.fragment_main
+    val weatherPresenter = MeiziPresenter(this)
+    override val presenters = arrayOf<Presenter>(weatherPresenter)
 
+    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     val list: MutableList<Meizi> = arrayListOf()
     val adapter = MeiziListAdapter(list)
 
-    val weatherPresenter = MeiziPresenter(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        weatherPresenter.onCreate(arguments)
+        App.bus.register(this)
+        weatherPresenter.getMeizis()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    override fun onDetach() {
+        super.onDetach()
+        App.bus.unregister(this)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -40,27 +40,14 @@ class MainFragment : Fragment(), MeiziPresenter.ViewInterface {
         recyclerView.adapter = adapter
 
         adapter.onMeiziItemClickListener = {
-            activity.showToast("Clicked the ${it.id}.")
-            activity.navigateToPage2("${it.id}")
+            activity.navigateToPage2(it)
         }
     }
 
-    override fun refreshMeiziList(meizis: List<Meizi>) {
+    override fun refreshMeizis(meizis: List<Meizi>) {
+        App.bus.post("Load finished.")
+
         list.addAll(meizis)
         adapter.notifyDataSetChanged()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        weatherPresenter.onAttach()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        weatherPresenter.onDetach()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

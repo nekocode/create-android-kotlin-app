@@ -52,7 +52,6 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
     }
 
     private inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val imageView: ImageView by bindView(R.id.imageView)
         val textView: TextView by bindView(R.id.textView)
         val textView2: TextView by bindView(R.id.textView2)

@@ -1,9 +1,9 @@
-package cn.nekocode.baseframework.sample.util
+package cn.nekocode.baseframework.component.util
 
+import android.content.Context
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
-import cn.nekocode.baseframework.sample.App
 
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
@@ -24,27 +24,27 @@ object FileUtils {
         return canRead && !onlyRead && !unMounted
     }
 
-    fun getExternalAppDataPath(): String {
+    fun getExternalAppDataPath(context: Context): String {
         return Environment.getExternalStorageDirectory().absolutePath + "/Android/data/" +
-                App.instance.packageName + File.separator
+                context.packageName + File.separator
     }
 
-    fun getExternalAppCachePath(): String {
-        return getExternalAppDataPath() + "cache" + File.separator
+    fun getExternalAppCachePath(context: Context): String {
+        return getExternalAppDataPath(context) + "cache" + File.separator
     }
 
-    fun createAppDirs() {
+    fun createAppDirs(context: Context) {
         if (!isExternalStorageMounted()) {
             Log.e("createAppRootDirs", "sdcard unavailiable")
             return
         }
 
-        var dir = File(getExternalAppDataPath())
+        var dir = File(getExternalAppDataPath(context))
         if (!dir.exists()) {
             dir.mkdirs()
         }
 
-        dir = File(getExternalAppCachePath())
+        dir = File(getExternalAppCachePath(context))
         if (!dir.exists()) {
             dir.mkdirs()
         }

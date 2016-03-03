@@ -2,17 +2,15 @@
 # coding:utf-8
 
 import os
-import sys
 import shutil
+import zipfile
 
 try:
     import requests
-    import zipfile
 
 except ImportError:
     requests = None
-    zipfile = None
-    print 'Project Creator depends on both the "requests" and "zipfile" libs.'
+    print 'Project Creator depends on the "requests" lib.'
 
 
 def download_lastest_src():
@@ -36,7 +34,7 @@ def download_lastest_src():
 
 
 def unzip_src_package(zipfile_name):
-    print '\nUnziping [%s]...' % zipfile_name
+    print 'Unziping [%s]...' % zipfile_name
 
     zfile = zipfile.ZipFile(zipfile_name, 'r')
     names = zfile.namelist()
@@ -133,7 +131,7 @@ class ProjectFactory:
         os.chdir(project_name)
         shutil.move('sample', 'app')
 
-        print '\nCreating project [%s]...' % project_name
+        print 'Creating project [%s]...' % project_name
         self.process(project_name, package_name)
         print 'Creat finished.'
 
@@ -159,7 +157,6 @@ class ProjectFactory:
         # =================
         # build.gradle
         TextProcesser('app/build.gradle')\
-            .rm_line_has_text('com.github.nekocode')\
             .replace_all_text('cn.nekocode.baseframework.sample', package_name)\
             .finish()
 

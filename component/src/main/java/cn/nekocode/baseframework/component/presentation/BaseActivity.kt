@@ -58,6 +58,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    open val presenters: Array<Presenter>? = null
     protected val handler: MyHandler by lazy {
         MyHandler(this)
     }
@@ -95,14 +96,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun finish() {
         deleteHandler(handler)
         super.finish()
@@ -110,6 +103,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenters?.forEach {
+            it.onDestory()
+        }
     }
 
     open fun handler(msg: Message) {

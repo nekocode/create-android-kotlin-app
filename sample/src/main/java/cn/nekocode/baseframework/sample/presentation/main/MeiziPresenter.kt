@@ -1,6 +1,5 @@
 package cn.nekocode.baseframework.sample.presentation.main
 
-import android.os.Bundle
 import cn.nekocode.baseframework.component.presentation.Presenter
 import cn.nekocode.baseframework.sample.data.dto.Meizi
 import cn.nekocode.baseframework.sample.data.model.MeiziModel
@@ -10,13 +9,12 @@ import cn.nekocode.baseframework.sample.data.model.MeiziModel
  */
 class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter() {
     interface ViewInterface {
-        fun refreshMeiziList(meizis: List<Meizi>)
+        fun refreshMeizis(meizis: List<Meizi>)
     }
 
-    override fun onCreate(bundle: Bundle?) {
-        super.onCreate(bundle)
+    fun getMeizis() {
         MeiziModel.getMeizis(10, 1).on(this).subscribe {
-            view.refreshMeiziList(it)
+            view.refreshMeizis(it)
         }
     }
 }

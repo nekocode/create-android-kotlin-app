@@ -1,4 +1,4 @@
-package cn.nekocode.baseframework.sample.util
+package cn.nekocode.baseframework.component.util
 
 import android.text.Editable
 import android.text.TextWatcher
