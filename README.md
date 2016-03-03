@@ -48,8 +48,13 @@ com.nekocode.baseframework
 - retrofit: **`2.0.0-beta4`**
 - picasso: **`2.5.2`**
 - hawk: **`1.20`**
+- otto: **`1.3.8`**
 
-## Using Component Library
+### Screenshots
+**Thanks to [gank.io](http://gank.io/). The sample App fetchs beautiful girl photos' information from it.**
+![](art/screenshot.png)
+
+## Use Component Library
 You can only use the kotgo's component library with gradle. Just add the JitPack repository to your project root build.gradle:
 ```gradle
 repositories {
