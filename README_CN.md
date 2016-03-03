@@ -64,7 +64,7 @@ com.nekocode.baseframework
 - otto: **`1.3.8`**
 
 ### 截图
-**感谢 [gank.io](http://gank.io/)。Sample App 是在它上面获取美女照片信息的。**
+**感谢 [gank.io](http://gank.io/)。Sample App 是在它上面获取美女照片信息的。**  
 ![](art/screenshot.png)
 
 
