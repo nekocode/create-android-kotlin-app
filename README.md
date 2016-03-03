@@ -60,7 +60,7 @@ repositories {
 And then add the dependency to build.gradle in your app or module directory:
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotgo:0.2.1'
+    compile 'com.github.nekocode:kotgo:0.3.0'
 }
 ```
 
