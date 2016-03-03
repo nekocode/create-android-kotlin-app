@@ -11,9 +11,9 @@ import rx.subjects.PublishSubject
 /**
  * Created by nekocode on 2015/8/13.
  */
-object Events {
+object RxEvents {
     fun text(editText: EditText): Observable<String> {
-        val behaviourSubject: BehaviorSubject<String> = BehaviorSubject.create(editText.text.toString());
+        val behaviourSubject = BehaviorSubject.create(editText.text.toString())
         editText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             }
@@ -33,5 +33,7 @@ object Events {
         view.setOnClickListener({ subject.onNext(Any()) })
         return subject
     }
+
+    // TODO: Add more events
 }
 

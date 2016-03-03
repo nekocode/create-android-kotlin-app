@@ -4,7 +4,6 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import cn.nekocode.baseframework.sample.App
-import cn.nekocode.baseframework.sample.Config
 
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
@@ -17,8 +16,6 @@ import java.io.IOException
  * Created by nekocode on 2015/4/23 0023.
  */
 object FileUtils {
-    private val APP_ROOT = Config.APP_NAME
-
     fun isExternalStorageMounted(): Boolean {
         val canRead = Environment.getExternalStorageDirectory().canRead()
         val onlyRead = Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED_READ_ONLY
@@ -27,12 +24,9 @@ object FileUtils {
         return canRead && !onlyRead && !unMounted
     }
 
-    fun getAppRootPath(): String {
-        return Environment.getExternalStorageDirectory().absolutePath + File.separator + APP_ROOT + File.separator
-    }
-
     fun getExternalAppDataPath(): String {
-        return Environment.getExternalStorageDirectory().absolutePath + "/Android/data/" + App.instance.packageName + File.separator
+        return Environment.getExternalStorageDirectory().absolutePath + "/Android/data/" +
+                App.instance.packageName + File.separator
     }
 
     fun getExternalAppCachePath(): String {
@@ -42,14 +36,10 @@ object FileUtils {
     fun createAppDirs() {
         if (!isExternalStorageMounted()) {
             Log.e("createAppRootDirs", "sdcard unavailiable")
+            return
         }
 
-        var dir = File(getAppRootPath())
-        if (!dir.exists()) {
-            dir.mkdirs()
-        }
-
-        dir = File(getExternalAppDataPath())
+        var dir = File(getExternalAppDataPath())
         if (!dir.exists()) {
             dir.mkdirs()
         }
@@ -58,25 +48,6 @@ object FileUtils {
         if (!dir.exists()) {
             dir.mkdirs()
         }
-    }
-
-    fun saveToAppDir(pathOfFileToSave: String): Boolean {
-        if (!isExternalStorageMounted()) {
-            return false
-        }
-
-        val file = File(pathOfFileToSave)
-        val name = file.name
-        val newPath = getAppRootPath() + name
-        try {
-            createNewFileInSDCard(newPath)
-            copyFile(file, File(newPath))
-            return true
-        } catch (e: IOException) {
-            return false
-        }
-
-
     }
 
     fun createNewFileInSDCard(absolutePath: String): File? {
