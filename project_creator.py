@@ -159,19 +159,19 @@ class ProjectFactory:
         #       app
         # =================
         # build.gradle
-        TextProcesser('app/build.gradle')\
-            .replace_all_text('cn.nekocode.baseframework.sample', package_name)\
-            .replace_all_text('compile project(":component")', "compile 'com.github.nekocode:kotgo:%s'" % self.version)\
+        TextProcesser('app/build.gradle') \
+            .replace_all_text('cn.nekocode.baseframework.sample', package_name) \
+            .replace_all_text('compile project(":component")', 'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
 
         # AndroidManifest.xml
-        TextProcesser('app/src/main/AndroidManifest.xml')\
-            .replace_all_text('cn.nekocode.baseframework.sample', package_name)\
+        TextProcesser('app/src/main/AndroidManifest.xml') \
+            .replace_all_text('cn.nekocode.baseframework.sample', package_name) \
             .finish()
 
         # strings.xml
-        TextProcesser('app/src/main/res/values/strings.xml')\
-            .replace_all_text('BaseFramework', project_name)\
+        TextProcesser('app/src/main/res/values/strings.xml') \
+            .replace_all_text('BaseFramework', project_name) \
             .finish()
 
         # move package
@@ -195,9 +195,9 @@ class ProjectFactory:
                     process_all_src(path + p + '/')
 
                 elif p.endswith('.kt') or p.endswith('.java'):
-                    TextProcesser(path + p)\
-                        .remove_comment()\
-                        .replace_header('cn.nekocode.baseframework.sample', package_name)\
+                    TextProcesser(path + p) \
+                        .remove_comment() \
+                        .replace_header('cn.nekocode.baseframework.sample', package_name) \
                         .finish()
 
         process_all_src(new_package_path)
@@ -208,8 +208,8 @@ class ProjectFactory:
         package_name += '.data'
 
         # AndroidManifest.xml
-        TextProcesser('data/src/main/AndroidManifest.xml')\
-            .replace_all_text('cn.nekocode.baseframework.sample.data', package_name)\
+        TextProcesser('data/src/main/AndroidManifest.xml') \
+            .replace_all_text('cn.nekocode.baseframework.sample.data', package_name) \
             .finish()
 
         # move package
@@ -233,9 +233,9 @@ class ProjectFactory:
                     process_all_src(path + p + '/')
 
                 elif p.endswith('.kt') or p.endswith('.java'):
-                    TextProcesser(path + p)\
-                        .remove_comment()\
-                        .replace_header('cn.nekocode.baseframework.sample.data', package_name)\
+                    TextProcesser(path + p) \
+                        .remove_comment() \
+                        .replace_header('cn.nekocode.baseframework.sample.data', package_name) \
                         .finish()
 
         process_all_src(new_package_path)
@@ -254,6 +254,3 @@ def main():
 
 if __name__ == '__main__' and requests is not None:
     main()
-
-
-
