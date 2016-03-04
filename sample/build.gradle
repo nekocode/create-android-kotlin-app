@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "cn.nekocode.baseframework.sample"
+        applicationId "cn.nekocode.kotgo.sample"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 127

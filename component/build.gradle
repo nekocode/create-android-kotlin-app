@@ -22,11 +22,13 @@ android {
     }
 }
 
+def supportLibVersion="23.1.1"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android support library
-    compile "com.android.support:appcompat-v7:$appcompatVersion"
-    compile "com.android.support:recyclerview-v7:$appcompatVersion"
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    compile "com.android.support:support-annotations:$supportLibVersion"
 
     // Reactive library
     compile "io.reactivex:rxkotlin:0.40.1"
