@@ -79,27 +79,28 @@ class TextProcesser:
         self.commands.append(('rm_comment', None))
         return self
 
-    def end_util(self, text):
-        self.commands.append(('end_util', text))
+    def recreate(self, text):
+        self.commands = []
+        self.commands.append(('recreate', text))
         return self
 
     def finish(self):
         with open(self.file_path, 'r') as src_file, open(self.file_path + '.new', 'w') as new_file:
             for line in src_file.readlines():
-                write = True
-                end = False
+                need_write = True
+                need_recreate = None
                 for cmd in self.commands:
                     if cmd[0] == 'rm_line' and cmd[1] in line:
-                        write = False
+                        need_write = False
                         break
 
                     elif cmd[0] == 'rm_comment' and \
                             (line.startswith('/**') or line.startswith(' * ') or line.startswith(' */')):
-                        write = False
+                        need_write = False
                         break
 
-                    elif cmd[0] == 'end_util' and line.startswith(cmd[1]):
-                        end = True
+                    elif cmd[0] == 'recreate':
+                        need_recreate = cmd[1]
                         break
 
                     elif cmd[0] == 'replace':
@@ -108,10 +109,11 @@ class TextProcesser:
                     elif cmd[0] == 'replace_header' and (line.startswith('package') or line.startswith('import')):
                         line = line.replace(cmd[1], cmd[2])
 
-                if end:
+                if need_recreate is not None:
+                    new_file.write(need_recreate)
                     break
 
-                if write:
+                if need_write:
                     new_file.write(line)
 
         shutil.move(self.file_path + '.new', self.file_path)
@@ -144,7 +146,7 @@ class ProjectFactory:
         TextProcesser('build.gradle').rm_line_has_text('android-maven').finish()
 
         # settings.gradle
-        TextProcesser('settings.gradle').replace_all_text('sample', 'app').finish()
+        TextProcesser('settings.gradle').recreate("include ':app', ':data'").finish()
 
         # rm unnessary files
         os.remove('README.md')
@@ -161,7 +163,8 @@ class ProjectFactory:
         # build.gradle
         TextProcesser('app/build.gradle') \
             .replace_all_text('cn.nekocode.baseframework.sample', package_name) \
-            .replace_all_text('compile project(":component")', 'compile "com.github.nekocode:kotgo:%s"' % self.version) \
+            .replace_all_text('compile project(":component")',
+                              'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
 
         # AndroidManifest.xml
