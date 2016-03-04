@@ -79,7 +79,7 @@ repositories {
 在你的 app 或其他 module 目录下的 build.gradle 添加以下依赖：
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotgo:0.3.0'
+    compile 'com.github.nekocode:kotgo:lastest-version'
 }
 ```
 

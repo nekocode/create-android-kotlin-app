@@ -21,7 +21,7 @@ def download_lastest_src():
 
     if os.path.exists(zipfile_name):
         print 'Already downloaded [%s].' % zipfile_name
-        return zipfile_name
+        return zipfile_name, lastest_tag
 
     print 'Downloading the lastest release [%s]...' % zipfile_name
     url = 'https://github.com/nekocode/kotgo/archive/%s.zip' % lastest_tag
@@ -30,7 +30,7 @@ def download_lastest_src():
         data.write(r.content)
 
     print 'Download finished.'
-    return zipfile_name
+    return zipfile_name, lastest_tag
 
 
 def unzip_src_package(zipfile_name):
@@ -118,8 +118,9 @@ class TextProcesser:
 
 
 class ProjectFactory:
-    def __init__(self, template_zip):
+    def __init__(self, template_zip, version):
         self.template_zip = template_zip
+        self.version = version
 
     def create_project(self, project_name, package_name):
         template_dir = unzip_src_package(self.template_zip)
@@ -152,12 +153,15 @@ class ProjectFactory:
         if os.path.exists('project_creator.py'):
             os.remove('project_creator.py')
 
+        shutil.rmtree('component')
+
         # =================
         #       app
         # =================
         # build.gradle
         TextProcesser('app/build.gradle')\
             .replace_all_text('cn.nekocode.baseframework.sample', package_name)\
+            .replace_all_text('compile project(":component")', "compile 'com.github.nekocode:kotgo:%s'" % self.version)\
             .finish()
 
         # AndroidManifest.xml
@@ -236,24 +240,15 @@ class ProjectFactory:
 
         process_all_src(new_package_path)
 
-        # =================
-        #     component
-        # =================
-        # build.gradle
-        TextProcesser('component/build.gradle')\
-            .end_util('task sourcesJar')\
-            .rm_line_has_text('android-maven')\
-            .rm_line_has_text('group=')\
-            .finish()
-
         return self
 
 
 def main():
     project_name = raw_input('Input new project name: ')
     package_path = raw_input('Input the full package path (such as com.company.test): ')
-    template_zip = download_lastest_src()
-    factory = ProjectFactory(template_zip)
+
+    template_zip, version = download_lastest_src()
+    factory = ProjectFactory(template_zip, version)
     factory.create_project(project_name, package_path)
 
 
