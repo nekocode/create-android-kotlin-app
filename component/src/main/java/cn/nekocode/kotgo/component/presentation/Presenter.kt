@@ -3,6 +3,8 @@ package cn.nekocode.kotgo.component.presentation
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.BehaviorSubject
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 /**
  * Created by nekocode on 2015/11/20.
@@ -35,7 +37,7 @@ open class Presenter {
         eventBehavior.onNext(Event.DETACH)
     }
 
-    class NormalCheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Event>):
+    private class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<Event>):
             Observable.Transformer<T, T> {
 
         override fun call(observable: Observable<T>): Observable<T> {
@@ -51,6 +53,13 @@ open class Presenter {
             Observable<T> {
 
         return observeOn(AndroidSchedulers.mainThread())
-                .compose(NormalCheckLifeCycleTransformer<T>(presenter.eventBehavior))
+                .compose(CheckLifeCycleTransformer<T>(presenter.eventBehavior))
+    }
+
+    class CheckLifeCycle<E: Presenter>(private val presenter: E): ReadOnlyProperty<InLifeCyclePresenters, E> {
+        override fun getValue(thisRef: InLifeCyclePresenters, property: KProperty<*>): E {
+            thisRef.presenters.add(presenter)
+            return presenter
+        }
     }
 }

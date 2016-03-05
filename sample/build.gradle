@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
+    }
+}
+apply plugin: 'android-apt'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -35,10 +45,14 @@ dependencies {
 
     // Lib Projects
     compile project(":data")
-    compile project(":component")
 
     // Art
     compile "com.squareup.picasso:picasso:2.5.2"
+
+    // Kotgo Component
+    compile project(":component")
+
+    compile kotlib
 }
 
 buildscript {

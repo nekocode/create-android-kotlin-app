@@ -3,7 +3,7 @@
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
-You can fast create a new kotgo template project use the following command. Just paste and excute it at a Terminal prompt. Have fun!
+You can fast create a new kotgo template project by using the following command. Just paste and excute it at a Terminal prompt. Have fun!
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
@@ -73,9 +73,8 @@ dependencies {
 ##### SingleFragmentActivity
 It helps you fast create an activity with only one single fragment. And it extends from the BaseActivity, you can also use the safe message handling functions from the BaseActivity.
 ```kotlin
-class TestActivity : SingleFragmentActivity() {
+class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
-    override var toolbarHeight = 50
 
     override val fragmentClass = TestFragment::class.java
     override val fragmentBundle by lazy {
@@ -97,21 +96,16 @@ class TestActivity : SingleFragmentActivity() {
 ##### Base Presenter
 It helps you to binding the activity and fragment lifecycle to RxJava. It terminates all the rx subscriptions when the page is destoring or detaching.
 ```kotlin
-class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
-    val weatherPresenter = WeatherPresenter(this)
-
+class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
+    override val layoutId: Int = R.layout.fragment_main
+    val meiziPresenter by CheckLifeCycle(MeiziPresenter(this))
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        weatherPresenter.onCreate(arguments)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        weatherPresenter.onDetach()
+        meiziPresenter.getMeizis()
     }
 }
 ```
 
 ##### Others
-It also contains the [KotterKnife](https://github.com/JakeWharton/kotterknife) and some extensions using the kotlin syntactic sugar. Check the `Sugar.kt` for more details.
-
+It also contains the [KotterKnife](https://github.com/JakeWharton/kotterknife) and some tools and extensions using the kotlin syntactic sugar. Check the `component` for more details.

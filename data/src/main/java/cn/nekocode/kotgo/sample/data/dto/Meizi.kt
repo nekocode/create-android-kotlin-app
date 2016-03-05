@@ -12,7 +12,7 @@ data class Meizi(
         @SerializedName("_id") val id: String,
         val type: String,
         val url: String,
-        val who: String) : Parcelable {
+        val who: String): Parcelable {
 
     // You can automatically grenerate the following code by using this plugin:
     // https://github.com/nekocode/android-parcelable-intellij-plugin-kotlin

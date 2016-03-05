@@ -17,7 +17,7 @@ import org.jetbrains.anko.onLongClick
 /**
  * Created by nekocode on 2015/7/22.
  */
-class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MeiziListAdapter(private val list: List<Meizi>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     object Type {
         const val TYPE_ITEM: Int = 0;
     }

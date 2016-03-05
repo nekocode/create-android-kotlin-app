@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar
 import butterknife.bindView
 import org.jetbrains.anko.*
 
-abstract class SingleFragmentActivity : BaseActivity() {
+abstract class SingleFragmentActivity: BaseActivity() {
     val id_toolbar = 1
     val toolbar: Toolbar by bindView(id_toolbar)
 

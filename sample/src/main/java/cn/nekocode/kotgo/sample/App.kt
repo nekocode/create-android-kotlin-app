@@ -9,7 +9,7 @@ import kotlin.properties.Delegates
 /**
  * Created by nekocode on 2015/7/22.
  */
-class App : Application() {
+class App: Application() {
 
     override fun onCreate() {
         super.onCreate()

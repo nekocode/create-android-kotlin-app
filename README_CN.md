@@ -87,9 +87,8 @@ dependencies {
 ##### SingleFragmentActivity
 它能帮助你快速创建一个只有单个 Fragment 的 Activity。它继承自 BaseActivity，你还可以使用 BaseActivity 提供的安全的消息处理函数。
 ```kotlin
-class TestActivity : SingleFragmentActivity() {
+class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
-    override var toolbarHeight = 50
 
     override val fragmentClass = TestFragment::class.java
     override val fragmentBundle by lazy {
@@ -111,20 +110,16 @@ class TestActivity : SingleFragmentActivity() {
 ##### Base Presenter
 它帮助你将 RxJava 绑定在 Avtivity 或者 Fragment 的生命周期上。它在页面 Destory 或者 Detach 的时候终止所有 Rx 的订阅。
 ```kotlin
-class TestFragment : Fragment(), WeatherPresenter.ViewInterface {
-    val weatherPresenter = WeatherPresenter(this)
-
+class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
+    override val layoutId: Int = R.layout.fragment_main
+    val meiziPresenter by CheckLifeCycle(MeiziPresenter(this))
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        weatherPresenter.onCreate(arguments)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        weatherPresenter.onDetach()
+        meiziPresenter.getMeizis()
     }
 }
 ```
 
 ##### 其他
-它还包括 [KotterKnife](https://github.com/JakeWharton/kotterknife) 和一些使用 Kotlin 语法糖实现的拓展。你可以通过查看 `Sugar.kt` 获得更多的细节。
+它还包括 [KotterKnife](https://github.com/JakeWharton/kotterknife) 和一些使用 Kotlin 语法糖实现工具和拓展。你可以通过查看 `component` 获得更多的细节。

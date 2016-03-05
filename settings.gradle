@@ -1,1 +1,1 @@
-include ':sample', ':data', ':component', ':component-annotation', ':component-compiler'
+include ':sample', ':data', ':component'

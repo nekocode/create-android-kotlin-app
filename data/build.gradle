@@ -32,16 +32,5 @@ dependencies {
     // Storage library
     compile 'com.github.orhanobut:hawk:1.20'
 
-    // Kotlin std library
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-    }
+    compile kotlib
 }

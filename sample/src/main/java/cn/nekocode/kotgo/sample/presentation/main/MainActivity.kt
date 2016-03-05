@@ -6,7 +6,7 @@ import cn.nekocode.kotgo.sample.App
 import cn.nekocode.kotgo.sample.R
 import com.squareup.otto.Subscribe
 
-class MainActivity : SingleFragmentActivity() {
+class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
     override var toolbarHeight = 50
 

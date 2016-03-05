@@ -9,7 +9,7 @@ import android.view.MenuItem
 
 import java.lang.ref.WeakReference
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity(), InLifeCyclePresenters {
     companion object {
         private val handlers = arrayListOf<MyHandler>()
 
@@ -58,7 +58,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open val presenters: Array<Presenter>? = null
+    override val presenters = arrayListOf<Presenter>()
     protected val handler: MyHandler by lazy {
         MyHandler(this)
     }
@@ -103,7 +103,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenters?.forEach {
+        presenters.forEach {
             it.onDestory()
         }
     }

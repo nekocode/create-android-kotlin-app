@@ -28,14 +28,10 @@ dependencies {
     // Android support library
     compile "com.android.support:appcompat-v7:$supportLibVersion"
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile "com.android.support:support-annotations:$supportLibVersion"
 
     // Reactive library
     compile "io.reactivex:rxkotlin:0.40.1"
     compile "io.reactivex:rxandroid:1.1.0"
-
-    // Kotlin std library
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // DSL
     compile "org.jetbrains.anko:anko-sdk15:0.8.2" // sdk19, sdk21, sdk23 are also available
@@ -43,16 +39,8 @@ dependencies {
 
     // Event Bus
     compile 'com.squareup:otto:1.3.8'
-}
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-    }
+    compile kotlib
 }
 
 task sourcesJar(type: Jar) {
