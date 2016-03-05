@@ -162,25 +162,25 @@ class ProjectFactory:
         # =================
         # build.gradle
         TextProcesser('app/build.gradle') \
-            .replace_all_text('cn.nekocode.baseframework.sample', package_name) \
+            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
             .replace_all_text('compile project(":component")',
                               'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
 
         # AndroidManifest.xml
         TextProcesser('app/src/main/AndroidManifest.xml') \
-            .replace_all_text('cn.nekocode.baseframework.sample', package_name) \
+            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
             .finish()
 
         # strings.xml
         TextProcesser('app/src/main/res/values/strings.xml') \
-            .replace_all_text('BaseFramework', project_name) \
+            .replace_all_text('Kotgo', project_name) \
             .finish()
 
         # move package
         package_dir_postfix = package_name.replace('.', '/')
         tmp_package_path = 'app/src/main/javaTmp/' + package_dir_postfix + '/'
-        old_package_path = 'app/src/main/java/cn/nekocode/baseframework/sample/'
+        old_package_path = 'app/src/main/java/cn/nekocode/kotgo/sample/'
         os.makedirs(tmp_package_path)
 
         for f in os.listdir(old_package_path):
@@ -200,7 +200,7 @@ class ProjectFactory:
                 elif p.endswith('.kt') or p.endswith('.java'):
                     TextProcesser(path + p) \
                         .remove_comment() \
-                        .replace_header('cn.nekocode.baseframework.sample', package_name) \
+                        .replace_header('cn.nekocode.kotgo.sample', package_name) \
                         .finish()
 
         process_all_src(new_package_path)
@@ -212,13 +212,13 @@ class ProjectFactory:
 
         # AndroidManifest.xml
         TextProcesser('data/src/main/AndroidManifest.xml') \
-            .replace_all_text('cn.nekocode.baseframework.sample.data', package_name) \
+            .replace_all_text('cn.nekocode.kotgo.sample.data', package_name) \
             .finish()
 
         # move package
         package_dir_postfix = package_name.replace('.', '/')
         tmp_package_path = 'data/src/main/javaTmp/' + package_dir_postfix + '/'
-        old_package_path = 'data/src/main/java/cn/nekocode/baseframework/sample/data/'
+        old_package_path = 'data/src/main/java/cn/nekocode/kotgo/sample/data/'
         os.makedirs(tmp_package_path)
 
         for f in os.listdir(old_package_path):
@@ -238,7 +238,7 @@ class ProjectFactory:
                 elif p.endswith('.kt') or p.endswith('.java'):
                     TextProcesser(path + p) \
                         .remove_comment() \
-                        .replace_header('cn.nekocode.baseframework.sample.data', package_name) \
+                        .replace_header('cn.nekocode.kotgo.sample.data', package_name) \
                         .finish()
 
         process_all_src(new_package_path)
