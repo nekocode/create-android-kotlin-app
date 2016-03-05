@@ -104,7 +104,7 @@ object FileUtils {
             while (true) {
                 len = inBuff.read(b).toInt()
                 if (len == -1)
-                    break;
+                    break
 
                 outBuff.write(b, 0, len)
             }

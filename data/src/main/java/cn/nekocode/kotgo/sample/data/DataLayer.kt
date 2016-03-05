@@ -19,6 +19,6 @@ object DataLayer {
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
                 .setStorage(HawkBuilder.newSqliteStorage(app))
                 .setLogLevel(LogLevel.FULL)
-                .build();
+                .build()
     }
 }

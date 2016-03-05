@@ -1,13 +1,13 @@
-package cn.nekocode.kotgo.sample.presentation.main;
+package cn.nekocode.kotgo.sample.presentation.main
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 
-import cn.nekocode.kotgo.sample.R;
+import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
@@ -19,7 +19,7 @@ import org.jetbrains.anko.onLongClick
  */
 class MeiziListAdapter(private val list: List<Meizi>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     object Type {
-        const val TYPE_ITEM: Int = 0;
+        const val TYPE_ITEM: Int = 0
     }
 
     var onMeiziItemClickListener: ((Meizi) -> Unit)? = null
@@ -29,7 +29,7 @@ class MeiziListAdapter(private val list: List<Meizi>): RecyclerView.Adapter<Recy
         when (viewType) {
             Type.TYPE_ITEM -> {
                 val v = parent!!.context.layoutInflater.inflate(R.layout.item_meizi, parent, false)
-                return ItemViewHolder(v);
+                return ItemViewHolder(v)
             }
 
         }
@@ -46,7 +46,7 @@ class MeiziListAdapter(private val list: List<Meizi>): RecyclerView.Adapter<Recy
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
             is ItemViewHolder -> {
-                holder.setData(list[position]);
+                holder.setData(list[position])
             }
         }
     }

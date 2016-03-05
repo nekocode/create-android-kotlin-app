@@ -8,12 +8,7 @@ import com.squareup.otto.Subscribe
 
 class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
-    override var toolbarHeight = 50
-
     override val fragmentClass = MainFragment::class.java
-    override val fragmentBundle by lazy {
-        intent.extras
-    }
 
     override fun afterCreate() {
         toolbar.title = "Meizi List"

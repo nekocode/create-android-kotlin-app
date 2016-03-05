@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.bindView
 import cn.nekocode.kotgo.component.presentation.BaseFragment
-import cn.nekocode.kotgo.component.presentation.Presenter.CheckLifeCycle
+import cn.nekocode.kotgo.component.presentation.Presenter.bindLifeCycle
 import cn.nekocode.kotgo.sample.App
 
 import cn.nekocode.kotgo.sample.R
@@ -15,7 +15,7 @@ import cn.nekocode.kotgo.sample.presentation.navigateToPage2
 
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main
-    val meiziPresenter by CheckLifeCycle(MeiziPresenter(this))
+    val meiziPresenter by bindLifeCycle(MeiziPresenter(this))
 
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     val list: MutableList<Meizi> = arrayListOf()

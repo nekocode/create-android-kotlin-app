@@ -27,7 +27,7 @@ open class Presenter {
         DETACH
     }
 
-    val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
+    private val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
     final fun onDestory() {
         eventBehavior.onNext(Event.DESTROY)
@@ -56,7 +56,7 @@ open class Presenter {
                 .compose(CheckLifeCycleTransformer<T>(presenter.eventBehavior))
     }
 
-    class CheckLifeCycle<E: Presenter>(private val presenter: E): ReadOnlyProperty<InLifeCyclePresenters, E> {
+    class bindLifeCycle<E: Presenter>(private val presenter: E): ReadOnlyProperty<InLifeCyclePresenters, E> {
         override fun getValue(thisRef: InLifeCyclePresenters, property: KProperty<*>): E {
             thisRef.presenters.add(presenter)
             return presenter
