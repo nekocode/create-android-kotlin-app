@@ -43,11 +43,11 @@ com.nekocode.baseframework
 - **kotlin version: `1.0.0`**
 
 ### Libraries
-- anko: **`0.8.2`**
+- anko: **`0.8.3`**
 - rxkotlin: **`0.40.1`**
 - retrofit: **`2.0.0-beta4`**
 - picasso: **`2.5.2`**
-- hawk: **`1.20`**
+- hawk: **`1.22`**
 - otto: **`1.3.8`**
 
 ### Screenshots
