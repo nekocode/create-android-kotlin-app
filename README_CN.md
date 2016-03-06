@@ -3,11 +3,11 @@
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## 快速创建项目
-你可以使用下面的命令快速创建一个用 Kotgo 模板生成的项目。只需要粘贴到命令行中执行就可以了。
+你可以使用下面的命令快速创建一个 Kotgo 模板项目。只需要粘贴到命令行中执行就可以了。
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
-当然，你也可以将这个 Python 脚本下载到你本地运行。
+当然，你也可以将这个 Python 脚本下载到你本地运行。它依赖 `requesets` 库。
 
 ## 相关文章
 - [**『Android 还可以这样开发』 - 知乎专栏**](http://zhuanlan.zhihu.com/kotandroid)  
@@ -26,7 +26,7 @@ python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/
 
 
 ## 描述
-Kotgo 是一个采用 **MVP** 模式进行设计的 Android 应用框架。它使用 **kotlin** 和 java 混合构建。
+Kotgo 是一个采用 **MVP** 模式进行设计的 Android 应用框架。它使用纯的 **Kotlin** 进行构建。  
 ![](art/layer.png)
 
 ### 包结构
@@ -69,21 +69,21 @@ com.nekocode.baseframework
 
 
 ## 使用 Component Library
-你可以仅仅使用 kotgo 的 component 库，在项目根目录的 build.gradle 添加以下内容：
+你可以仅仅使用 kotgo 的 component 库，它提供了很多能让你简单快速地构建一个 MVP 项目的有用的工具。在项目根目录的 build.gradle 添加以下内容：
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
 }
 ```
 
-在你的 app 或其他 module 目录下的 build.gradle 添加以下依赖：
+在你的子 build.gradle 添加以下依赖：
 ```gradle
 dependencies {
     compile 'com.github.nekocode:kotgo:lastest-version'
 }
 ```
 
-### 一些特性
+### 一些工具
 ##### SingleFragmentActivity
 它能帮助你快速创建一个只有单个 Fragment 的 Activity。它继承自 BaseActivity，你还可以使用 BaseActivity 提供的安全的消息处理函数。
 ```kotlin
@@ -108,11 +108,11 @@ class MainActivity: SingleFragmentActivity() {
 ```
 
 ##### Base Presenter
-它帮助你将 RxJava 绑定在 Avtivity 或者 Fragment 的生命周期上。它在页面 Destory 或者 Detach 的时候终止所有 Rx 的订阅。
+它帮助你将 RxJava 的订阅绑定在 Avtivity 或者 Fragment 的生命周期上。它会在 Activity 或者 Fragment 进行销毁的时候终止所有 RxJava 的订阅。
 ```kotlin
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main
-    val meiziPresenter by CheckLifeCycle(MeiziPresenter(this))
+    val meiziPresenter by bindLifeCycle(MeiziPresenter(this))
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,4 +122,4 @@ class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
 ```
 
 ##### 其他
-它还包括 [KotterKnife](https://github.com/JakeWharton/kotterknife) 和一些使用 Kotlin 语法糖实现工具和拓展。你可以通过查看 `component` 获得更多的细节。
+它还包括一些其他常用的工具和拓展（例如 [KotterKnife](https://github.com/JakeWharton/kotterknife)）。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。

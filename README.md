@@ -3,14 +3,14 @@
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Project
-You can fast create a new kotgo template project by using the following command. Just paste and excute it at a Terminal prompt. Have fun!
+You can create a new Kotgo template project fast by using the following command. Just paste and execute it at a terminal prompt. Have fun!
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
-Of course, you can also download the python script to your local disk to run it.
+Of course, you can also download the python script to your local disk to run it. It depends on the `requests` lib.
 
 ## Description
-**Kotgo** is an android development framework using **MVP** architecture. It built with both **kotlin** and java.
+**Kotgo** is an android development framework using **MVP** architecture. It is built with pure **Kotlin**.  
 ![](art/layer.png)
 
 ### Related articles
@@ -55,34 +55,30 @@ Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl p
 ![](art/screenshot.png)
 
 ## Use Component Library
-You can only use the kotgo's component library with gradle. Just add the JitPack repository to your project root build.gradle:
+You can only use the kotgo's component library with gradle. It provides many useful tools to help you to build a MVP project fast and simply. Just add the JitPack repository to your root build.gradle:
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
 }
 ```
 
-And then add the dependency to build.gradle in your app or module directory:
+And then add the dependency to your sub build.gradle:
 ```gradle
 dependencies {
     compile 'com.github.nekocode:kotgo:lastest-version'
 }
 ```
 
-### Some Features
+### Some Tools
 ##### SingleFragmentActivity
-It helps you fast create an activity with only one single fragment. And it extends from the BaseActivity, you can also use the safe message handling functions from the BaseActivity.
+It helps you create an activity with only one single fragment fast. And it extends from the BaseActivity, you can use the safe message handling functions from the it.
 ```kotlin
 class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
-
-    override val fragmentClass = TestFragment::class.java
-    override val fragmentBundle by lazy {
-        intent.extras
-    }
+    override val fragmentClass = MainFragment::class.java
 
     override fun afterCreate() {
-        toolbar.title = "This is a test"
+        toolbar.title = "Meizi List"
         runDelayed({
             showToast("Hello")
         }, 2000)
@@ -94,11 +90,11 @@ class MainActivity: SingleFragmentActivity() {
 ```
 
 ##### Base Presenter
-It helps you to binding the activity and fragment lifecycle to RxJava. It terminates all the rx subscriptions when the page is destoring or detaching.
+It helps you to bind the RxJava subscriptions into activity and fragment's lifecycle. It will terminate all the RxJava subscriptions when the activity or fragment is destorying or detaching.
 ```kotlin
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main
-    val meiziPresenter by CheckLifeCycle(MeiziPresenter(this))
+    val meiziPresenter by bindLifeCycle(MeiziPresenter(this))
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,4 +104,4 @@ class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
 ```
 
 ##### Others
-It also contains the [KotterKnife](https://github.com/JakeWharton/kotterknife) and some tools and extensions using the kotlin syntactic sugar. Check the `component` for more details.
+It also contains some other useful tools and extensions (such as [KotterKnife](https://github.com/JakeWharton/kotterknife)). Check the [util package](component/src/main/java/cn/nekocode/kotgo/component/util) for more details.

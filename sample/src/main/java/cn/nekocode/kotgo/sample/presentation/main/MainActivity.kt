@@ -12,10 +12,6 @@ class MainActivity: SingleFragmentActivity() {
 
     override fun afterCreate() {
         toolbar.title = "Meizi List"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         App.bus.register(this)
     }
 
