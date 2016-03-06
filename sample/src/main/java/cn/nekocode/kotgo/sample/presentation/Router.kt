@@ -9,11 +9,11 @@ import org.jetbrains.anko.intentFor
 /**
  * Created by nekocode on 16/2/29.
  */
-fun Context.navigateToMainPage() {
+fun Context.gotoMainPage() {
     startActivity(intentFor<MainActivity>())
 }
 
-fun Context.navigateToPage2(meizi: Meizi) {
+fun Context.gotoPage2(meizi: Meizi) {
     startActivity(intentFor<Page2Activity>(Pair("meizi", meizi)))
 }
 

@@ -11,7 +11,7 @@ import cn.nekocode.kotgo.sample.App
 
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.presentation.navigateToPage2
+import cn.nekocode.kotgo.sample.presentation.gotoPage2
 
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main
@@ -39,7 +39,7 @@ class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
         recyclerView.adapter = adapter
 
         adapter.onMeiziItemClickListener = {
-            activity.navigateToPage2(it)
+            activity.gotoPage2(it)
         }
     }
 

@@ -30,7 +30,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
-    compile 'com.github.orhanobut:hawk:1.20'
+    compile 'com.github.orhanobut:hawk:1.22'
 
     compile kotlib
 }

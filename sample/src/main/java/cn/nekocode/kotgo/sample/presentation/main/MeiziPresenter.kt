@@ -13,7 +13,7 @@ class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter() {
     }
 
     fun getMeizis() {
-        MeiziModel.getMeizis(10, 1).on(this).subscribe {
+        MeiziModel.getMeizis(50, 1).on(this).subscribe {
             view.refreshMeizis(it)
         }
     }

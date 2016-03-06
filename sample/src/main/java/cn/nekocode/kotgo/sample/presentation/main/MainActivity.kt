@@ -1,6 +1,5 @@
 package cn.nekocode.kotgo.sample.presentation.main
 
-import android.os.Bundle
 import cn.nekocode.kotgo.component.presentation.SingleFragmentActivity
 import cn.nekocode.kotgo.sample.App
 import cn.nekocode.kotgo.sample.R
