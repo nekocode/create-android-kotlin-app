@@ -71,31 +71,21 @@ dependencies {
 ### More Flexible RxLifecycle!! 
 It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
 ```kotlin
-class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
-    interface ViewInterface: LifecycleContainer {
-        fun refreshMeizis(meizis: List<Meizi>)
-    }
-
-    fun getMeizis() {
-        MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
-            view.refreshMeizis(it)
-        }
-    }
+MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
+    view.refreshMeizis(it)
 }
 ```
 
 ### Powerful RxBus!!
 It simulate the event bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically, you can just subscribe events in the `bus` block without worrying about any accidents! 
 ```kotlin
-class MainActivity: BaseActivity() {
-    override fun afterCreate() {
-        toolbar.title = "Meizi List"
-
-        bus {
-            subscribe(String::class.java) {
-                toolbar.title = "Meizi List - " + it
-            }
-        }
+bus {
+    subscribe(String::class.java) {
+        showToast(it)
+    }
+    
+    subscribe(Int::class.java) {
+        showToast(it.toString())
     }
 }
 ```

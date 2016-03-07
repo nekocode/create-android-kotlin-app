@@ -85,31 +85,21 @@ dependencies {
 ### 更灵活的 RxLifecycle！！
 它帮助你将 RxJava 的订阅绑定在 Avtivity 或者 Fragment 的生命周期上。它会在 Activity 或者 Fragment 进行销毁的时候终止订阅。更关键的是，他还能在任何地方使用（例如 Presenter 中），比 [RxLifecycle](https://github.com/trello/RxLifecycle) 更加灵活。  
 ```kotlin
-class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
-    interface ViewInterface: LifecycleContainer {
-        fun refreshMeizis(meizis: List<Meizi>)
-    }
-
-    fun getMeizis() {
-        MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
-            view.refreshMeizis(it)
-        }
-    }
+MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
+    view.refreshMeizis(it)
 }
 ```
 
 ### 强大的 RxBus！！
 它使用 RxJava 来模拟事件总线，它通过一系列 Kotlin 的语法糖，将订阅 EventBus 变得十分简洁，并且自动绑定了 Avtivity 或者 Fragment 的生命周期，你无需担心任何意外！只需要像下面一样在 `bus` 中订阅事件就行了。  
 ```kotlin
-class MainActivity: BaseActivity() {
-    override fun afterCreate() {
-        toolbar.title = "Meizi List"
-
-        bus {
-            subscribe(String::class.java) {
-                toolbar.title = "Meizi List - " + it
-            }
-        }
+bus {
+    subscribe(String::class.java) {
+        showToast(it)
+    }
+    
+    subscribe(Int::class.java) {
+        showToast(it.toString())
     }
 }
 ```
