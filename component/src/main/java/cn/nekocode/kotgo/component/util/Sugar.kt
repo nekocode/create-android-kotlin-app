@@ -5,17 +5,17 @@ import android.app.FragmentManager
 import android.app.FragmentTransaction
 import android.content.Context
 import android.widget.Toast
+import cn.nekocode.kotgo.component.util.RxLifecycle
+import cn.nekocode.kotgo.component.util.LifecycleContainer
+import cn.nekocode.kotgo.component.util.bindLifecycle
 import rx.Observable
+import rx.Subscriber
+import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 
 /**
  * Created by nekocode on 2015/8/13.
  */
-
-fun <T> Observable<T>.onUI(): Observable<T> {
-    return observeOn(AndroidSchedulers.mainThread())
-}
-
 fun Context.showToast(any: Any?) {
     when(any) {
         is Int ->
@@ -36,4 +36,25 @@ fun <T: Fragment> FragmentTransaction.addFragment(containerId: Int, tag: String,
     }
 
     return fragment
+}
+
+
+fun <T> Observable<T>.onUI(): Observable<T> {
+    return observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Observable<T>.onUI(onNext: (T)->Unit): Subscription {
+    return observeOn(AndroidSchedulers.mainThread()).subscribe(onNext)
+}
+
+fun <T> Observable<T>.onUI(subscriber: Subscriber<T>): Subscription {
+    return observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber)
+}
+
+fun <T> Observable<T>.onUIInLifecycle(lifecycle: LifecycleContainer, onNext: (T)->Unit): Subscription {
+    return bindLifecycle(lifecycle).observeOn(AndroidSchedulers.mainThread()).subscribe(onNext)
+}
+
+fun <T> Observable<T>.onUIInLifecycle(lifecycle: LifecycleContainer, subscriber: Subscriber<T>): Subscription {
+    return bindLifecycle(lifecycle).observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber)
 }

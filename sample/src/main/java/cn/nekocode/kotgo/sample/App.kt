@@ -2,7 +2,6 @@ package cn.nekocode.kotgo.sample
 
 import android.app.Application
 import cn.nekocode.kotgo.component.util.FileUtils
-import cn.nekocode.kotgo.component.util.MainThreadBus
 import cn.nekocode.kotgo.sample.data.DataLayer
 import kotlin.properties.Delegates
 
@@ -21,7 +20,6 @@ class App: Application() {
 
     companion object {
         var instance by Delegates.notNull<App>()
-        val bus = MainThreadBus()
     }
 
 }

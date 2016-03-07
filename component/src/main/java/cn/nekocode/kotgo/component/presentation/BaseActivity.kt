@@ -6,10 +6,12 @@ import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import cn.nekocode.kotgo.component.util.RxLifecycle
+import cn.nekocode.kotgo.component.util.LifecycleContainer
 
 import java.lang.ref.WeakReference
 
-abstract class BaseActivity: AppCompatActivity(), InLifeCyclePresenters {
+abstract class BaseActivity: AppCompatActivity(), LifecycleContainer {
     companion object {
         private val handlers = arrayListOf<MyHandler>()
 
@@ -58,7 +60,7 @@ abstract class BaseActivity: AppCompatActivity(), InLifeCyclePresenters {
         }
     }
 
-    override val presenters = arrayListOf<Presenter>()
+    override val lifecycle = RxLifecycle()
     protected val handler: MyHandler by lazy {
         MyHandler(this)
     }
@@ -103,9 +105,7 @@ abstract class BaseActivity: AppCompatActivity(), InLifeCyclePresenters {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenters.forEach {
-            it.onDestory()
-        }
+        lifecycle.onDestory()
     }
 
     open fun handler(msg: Message) {

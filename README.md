@@ -48,7 +48,6 @@ com.nekocode.baseframework
 - retrofit: **`2.0.0-beta4`**
 - picasso: **`2.5.2`**
 - hawk: **`1.22`**
-- otto: **`1.3.8`**
 
 ### Screenshots
 Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
@@ -65,43 +64,52 @@ repositories {
 And then add the dependency to your sub build.gradle:
 ```gradle
 dependencies {
-    compile 'com.github.nekocode:kotgo:lastest-version'
+    compile 'com.github.nekocode:kotgo:<lastest-version>'
 }
 ```
 
 ### Some Tools
+##### More Flexible RxLifecycle!! 
+It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
+```kotlin
+class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
+    interface ViewInterface: LifecycleContainer {
+        fun refreshMeizis(meizis: List<Meizi>)
+    }
+
+    fun getMeizis() {
+        MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
+            view.refreshMeizis(it)
+        }
+    }
+}
+```
+
+##### Powerful RxBus!!
+It simulate the event bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically, you can just subscribe events in the `bus` block without worrying about any accidents! 
+```kotlin
+class MainActivity: BaseActivity() {
+    override fun afterCreate() {
+        toolbar.title = "Meizi List"
+
+        bus {
+            subscribe(String::class.java) {
+                toolbar.title = "Meizi List - " + it
+            }
+        }
+    }
+}
+```
+
 ##### SingleFragmentActivity
-It helps you create an activity with only one single fragment fast. And it extends from the BaseActivity, you can use the safe message handling functions from the it.
+It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.
 ```kotlin
 class MainActivity: SingleFragmentActivity() {
     override val toolbarLayoutId = R.layout.toolbar
     override val fragmentClass = MainFragment::class.java
-
-    override fun afterCreate() {
-        toolbar.title = "Meizi List"
-        runDelayed({
-            showToast("Hello")
-        }, 2000)
-    }
-
-    override fun handler(msg: Message) {
-    }
 }
 ```
 
-##### Base Presenter
-It helps you to bind the RxJava subscriptions into activity and fragment's lifecycle. It will terminate all the RxJava subscriptions when the activity or fragment is destorying or detaching.
-```kotlin
-class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
-    override val layoutId: Int = R.layout.fragment_main
-    val meiziPresenter by bindLifeCycle(MeiziPresenter(this))
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        meiziPresenter.getMeizis()
-    }
-}
-```
 
 ##### Others
 It also contains some other useful tools and extensions (such as [KotterKnife](https://github.com/JakeWharton/kotterknife)). Check the [util package](component/src/main/java/cn/nekocode/kotgo/component/util) for more details.
