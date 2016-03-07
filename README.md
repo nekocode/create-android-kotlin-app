@@ -77,7 +77,7 @@ MeiziModel.getMeizis(50, 1).onUIInLifecycle(view) {
 ```
 
 ### Powerful RxBus!!
-It simulate the event bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically, you can just subscribe events in the `bus` block without worrying about any accidents! 
+It simulates the Event Bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the Bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically, you can just subscribe events in the `bus` block without worrying about any accidents! 
 ```kotlin
 bus {
     subscribe(String::class.java) {
