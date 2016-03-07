@@ -82,8 +82,7 @@ dependencies {
 }
 ```
 
-### 一些工具
-##### 更灵活的 RxLifecycle！！
+### 更灵活的 RxLifecycle！！
 它帮助你将 RxJava 的订阅绑定在 Avtivity 或者 Fragment 的生命周期上。它会在 Activity 或者 Fragment 进行销毁的时候终止订阅。更关键的是，他还能在任何地方使用（例如 Presenter 中），比 [RxLifecycle](https://github.com/trello/RxLifecycle) 更加灵活。  
 ```kotlin
 class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
@@ -99,7 +98,7 @@ class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
 }
 ```
 
-##### 强大的 RxBus！！
+### 强大的 RxBus！！
 它使用 RxJava 来模拟事件总线，它通过一系列 Kotlin 的语法糖，将订阅 EventBus 变得十分简洁，并且自动绑定了 Avtivity 或者 Fragment 的生命周期，你无需担心任何意外！只需要像下面一样在 `bus` 中订阅事件就行了。  
 ```kotlin
 class MainActivity: BaseActivity() {
@@ -115,7 +114,7 @@ class MainActivity: BaseActivity() {
 }
 ```
 
-##### SingleFragmentActivity
+### SingleFragmentActivity
 它能帮助你快速创建一个包含单个 Toolbar 和单个 Fragment 的 Activity。你只需要继承 `toolbarLayoutId` 以及 `fragmentClass` 就行了。如果你不需要 Toolbar 的话设置 `toolbarLayoutId` 为 null。
 ```kotlin
 class MainActivity: SingleFragmentActivity() {
@@ -125,5 +124,5 @@ class MainActivity: SingleFragmentActivity() {
 ```
 
 
-##### 其他
+### 其他
 它还包括一些其他常用的工具和拓展（例如 [KotterKnife](https://github.com/JakeWharton/kotterknife)）。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。

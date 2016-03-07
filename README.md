@@ -68,8 +68,7 @@ dependencies {
 }
 ```
 
-### Some Tools
-##### More Flexible RxLifecycle!! 
+### More Flexible RxLifecycle!! 
 It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
 ```kotlin
 class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
@@ -85,7 +84,7 @@ class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
 }
 ```
 
-##### Powerful RxBus!!
+### Powerful RxBus!!
 It simulate the event bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically, you can just subscribe events in the `bus` block without worrying about any accidents! 
 ```kotlin
 class MainActivity: BaseActivity() {
@@ -101,7 +100,7 @@ class MainActivity: BaseActivity() {
 }
 ```
 
-##### SingleFragmentActivity
+### SingleFragmentActivity
 It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.
 ```kotlin
 class MainActivity: SingleFragmentActivity() {
@@ -111,5 +110,5 @@ class MainActivity: SingleFragmentActivity() {
 ```
 
 
-##### Others
+### Others
 It also contains some other useful tools and extensions (such as [KotterKnife](https://github.com/JakeWharton/kotterknife)). Check the [util package](component/src/main/java/cn/nekocode/kotgo/component/util) for more details.
