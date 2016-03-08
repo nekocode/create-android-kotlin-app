@@ -7,7 +7,7 @@
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
-当然，你也可以将这个 Python 脚本下载到你本地运行。它依赖 `requesets` 库。
+当然，你也可以将这个 Python 脚本下载到你本地运行。它依赖 `requests` 库。
 
 ## 相关文章
 - [**『Android 还可以这样开发』 - 知乎专栏**](http://zhuanlan.zhihu.com/kotandroid)  
