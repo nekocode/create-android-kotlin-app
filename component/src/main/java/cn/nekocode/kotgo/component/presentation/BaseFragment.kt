@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.nekocode.kotgo.component.util.RxLifecycle
 import cn.nekocode.kotgo.component.util.LifecycleContainer
+import cn.nekocode.kotgo.component.util.RxLifecycle
 
 /**
  * Created by nekocode on 16/3/3.

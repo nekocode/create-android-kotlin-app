@@ -6,9 +6,8 @@ import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import cn.nekocode.kotgo.component.util.RxLifecycle
 import cn.nekocode.kotgo.component.util.LifecycleContainer
-
+import cn.nekocode.kotgo.component.util.RxLifecycle
 import java.lang.ref.WeakReference
 
 abstract class BaseActivity: AppCompatActivity(), LifecycleContainer {
