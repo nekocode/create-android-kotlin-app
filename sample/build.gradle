@@ -18,16 +18,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-            assets.srcDirs = ['assets']
-            res.srcDirs = [
-                    'src/main/res'
-            ]
-        }
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 }
 
 dependencies {
@@ -35,6 +25,19 @@ dependencies {
     compile kotlib
     compile project(":data")
     compile project(":component")
+
+    // Android support library
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    // Reactive library
+    compile "io.reactivex:rxkotlin:0.40.1"
+    compile "io.reactivex:rxandroid:1.1.0"
+
+    // DSL
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
 
     // Artwork
     compile "com.squareup.picasso:picasso:2.5.2"

@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.util
+package cn.nekocode.kotgo.component.rx
 
 import rx.Observable
 import rx.Subscriber
@@ -23,10 +23,10 @@ object RxBus {
 }
 
 
-class Bus(val lifecycle: LifecycleContainer) {
+class Bus(val getter: RxLifecycle.Getter) {
     fun <T: Any> subscribe(classType: Class<T>, subscriber: Subscriber<T>) {
         RxBus.toObserverable()
-                .bindLifecycle(lifecycle)
+                .bindLifecycle(getter)
                 .filterByType(classType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber)
@@ -34,7 +34,7 @@ class Bus(val lifecycle: LifecycleContainer) {
 
     fun <T> subscribe(classType: Class<T>, onNext: (T)->Unit) {
         RxBus.toObserverable()
-                .bindLifecycle(lifecycle)
+                .bindLifecycle(getter)
                 .filterByType(classType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNext)
@@ -51,7 +51,7 @@ class Bus(val lifecycle: LifecycleContainer) {
 }
 
 
-fun LifecycleContainer.bus(init: Bus.() -> Unit): Bus {
+fun RxLifecycle.Getter.bus(init: Bus.() -> Unit): Bus {
     val bus = Bus(this)     // create the receiver object
     bus.init()              // pass the receiver object to the lambda
     return bus

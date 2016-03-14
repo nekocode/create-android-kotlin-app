@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.bindView
 import cn.nekocode.kotgo.component.presentation.BaseFragment
-import cn.nekocode.kotgo.component.util.RxBus
+import cn.nekocode.kotgo.component.rx.RxBus
 
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi

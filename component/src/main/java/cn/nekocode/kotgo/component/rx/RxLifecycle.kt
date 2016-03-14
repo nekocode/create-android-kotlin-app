@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.util
+package cn.nekocode.kotgo.component.rx
 
 import rx.Observable
 import rx.subjects.BehaviorSubject
@@ -16,10 +16,10 @@ class RxLifecycle {
     final fun onDestory() {
         eventBehavior.onNext(Event.DESTROY)
     }
-}
 
-interface LifecycleContainer {
-    val lifecycle: RxLifecycle
+    interface Getter {
+        val lifecycle: RxLifecycle
+    }
 }
 
 class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<RxLifecycle.Event>):
@@ -33,7 +33,7 @@ class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<RxLifecycl
     }
 }
 
-fun <T> Observable<T>.bindLifecycle(lifecycleContainer: LifecycleContainer):
+fun <T> Observable<T>.bindLifecycle(getter: RxLifecycle.Getter):
         Observable<T> {
-    return compose(CheckLifeCycleTransformer<T>(lifecycleContainer.lifecycle.eventBehavior))
+    return compose(CheckLifeCycleTransformer<T>(getter.lifecycle.eventBehavior))
 }

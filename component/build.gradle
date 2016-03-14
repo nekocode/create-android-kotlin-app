@@ -22,23 +22,22 @@ android {
     }
 }
 
-def supportLibVersion="23.1.1"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android support library
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    provided "com.android.support:appcompat-v7:$supportLibVersion"
+    provided "com.android.support:recyclerview-v7:$supportLibVersion"
 
     // Reactive library
-    compile "io.reactivex:rxkotlin:0.40.1"
-    compile "io.reactivex:rxandroid:1.1.0"
+    provided "io.reactivex:rxkotlin:0.40.1"
+    provided "io.reactivex:rxandroid:1.1.0"
 
     // DSL
-    compile 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
-    compile 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
-    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
+    provided 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
+    provided 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
+    provided 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
 
-    compile kotlib
+    provided kotlib
 }
 
 task sourcesJar(type: Jar) {

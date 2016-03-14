@@ -1,7 +1,7 @@
 package cn.nekocode.kotgo.sample.presentation.main
 
 import cn.nekocode.kotgo.component.presentation.SingleFragmentActivity
-import cn.nekocode.kotgo.component.util.bus
+import cn.nekocode.kotgo.component.rx.bus
 import cn.nekocode.kotgo.sample.R
 
 class MainActivity: SingleFragmentActivity() {

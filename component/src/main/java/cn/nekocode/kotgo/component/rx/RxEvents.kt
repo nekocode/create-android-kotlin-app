@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.util
+package cn.nekocode.kotgo.component.rx
 
 import android.text.Editable
 import android.text.TextWatcher

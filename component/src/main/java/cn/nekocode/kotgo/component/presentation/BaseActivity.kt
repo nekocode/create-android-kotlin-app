@@ -6,11 +6,10 @@ import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import cn.nekocode.kotgo.component.util.LifecycleContainer
-import cn.nekocode.kotgo.component.util.RxLifecycle
+import cn.nekocode.kotgo.component.rx.RxLifecycle
 import java.lang.ref.WeakReference
 
-abstract class BaseActivity: AppCompatActivity(), LifecycleContainer {
+abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Getter {
     companion object {
         private val handlers = arrayListOf<MyHandler>()
 
