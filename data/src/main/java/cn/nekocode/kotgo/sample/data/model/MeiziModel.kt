@@ -1,7 +1,8 @@
 package cn.nekocode.kotgo.sample.data.model
 
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.data.service.Net
+import cn.nekocode.kotgo.sample.data.exception.GankServiceException
+import cn.nekocode.kotgo.sample.data.service.GankService
 import com.orhanobut.hawk.Hawk
 import rx.Notification
 import rx.Observable
@@ -14,7 +15,7 @@ object MeiziModel {
 
     // Bussines Logic
     fun getMeizis(count: Int, pageNum: Int): Observable<List<Meizi>> =
-            Net.api.getMeizi(count, pageNum)
+            GankService.api.getMeizi(count, pageNum)
                     .subscribeOn(Schedulers.io())
                     .map { it.results }
                     .doOnEach {
@@ -25,7 +26,8 @@ object MeiziModel {
                     }
                     .onErrorResumeNext {
                         // Fetech weather from local cache
-                        val meiziList: List<Meizi>? = Hawk.get("meizis")
+                        val meiziList: List<Meizi> = Hawk.get("meizis")
+                                ?: throw GankServiceException(it.message)
                         Observable.just(meiziList)
                     }
 

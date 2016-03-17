@@ -9,12 +9,18 @@ import android.widget.Toast
 /**
  * Created by nekocode on 2015/8/13.
  */
-fun Context.showToast(any: Any?) {
+fun Any.showToast(any: Any?) {
+    val context: Context = when(this) {
+        is Context -> this
+        is Fragment -> this.activity
+        else -> return
+    }
+
     when(any) {
         is Int ->
-            Toast.makeText(this, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, any, Toast.LENGTH_SHORT).show()
         is String ->
-            Toast.makeText(this, any, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, any, Toast.LENGTH_SHORT).show()
         null ->
             return
     }
