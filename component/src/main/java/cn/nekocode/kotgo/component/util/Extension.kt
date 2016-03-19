@@ -29,7 +29,7 @@ fun <T: Fragment> FragmentTransaction.addFragment(containerId: Int, tag: String,
     if (fragment?.isDetached ?: true) {
         fragment = fragmentClass.newInstance()
 
-        this.add(containerId, fragment, tag).commit()
+        this.add(containerId, fragment, tag)
     }
 
     return fragment
