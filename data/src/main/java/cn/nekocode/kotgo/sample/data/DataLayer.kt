@@ -18,10 +18,10 @@ import kotlin.properties.Delegates
 object DataLayer {
     // OkHttp Config
     const val RESPONSE_CACHE_FILE: String = "reponse_cache"
-    const val RESPONSE_CACHE_SIZE: Int = 10 * 1024 * 1024
-    const val HTTP_CONNECT_TIMEOUT: Int = 10
-    const val HTTP_READ_TIMEOUT: Int = 30
-    const val HTTP_WRITE_TIMEOUT: Int = 10
+    const val RESPONSE_CACHE_SIZE = 10 * 1024 * 1024L
+    const val HTTP_CONNECT_TIMEOUT = 10L
+    const val HTTP_READ_TIMEOUT = 30L
+    const val HTTP_WRITE_TIMEOUT = 10L
 
     var app by Delegates.notNull<Application>()
     var okHttpClient: OkHttpClient by Delegates.notNull()
@@ -38,10 +38,10 @@ object DataLayer {
 
         val cacheDir = File(app.cacheDir, RESPONSE_CACHE_FILE)
         okHttpClient = OkHttpClient.Builder()
-                .cache(Cache(cacheDir, RESPONSE_CACHE_SIZE.toLong()))
-                .connectTimeout(HTTP_CONNECT_TIMEOUT.toLong(), TimeUnit.SECONDS)
-                .writeTimeout(HTTP_WRITE_TIMEOUT.toLong(), TimeUnit.SECONDS)
-                .readTimeout(HTTP_READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
+                .cache(Cache(cacheDir, RESPONSE_CACHE_SIZE))
+                .connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
                 .build()
     }
 }
