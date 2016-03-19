@@ -10,14 +10,7 @@ import android.widget.Toast
  * Created by nekocode on 2015/8/13.
  */
 fun Fragment.showToast(any: Any?) {
-    when(any) {
-        is Int ->
-            Toast.makeText(this.activity, any, Toast.LENGTH_SHORT).show()
-        is String ->
-            Toast.makeText(this.activity, any, Toast.LENGTH_SHORT).show()
-        null ->
-            return
-    }
+    activity.showToast(any)
 }
 
 fun Context.showToast(any: Any?) {

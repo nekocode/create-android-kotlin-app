@@ -17,15 +17,12 @@ object MeiziModel {
     fun getMeizis(count: Int, pageNum: Int): Observable<List<Meizi>> =
             GankService.api.getMeizi(count, pageNum)
                     .subscribeOn(Schedulers.io())
-                    .map { it.results }
-                    .doOnEach {
-                        if(it.kind == Notification.Kind.OnNext) {
-                            // Cache weather to local cache
-                            Hawk.put("meizis", it.value)
-                        }
+                    .map {
+                        Hawk.put("meizis", it.results)
+                        it.results
                     }
                     .onErrorResumeNext {
-                        // Fetech weather from local cache
+                        // Fetech data from local cache
                         val meiziList: List<Meizi> = Hawk.get("meizis")
                                 ?: throw GankServiceException(it.message)
                         Observable.just(meiziList)

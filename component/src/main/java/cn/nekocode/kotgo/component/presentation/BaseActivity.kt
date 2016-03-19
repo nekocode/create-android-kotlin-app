@@ -27,9 +27,10 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Getter {
 
         fun broadcast(message: Message) {
             for (handler in handlers) {
-                val msg = Message()
-                msg.copyFrom(message)
-                handler.sendMessage(msg)
+                Message().apply {
+                    copyFrom(message)
+                    handler.sendMessage(this)
+                }
             }
         }
 
@@ -44,8 +45,8 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Getter {
                 if(mOuter.get() == null) {
                     deleteHandler(this)
                     return
-                } else {
 
+                } else {
                     if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
                         val runnable = (msg.obj as WeakReference<() -> Unit>).get()
                         runnable?.invoke()
@@ -64,9 +65,10 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Getter {
     }
 
     fun sendMsg(message: Message) {
-        val msg = Message()
-        msg.copyFrom(message)
-        handler.sendMessage(msg)
+        Message().apply {
+            copyFrom(message)
+            handler.sendMessage(this)
+        }
     }
 
     fun sendMsgDelayed(message: Message, delayMillis: Int) {

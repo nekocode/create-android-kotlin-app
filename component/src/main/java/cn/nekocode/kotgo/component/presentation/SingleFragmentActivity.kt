@@ -22,7 +22,7 @@ abstract class SingleFragmentActivity: BaseActivity() {
             if(toolbarLayoutId != null) {
                 include<Toolbar>(toolbarLayoutId!!) {
                     id = id_toolbar
-                }.lparams(width = matchParent, height = getActionBarSize())
+                }.lparams(width = matchParent, height = getToolbarSize())
 
                 frameLayout {
                     id = id_fragment_content
@@ -46,7 +46,7 @@ abstract class SingleFragmentActivity: BaseActivity() {
         }
     }
 
-    private fun getActionBarSize(): Int {
+    private fun getToolbarSize(): Int {
         var actionBarHeight = dip(50)
 
         val tv = TypedValue()

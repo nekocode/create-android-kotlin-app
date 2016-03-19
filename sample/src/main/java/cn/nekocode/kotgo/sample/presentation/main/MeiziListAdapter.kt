@@ -57,8 +57,10 @@ class MeiziListAdapter(private val list: List<Meizi>): RecyclerView.Adapter<Recy
         val textView2: TextView by bindView(R.id.textView2)
 
         fun setData(meizi : Meizi) {
-            itemView?.onClick { onMeiziItemClickListener?.invoke(meizi) }
-            itemView?.onLongClick { onMeiziItemLongClickListener?.invoke(meizi) ?: false }
+            itemView?.apply {
+                onClick { onMeiziItemClickListener?.invoke(meizi) }
+                onLongClick { onMeiziItemLongClickListener?.invoke(meizi) ?: false }
+            }
 
             Picasso.with(itemView.context).load(meizi.url).centerCrop().fit().into(imageView)
             textView.text = meizi.id
