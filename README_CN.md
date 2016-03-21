@@ -53,7 +53,7 @@ com.nekocode.baseframework
 - **Presenter Layer：**控制逻辑层。是**「Model 与 View 层中间的交互控制层」**。
 
 ### Kotlin
-- **kotlin version: `1.0.0`**
+- **kotlin version: `1.0.1`**
 
 ### 依赖库
 - anko: **`0.8.3`**
@@ -61,6 +61,7 @@ com.nekocode.baseframework
 - retrofit: **`2.0.0-beta4`**
 - picasso: **`2.5.2`**
 - hawk: **`1.22`**
+- stetho: **`1.3.1`**
 
 ### 截图
 感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取美女照片信息的。  
@@ -107,8 +108,8 @@ bus {
 ### SingleFragmentActivity
 它能帮助你快速创建一个包含单个 Toolbar 和单个 Fragment 的 Activity。你只需要继承 `toolbarLayoutId` 以及 `fragmentClass` 就行了。如果你不需要 Toolbar 的话设置 `toolbarLayoutId` 为 null。
 ```kotlin
-class MainActivity: SingleFragmentActivity() {
-    override val toolbarLayoutId = R.layout.toolbar
+class MainActivity: SingleFragmentActivity<MainFragment>() {
+    override var toolbarLayoutId: Int? = R.layout.toolbar
     override val fragmentClass = MainFragment::class.java
 }
 ```

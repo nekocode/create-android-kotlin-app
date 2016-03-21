@@ -40,7 +40,7 @@ com.nekocode.baseframework
 - **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
 
 ### Kotlin
-- **kotlin version: `1.0.0`**
+- **kotlin version: `1.0.1`**
 
 ### Libraries
 - anko: **`0.8.3`**
@@ -48,6 +48,7 @@ com.nekocode.baseframework
 - retrofit: **`2.0.0-beta4`**
 - picasso: **`2.5.2`**
 - hawk: **`1.22`**
+- stetho: **`1.3.1`**
 
 ### Screenshots
 Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
@@ -93,8 +94,8 @@ bus {
 ### SingleFragmentActivity
 It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.
 ```kotlin
-class MainActivity: SingleFragmentActivity() {
-    override val toolbarLayoutId = R.layout.toolbar
+class MainActivity: SingleFragmentActivity<MainFragment>() {
+    override var toolbarLayoutId: Int? = R.layout.toolbar
     override val fragmentClass = MainFragment::class.java
 }
 ```
