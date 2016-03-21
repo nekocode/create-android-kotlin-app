@@ -1,6 +1,8 @@
 package cn.nekocode.kotgo.sample.data
 
 import android.app.Application
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.orhanobut.hawk.Hawk
@@ -42,6 +44,9 @@ object DataLayer {
                 .connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
+
+        Stetho.initializeWithDefaults(app)
     }
 }

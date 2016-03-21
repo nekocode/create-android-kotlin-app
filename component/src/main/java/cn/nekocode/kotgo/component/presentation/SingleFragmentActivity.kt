@@ -2,80 +2,72 @@ package cn.nekocode.kotgo.component.presentation
 
 import android.app.Fragment
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v7.widget.Toolbar
 import android.util.TypedValue
 import butterknife.bindView
 import org.jetbrains.anko.*
 
-abstract class SingleFragmentActivity: BaseActivity() {
-    private val id_toolbar = 1
-    private val id_fragment_content = 2
-    private var fragment: Fragment? = null
+abstract class SingleFragmentActivity<T: Fragment>: BaseActivity() {
+    companion object {
+        const val ID_TOOLBAR = 1
+        const val ID_FRAGMENT_CONTENT = 2
+    }
 
-    val toolbar: Toolbar by bindView(id_toolbar)
-    abstract val toolbarLayoutId: Int?
+    final val toolbar: Toolbar by bindView(ID_TOOLBAR)
+    open var toolbarLayoutId: Int? = null
 
+    final var fragment: T? = null
+    abstract val fragmentClass: Class<T>
+    open val fragmentArguments by lazy {
+        intent.extras
+    }
+
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         relativeLayout {
             if(toolbarLayoutId != null) {
                 include<Toolbar>(toolbarLayoutId!!) {
-                    id = id_toolbar
+                    id = ID_TOOLBAR
                 }.lparams(width = matchParent, height = getToolbarSize())
 
                 frameLayout {
-                    id = id_fragment_content
+                    id = ID_FRAGMENT_CONTENT
                 }.lparams(width = matchParent, height = matchParent) {
-                    below(id_toolbar)
+                    below(ID_TOOLBAR)
                 }
 
             } else {
                 frameLayout {
-                    id = id_fragment_content
+                    id = ID_FRAGMENT_CONTENT
                 }.lparams(width = matchParent, height = matchParent)
 
             }
         }
 
         setupFragment()
-        afterCreate()
 
         if(toolbarLayoutId != null) {
             setSupportActionBar(toolbar)
         }
     }
 
-    private fun getToolbarSize(): Int {
-        var actionBarHeight = dip(50)
-
-        val tv = TypedValue()
-        if(theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+    private final fun getToolbarSize(): Int {
+        TypedValue().apply {
+            if(theme.resolveAttribute(android.R.attr.actionBarSize, this, true)) {
+                return TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
+            }
         }
 
-        return actionBarHeight
+        return dip(50)
     }
 
     private fun setupFragment() {
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        fragment = fragmentManager.findFragmentByTag(fragmentClass.name)
-
-        if (fragment?.isDetached ?: true) {
-            fragment = Fragment.instantiate(this, fragmentClass.name, fragmentBundle)
-
-            fragmentTransaction.add(id_fragment_content, fragment, fragmentClass.name)
+        fragmentManager.beginTransaction().apply {
+            fragment = checkAndAddFragment(ID_FRAGMENT_CONTENT, fragmentClass.name, fragmentClass, fragmentArguments)
+            commit()
         }
-
-        fragmentTransaction.commit()
-    }
-
-    abstract fun afterCreate()
-
-    abstract val fragmentClass: Class<*>
-
-    open val fragmentBundle by lazy {
-        intent.extras
     }
 }

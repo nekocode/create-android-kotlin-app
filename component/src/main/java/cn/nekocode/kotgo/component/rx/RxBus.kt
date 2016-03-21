@@ -23,10 +23,10 @@ object RxBus {
 }
 
 
-class Bus(val getter: RxLifecycle.Getter) {
+class Bus(val impl: RxLifecycle.Impl) {
     fun <T: Any> subscribe(classType: Class<T>, subscriber: Subscriber<T>) {
         RxBus.toObserverable()
-                .bindLifecycle(getter)
+                .bindLifecycle(impl)
                 .filterByType(classType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber)
@@ -34,7 +34,7 @@ class Bus(val getter: RxLifecycle.Getter) {
 
     fun <T> subscribe(classType: Class<T>, onNext: (T)->Unit) {
         RxBus.toObserverable()
-                .bindLifecycle(getter)
+                .bindLifecycle(impl)
                 .filterByType(classType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNext)
@@ -51,7 +51,7 @@ class Bus(val getter: RxLifecycle.Getter) {
 }
 
 
-fun RxLifecycle.Getter.bus(init: Bus.() -> Unit): Bus {
+fun RxLifecycle.Impl.bus(init: Bus.() -> Unit): Bus {
     val bus = Bus(this)     // create the receiver object
     bus.init()              // pass the receiver object to the lambda
     return bus

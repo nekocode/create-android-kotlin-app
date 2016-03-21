@@ -4,7 +4,6 @@ import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.data.exception.GankServiceException
 import cn.nekocode.kotgo.sample.data.service.GankService
 import com.orhanobut.hawk.Hawk
-import rx.Notification
 import rx.Observable
 import rx.schedulers.Schedulers
 

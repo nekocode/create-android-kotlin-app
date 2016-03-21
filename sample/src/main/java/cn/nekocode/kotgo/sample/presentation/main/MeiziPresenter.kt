@@ -1,19 +1,21 @@
 package cn.nekocode.kotgo.sample.presentation.main
 
+import android.os.Bundle
 import cn.nekocode.kotgo.component.presentation.Presenter
-import cn.nekocode.kotgo.component.rx.*
+import cn.nekocode.kotgo.component.rx.bindLifecycle
+import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.data.model.MeiziModel
 
 /**
  * Created by nekocode on 2015/11/20.
  */
-class MeiziPresenter(val view: MeiziPresenter.ViewInterface): Presenter(view) {
-    interface ViewInterface: RxLifecycle.Getter {
+class MeiziPresenter(val view: ViewInterface): Presenter(view) {
+    interface ViewInterface: BaseViewInterface {
         fun refreshMeizis(meizis: List<Meizi>)
     }
 
-    fun getMeizis() {
+    override fun onCreate(savedState: Bundle?) {
         MeiziModel.getMeizis(50, 1).onUI().bindLifecycle(view).subscribe {
             view.refreshMeizis(it)
         }

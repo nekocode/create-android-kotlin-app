@@ -17,7 +17,7 @@ class RxLifecycle {
         eventBehavior.onNext(Event.DESTROY)
     }
 
-    interface Getter {
+    interface Impl {
         val lifecycle: RxLifecycle
     }
 }
@@ -33,7 +33,7 @@ class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<RxLifecycl
     }
 }
 
-fun <T> Observable<T>.bindLifecycle(getter: RxLifecycle.Getter):
+fun <T> Observable<T>.bindLifecycle(impl: RxLifecycle.Impl):
         Observable<T> {
-    return compose(CheckLifeCycleTransformer<T>(getter.lifecycle.eventBehavior))
+    return compose(CheckLifeCycleTransformer<T>(impl.lifecycle.eventBehavior))
 }

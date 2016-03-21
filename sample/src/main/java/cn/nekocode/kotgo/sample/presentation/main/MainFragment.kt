@@ -14,15 +14,15 @@ import cn.nekocode.kotgo.sample.presentation.gotoPage2
 
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main
-    val meiziPresenter = MeiziPresenter(this)
-
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     val list: MutableList<Meizi> = arrayListOf()
     val adapter = MeiziListAdapter(list)
 
+    val meiziPresenter = MeiziPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        meiziPresenter.getMeizis()
+        meiziPresenter.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
