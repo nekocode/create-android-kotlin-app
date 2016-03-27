@@ -1,16 +1,16 @@
-package cn.nekocode.kotgo.sample.presentation.main
+package cn.nekocode.kotgo.sample.ui.main
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.bindView
-import cn.nekocode.kotgo.component.presentation.BaseFragment
+import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.rx.RxBus
 
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.presentation.gotoPage2
+import cn.nekocode.kotgo.sample.ui.gotoPage2
 
 class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     override val layoutId: Int = R.layout.fragment_main

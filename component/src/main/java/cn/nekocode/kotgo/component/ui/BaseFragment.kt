@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.presentation
+package cn.nekocode.kotgo.component.ui
 
 import android.app.Fragment
 import android.os.Bundle
@@ -21,7 +21,7 @@ abstract class BaseFragment: Fragment(), RxLifecycle.Impl {
 
     @CallSuper
     override fun onDetach() {
-        super.onDetach()
         lifecycle.onDestory()
+        super.onDetach()
     }
 }

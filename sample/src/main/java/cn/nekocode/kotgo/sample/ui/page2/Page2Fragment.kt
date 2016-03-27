@@ -1,10 +1,10 @@
-package cn.nekocode.kotgo.sample.presentation.page2
+package cn.nekocode.kotgo.sample.ui.page2
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import butterknife.bindView
-import cn.nekocode.kotgo.component.presentation.BaseFragment
+import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import com.squareup.picasso.Picasso

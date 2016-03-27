@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.sample.presentation.main
+package cn.nekocode.kotgo.sample.ui.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

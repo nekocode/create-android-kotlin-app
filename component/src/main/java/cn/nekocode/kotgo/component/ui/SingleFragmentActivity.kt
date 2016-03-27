@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.presentation
+package cn.nekocode.kotgo.component.ui
 
 import android.app.Fragment
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.util.TypedValue
 import butterknife.bindView
 import org.jetbrains.anko.*
+import java.lang.reflect.ParameterizedType
 
 abstract class SingleFragmentActivity<T: Fragment>: BaseActivity() {
     companion object {
@@ -18,7 +19,7 @@ abstract class SingleFragmentActivity<T: Fragment>: BaseActivity() {
     open var toolbarLayoutId: Int? = null
 
     final var fragment: T? = null
-    abstract val fragmentClass: Class<T>
+    val fragmentClass: Class<T> = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
     open val fragmentArguments by lazy {
         intent.extras
     }

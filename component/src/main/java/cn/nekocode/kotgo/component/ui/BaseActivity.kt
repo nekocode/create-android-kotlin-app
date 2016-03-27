@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.presentation
+package cn.nekocode.kotgo.component.ui
 
 import android.app.Fragment
 import android.app.FragmentTransaction
@@ -63,8 +63,8 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
 
     @CallSuper
     override fun onDestroy() {
-        super.onDestroy()
         lifecycle.onDestory()
+        super.onDestroy()
     }
 
     open fun handler(msg: Message) {

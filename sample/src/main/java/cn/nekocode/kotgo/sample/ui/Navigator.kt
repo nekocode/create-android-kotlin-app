@@ -1,9 +1,9 @@
-package cn.nekocode.kotgo.sample.presentation
+package cn.nekocode.kotgo.sample.ui
 
 import android.content.Context
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.presentation.main.MainActivity
-import cn.nekocode.kotgo.sample.presentation.page2.Page2Activity
+import cn.nekocode.kotgo.sample.ui.main.MainActivity
+import cn.nekocode.kotgo.sample.ui.page2.Page2Activity
 import org.jetbrains.anko.intentFor
 
 /**

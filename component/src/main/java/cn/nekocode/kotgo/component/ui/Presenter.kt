@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.presentation
+package cn.nekocode.kotgo.component.ui
 
 import android.os.Bundle
 import cn.nekocode.kotgo.component.rx.RxLifecycle
@@ -18,6 +18,6 @@ open class Presenter(view: BaseViewInterface): RxLifecycle.Impl {
     open fun onDestory() {
     }
 
-    open fun onSave(state: Bundle) {
+    open fun onSave(state: Bundle?) {
     }
 }

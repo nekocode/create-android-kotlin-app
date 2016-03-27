@@ -1,7 +1,7 @@
-package cn.nekocode.kotgo.sample.presentation.main
+package cn.nekocode.kotgo.sample.ui.main
 
 import android.os.Bundle
-import cn.nekocode.kotgo.component.presentation.Presenter
+import cn.nekocode.kotgo.component.ui.Presenter
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.sample.data.dto.Meizi
