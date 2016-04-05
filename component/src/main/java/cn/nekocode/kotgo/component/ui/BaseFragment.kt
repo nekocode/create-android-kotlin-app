@@ -20,8 +20,8 @@ abstract class BaseFragment: Fragment(), RxLifecycle.Impl {
     }
 
     @CallSuper
-    override fun onDetach() {
+    override fun onDestroyView() {
         lifecycle.onDestory()
-        super.onDetach()
+        super.onDestroyView()
     }
 }
