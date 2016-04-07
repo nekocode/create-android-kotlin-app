@@ -91,6 +91,9 @@ bus {
 }
 ```
 
+### Less Complex Dependency Injection (Under Development)
+Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34).
+
 ### SingleFragmentActivity
 It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.
 ```kotlin
