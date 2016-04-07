@@ -5,9 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.bindView
-import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.rx.RxBus
-
+import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.ui.gotoPage2
@@ -18,11 +17,10 @@ class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
     val list: MutableList<Meizi> = arrayListOf()
     val adapter = MeiziListAdapter(list)
 
-    val meiziPresenter = MeiziPresenter(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        meiziPresenter.onCreate(savedInstanceState)
+
+        bindPresenter<MeiziPresenter>()
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

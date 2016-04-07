@@ -1,7 +1,6 @@
 package cn.nekocode.kotgo.component.ui
 
 import android.app.Fragment
-import android.app.FragmentTransaction
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -71,20 +70,28 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
 
     }
 
-    final protected fun <T: Fragment> FragmentTransaction
-            .checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T? =
+    inline protected fun <reified T: BasePresenter> bindPresenter(): T = bindPresenter(null)
+    inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle?): T {
+        val fragmentClass = T::class.java
+        return checkAndAddFragment(0, fragmentClass.canonicalName, fragmentClass, args)
+    }
+
+    final protected fun <T: Fragment> checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T =
             checkAndAddFragment(containerId, tag, fragmentClass, null)
 
-    final protected fun <T: Fragment> FragmentTransaction
-            .checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>, arguments: Bundle?): T? {
+    final protected fun <T: Fragment> checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle?): T {
+        val trans = fragmentManager.beginTransaction()
+        val className = fragmentClass.canonicalName
 
         var fragment = fragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
-            fragment = Fragment.instantiate(this@BaseActivity, fragmentClass.canonicalName, arguments) as T
+            fragment = Fragment.instantiate(this, className, args) as T
 
-            this.add(containerId, fragment, tag)
+            trans.add(containerId, fragment, tag)
         }
 
-        return fragment
+        trans.commit()
+
+        return fragment!!
     }
 }

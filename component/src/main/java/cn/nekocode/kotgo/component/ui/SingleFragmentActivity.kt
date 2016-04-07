@@ -66,9 +66,6 @@ abstract class SingleFragmentActivity<T: Fragment>: BaseActivity() {
     }
 
     private fun setupFragment() {
-        fragmentManager.beginTransaction().apply {
-            fragment = checkAndAddFragment(ID_FRAGMENT_CONTENT, fragmentClass.name, fragmentClass, fragmentArguments)
-            commit()
-        }
+        fragment = checkAndAddFragment(ID_FRAGMENT_CONTENT, fragmentClass.name, fragmentClass, fragmentArguments)
     }
 }
