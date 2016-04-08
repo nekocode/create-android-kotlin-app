@@ -2,7 +2,7 @@
 
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## Create Project
+## Create Template Project
 You can create a new Kotgo template project fast by using the following command. Just paste and execute it at a terminal prompt. Have fun!
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
@@ -25,13 +25,12 @@ com.nekocode.baseframework
 │  ├─ model
 │  └─ service
 │ 
-├─ presentation
+├─ ui
 │  └─ screen_one
 │     ├─ Presenter.kt
 │     └─ Activity.kt
 │
-├─ App.kt
-└─ Config.kt
+└─ App.kt
 ```
 
 ### Layer

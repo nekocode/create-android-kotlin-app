@@ -2,7 +2,7 @@
 
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## 快速创建项目
+## 快速创建模板项目
 你可以使用下面的命令快速创建一个 Kotgo 模板项目。只需要粘贴到命令行中执行就可以了。
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
@@ -38,13 +38,12 @@ com.nekocode.baseframework
 │  ├─ model
 │  └─ service
 │ 
-├─ presentation
+├─ ui
 │  └─ screen_one
 │     ├─ Presenter.kt
 │     └─ Activity.kt
 │
-├─ App.kt
-└─ Config.kt
+└─ App.kt
 ```
 
 ### 分层
