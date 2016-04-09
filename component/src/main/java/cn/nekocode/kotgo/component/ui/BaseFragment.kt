@@ -16,16 +16,14 @@ abstract class BaseFragment: WithLifecycleFragment() {
         return inflater.inflate(layoutId, container, false)
     }
 
-    inline protected fun <reified T: BasePresenter> bindPresenter(): T = bindPresenter(null)
-    inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle?): T {
+    inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle? = null): T {
         val fragmentClass = T::class.java
         return checkAndAddFragment(0, fragmentClass.canonicalName, fragmentClass, args)
     }
 
-    final protected fun <T: Fragment> checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>): T =
-            checkAndAddFragment(containerId, tag, fragmentClass, null)
+    final protected fun <T: Fragment> checkAndAddFragment(
+            containerId: Int, tag: String,fragmentClass: Class<T>, args: Bundle? = null): T {
 
-    final protected fun <T: Fragment> checkAndAddFragment(containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle?): T {
         val trans = childFragmentManager.beginTransaction()
         val className = fragmentClass.canonicalName
 
