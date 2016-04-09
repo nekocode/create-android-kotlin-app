@@ -5,21 +5,17 @@ import android.os.Bundle
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.component.ui.BasePresenter
-import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.data.model.MeiziModel
 
 /**
  * Created by nekocode on 2015/11/20.
  */
-class MeiziPresenter(): BasePresenter() {
-    interface ViewInterface {
-        fun refreshMeizis(meizis: List<Meizi>)
-    }
+class MeiziPresenter(): BasePresenter(), Contract.MeiziPresenter {
+    var view: Contract.View? = null
 
-    var view: ViewInterface? = null
     override fun onAttach(activity: Activity?) {
         super.onAttach(activity)
-        view = getParent() as ViewInterface
+        view = getParent() as Contract.View
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

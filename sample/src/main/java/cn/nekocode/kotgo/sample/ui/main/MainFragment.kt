@@ -9,18 +9,21 @@ import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.ui.gotoPage2
+import cn.nekocode.kotgo.sample.ui.Navigator
 
-class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
+class MainFragment: BaseFragment(), Contract.View {
     override val layoutId: Int = R.layout.fragment_main
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     val list: MutableList<Meizi> = arrayListOf()
     val adapter = MeiziListAdapter(list)
+    val meiziPresenter by lazy {
+        bindPresenter<MeiziPresenter>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindPresenter<MeiziPresenter>()
+        meiziPresenter
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -30,7 +33,7 @@ class MainFragment: BaseFragment(), MeiziPresenter.ViewInterface {
         recyclerView.adapter = adapter
 
         adapter.onMeiziItemClickListener = {
-            activity.gotoPage2(it)
+            Navigator.gotoPage2(activity, it)
         }
     }
 
