@@ -1,7 +1,6 @@
 package cn.nekocode.kotgo.sample
 
 import android.app.Application
-import cn.nekocode.kotgo.component.util.Injector
 import cn.nekocode.kotgo.component.util.inject
 import cn.nekocode.kotgo.sample.data.DataLayer
 import cn.nekocode.kotgo.sample.injection.TestDep
@@ -19,18 +18,18 @@ class App: Application() {
 
         DataLayer.hook(this)
 
-        val dep = TestDep()
-        Injector.bind(dep)
+        // Dependency Injection Test
 
         // Singleton
-        val oldInt = inject<Int>()
-        dep.int ++
-        val newInt = inject<Int>()
+        val oldInt = TestDep.inject<Int>(1, 1)
+        TestDep.int -= 2
+        val newInt = TestDep.inject<Int>()
         toast("$oldInt -> $newInt")
 
-        val oldStr = inject<String>()
-        dep.str = "new"
-        val newStr = inject<String>()
+        // Normal
+        val oldStr = TestDep.inject<String>()
+        TestDep.str = "new"
+        val newStr = TestDep.inject<String>()
         toast("$oldStr -> $newStr")
     }
 

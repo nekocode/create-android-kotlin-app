@@ -104,8 +104,47 @@ bus {
 }
 ```
 
-### 不复杂的依赖注入（开发中）
+### 继承自 Fragment 的 Presenter！！
+**[使用 Fragment 来实现 Presenter 是最好的方式之一！](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** 我们现在能将原先在 Activity 中的各种依赖 Activity 生命周期的逻辑迁移到 Presenter 中了，并且还能够使用 `setRetainInstance(true)` 来处理屏幕旋转的问题。
+
+它看起来是这样的：
+```kotlin
+class MeiziPresenter(): BasePresenter(), Contract.Presenter {
+    var view: Contract.View? = null
+
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        view = getParent() as Contract.View
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        MeiziModel.getMeizis(50, 1).onUI().bindLifecycle(this).subscribe {
+            view?.refreshMeizis(it)
+        }
+    }
+}
+```
+
+### 简单的依赖注入
 查看 [这里的代码](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34)。
+
+我们可以继承一个 Dependency 类来储存一些依赖生成。
+```kotlin
+object TestDep : Dependency() {
+    override fun createDependencies() {
+        bindSingleton<Int> {
+            args ->
+            args[0] as Int
+        }
+    }
+}
+```
+然后在需要的时候注入的地方使用下面的代码：
+```kotlin
+val int = TestDep.inject<Int>(1)
+```
 
 ### SingleFragmentActivity
 它能帮助你快速创建一个包含单个 Toolbar 和单个 Fragment 的 Activity。你只需要继承 `toolbarLayoutId` 以及 `fragmentClass` 就行了。如果你不需要 Toolbar 的话设置 `toolbarLayoutId` 为 null。

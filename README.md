@@ -90,8 +90,48 @@ bus {
 }
 ```
 
-### Less Complex Dependency Injection (Under Development)
+### The Prsenter Inherited From Fragment!!
+**[Using the Fragment to implement Presenter maybe is one of the best ways!](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** Now we can move the logic which depended on Activity's lifecycle to Presenter. And we can also use `setRetainInstance(true)` to solve the screen rotation problem.
+
+It look like this:
+```kotlin
+class MeiziPresenter(): BasePresenter(), Contract.Presenter {
+    var view: Contract.View? = null
+
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        view = getParent() as Contract.View
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        MeiziModel.getMeizis(50, 1).onUI().bindLifecycle(this).subscribe {
+            view?.refreshMeizis(it)
+        }
+    }
+}
+```
+
+
+### Simple Dependency Injection
 Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34).
+
+We can inherit the Dependency class for storing some denpendencies providing.
+```kotlin
+object TestDep : Dependency() {
+    override fun createDependencies() {
+        bindSingleton<Int> {
+            args ->
+            args[0] as Int
+        }
+    }
+}
+```
+And then use the following code to inject dependency.
+```kotlin
+val int = TestDep.inject<Int>
+```
 
 ### SingleFragmentActivity
 It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.

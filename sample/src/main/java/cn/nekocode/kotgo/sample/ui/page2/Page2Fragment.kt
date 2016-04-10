@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by nekocode on 16/3/3.
  */
-class Page2Fragment: BaseFragment() {
+class Page2Fragment: BaseFragment(), Contract.View {
     override val layoutId: Int = R.layout.fragment_page2
     val imageView by bindView<ImageView>(R.id.imageView)
 

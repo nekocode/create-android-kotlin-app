@@ -10,7 +10,7 @@ interface Contract {
         fun refreshMeizis(meizis: List<Meizi>)
     }
 
-    interface MeiziPresenter {
+    interface Presenter {
 
     }
 }

@@ -21,6 +21,10 @@ abstract class BaseFragment: WithLifecycleFragment() {
         return checkAndAddFragment(0, fragmentClass.canonicalName, fragmentClass, args)
     }
 
+    protected fun <T: BasePresenter> bindPresenter(fragmentClass: Class<T>, args: Bundle? = null): T {
+        return checkAndAddFragment(0, fragmentClass.canonicalName, fragmentClass, args)
+    }
+
     final protected fun <T: Fragment> checkAndAddFragment(
             containerId: Int, tag: String,fragmentClass: Class<T>, args: Bundle? = null): T {
 

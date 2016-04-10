@@ -10,7 +10,7 @@ import cn.nekocode.kotgo.sample.data.model.MeiziModel
 /**
  * Created by nekocode on 2015/11/20.
  */
-class MeiziPresenter(): BasePresenter(), Contract.MeiziPresenter {
+class MeiziPresenter(): BasePresenter(), Contract.Presenter {
     var view: Contract.View? = null
 
     override fun onAttach(activity: Activity?) {

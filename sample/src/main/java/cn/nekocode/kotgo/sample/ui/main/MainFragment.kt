@@ -16,7 +16,7 @@ class MainFragment: BaseFragment(), Contract.View {
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     val list: MutableList<Meizi> = arrayListOf()
     val adapter = MeiziListAdapter(list)
-    val meiziPresenter by lazy {
+    val meiziPresenter: Contract.Presenter by lazy {
         bindPresenter<MeiziPresenter>()
     }
 
