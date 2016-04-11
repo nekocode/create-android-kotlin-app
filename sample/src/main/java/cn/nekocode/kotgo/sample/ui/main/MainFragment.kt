@@ -20,12 +20,6 @@ class MainFragment: BaseFragment(), Contract.View {
         bindPresenter<MeiziPresenter>()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        meiziPresenter
-    }
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +29,8 @@ class MainFragment: BaseFragment(), Contract.View {
         adapter.onMeiziItemClickListener = {
             Navigator.gotoPage2(activity, it)
         }
+
+        meiziPresenter
     }
 
     override fun refreshMeizis(meizis: List<Meizi>) {
