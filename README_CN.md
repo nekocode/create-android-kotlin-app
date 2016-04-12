@@ -66,6 +66,7 @@ com.nekocode.baseframework
 感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取美女照片信息的。  
 ![](art/screenshot.png)
 
+另外一个更完善的例子：**[查看这里](https://github.com/nekocode/murmur)**
 
 ## 使用 Component Library
 你可以仅仅使用 kotgo 的 component 库，它提供了很多能让你简单快速地构建一个 MVP 项目的有用的工具。在项目根目录的 build.gradle 添加以下内容：

@@ -53,6 +53,8 @@ com.nekocode.baseframework
 Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
 ![](art/screenshot.png)
 
+Another better sample: **[Check this](https://github.com/nekocode/murmur)**
+
 ## Use Component Library
 You can only use the kotgo's component library with gradle. It provides many useful tools to help you to build a MVP project fast and simply. Just add the JitPack repository to your root build.gradle:
 ```gradle
