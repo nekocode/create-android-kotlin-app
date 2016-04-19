@@ -5,7 +5,6 @@ import cn.nekocode.kotgo.component.util.inject
 import cn.nekocode.kotgo.sample.data.DataLayer
 import cn.nekocode.kotgo.sample.injection.TestDep
 import org.jetbrains.anko.toast
-import kotlin.properties.Delegates
 
 /**
  * Created by nekocode on 2015/7/22.
@@ -34,7 +33,7 @@ class App: Application() {
     }
 
     companion object {
-        var instance by Delegates.notNull<App>()
+        lateinit var instance: App
     }
 
 }
