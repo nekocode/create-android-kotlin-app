@@ -116,7 +116,7 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 ```
 
 
-### Simple Dependency Injection
+### Simple Dependency Injection!!
 Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34).
 
 We can inherit the Dependency class for storing some denpendencies providing.
@@ -135,15 +135,20 @@ And then use the following code to inject dependency.
 val int = TestDep.inject<Int>
 ```
 
-### SingleFragmentActivity
-It helps you create an Activity with one single Toolbar and one single Fragment fast. You just need to inherit the `toolbarLayoutId` and `fragmentClass` properties. And set the `toolbarLayoutId` to null if you don't need Toolbar.
+### Supporting for Single Activity Multiple Fragment Architecture!!
+You can build applications that have only one activity with the help of the `FragmentActivity` provided by the Component Library.
+
+It provides following functions for helping you manage the fragment stack.
 ```kotlin
-class MainActivity: SingleFragmentActivity<MainFragment>() {
-    override var toolbarLayoutId: Int? = R.layout.toolbar
-    override val fragmentClass = MainFragment::class.java
-}
+push(fragmentTag, classType, args)
+pushForResult(originalTag, requestCode, fragmentTag, classType, args)
+pop()
+get(fragmentTag)
+getFragmentTopInStack()
+startActivityForResult(fragmentTag, intent, requestCode, options)
 ```
 
+We also deal with more details, look at the `FragmentActivity.kt`.
 
 ### Others
 It also contains some other useful tools and extensions (such as [KotterKnife](https://github.com/JakeWharton/kotterknife)). Check the [util package](component/src/main/java/cn/nekocode/kotgo/component/util) for more details.

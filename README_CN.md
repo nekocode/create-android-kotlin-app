@@ -14,15 +14,15 @@ python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/
 
 ### 为什么使用 Kotlin
 - [**#前言#**](http://zhuanlan.zhihu.com/kotandroid/20313799)
-- [**#kotlin# 你好怪兽**](http://zhuanlan.zhihu.com/kotandroid/20314409)
-- [**#kotlin# Activity 之朝花夕拾**](http://zhuanlan.zhihu.com/kotandroid/20349241)
+- [**#Kotlin# 你好怪兽**](http://zhuanlan.zhihu.com/kotandroid/20314409)
+- [**#Kotlin# Activity 之朝花夕拾**](http://zhuanlan.zhihu.com/kotandroid/20349241)
 
 ### 为什么使用 MVP
-- [**#android# MVP 的尝试**](http://zhuanlan.zhihu.com/kotandroid/20358928)
+- [**#Android# MVP 的尝试**](http://zhuanlan.zhihu.com/kotandroid/20358928)
 
 ### 为什么使用 Rx
-- [**#android# Everything is a stream**](http://zhuanlan.zhihu.com/kotandroid/20498267)
-- [**#kotlin# 小心 Rx 的生命周期**](http://zhuanlan.zhihu.com/kotandroid/20514727)
+- [**#Android# Everything is a stream**](http://zhuanlan.zhihu.com/kotandroid/20498267)
+- [**#Kotlin# 小心 Rx 的生命周期**](http://zhuanlan.zhihu.com/kotandroid/20514727)
 
 
 ## 描述
@@ -128,7 +128,7 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 }
 ```
 
-### 简单的依赖注入
+### 简单的依赖注入！！
 查看 [这里的代码](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34)。
 
 我们可以继承一个 Dependency 类来储存一些依赖生成。
@@ -147,15 +147,20 @@ object TestDep : Dependency() {
 val int = TestDep.inject<Int>(1)
 ```
 
-### SingleFragmentActivity
-它能帮助你快速创建一个包含单个 Toolbar 和单个 Fragment 的 Activity。你只需要继承 `toolbarLayoutId` 以及 `fragmentClass` 就行了。如果你不需要 Toolbar 的话设置 `toolbarLayoutId` 为 null。
+### 支持单个 Activity 多个 Fragment 架构！！
+你可以借助 Component 库提供的 `FragmentActivity` 来构建只有单个 Activity 的应用，它非常适合页面层次结构不深的应用。
+
+FragmentActivity 提供了以下的一些方法来帮助你管理 Fragment 栈。
 ```kotlin
-class MainActivity: SingleFragmentActivity<MainFragment>() {
-    override var toolbarLayoutId: Int? = R.layout.toolbar
-    override val fragmentClass = MainFragment::class.java
-}
+push(fragmentTag, classType, args)
+pushForResult(originalTag, requestCode, fragmentTag, classType, args)
+pop()
+get(fragmentTag)
+getFragmentTopInStack()
+startActivityForResult(fragmentTag, intent, requestCode, options)
 ```
 
+我们还处理了更多的细节，详情可以查看 `FragmentActivity.kt`。
 
 ### 其他
 它还包括一些其他常用的工具和拓展（例如 [KotterKnife](https://github.com/JakeWharton/kotterknife)）。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。
