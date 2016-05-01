@@ -18,7 +18,6 @@ class App: Application() {
         DataLayer.hook(this)
 
         // Dependency Injection Test
-
         // Singleton
         val oldInt = TestDep.inject<Int>(1, 1)
         TestDep.int -= 2

@@ -1,6 +1,7 @@
 package cn.nekocode.kotgo.component.ui
 
 import android.app.Fragment
+import android.app.FragmentTransaction
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -72,23 +73,23 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
 
     inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle? = null): T {
         val fragmentClass = T::class.java
-        return checkAndAddFragment(0, fragmentClass.canonicalName, fragmentClass, args)
+        val trans = fragmentManager.beginTransaction()
+        val framgnet = checkAndAddFragment(trans, 0, fragmentClass.canonicalName, fragmentClass, args)
+        trans.commit()
+        return framgnet
     }
 
-    final protected fun <T: Fragment> checkAndAddFragment(
-            containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
+    final fun <T: Fragment> checkAndAddFragment(
+            trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
-        val trans = fragmentManager.beginTransaction()
         val className = fragmentClass.canonicalName
 
-        var fragment = fragmentManager.findFragmentByTag(tag) as T?
+        var fragment = supportFragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
-            fragment = Fragment.instantiate(this, className, args) as T
+            fragment = Fragment.instantiate(this@BaseActivity, className, args) as T
 
             trans.add(containerId, fragment, tag)
         }
-
-        trans.commit()
 
         return fragment!!
     }

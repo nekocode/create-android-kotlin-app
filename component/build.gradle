@@ -9,7 +9,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 9
         targetSdkVersion 23
         versionCode 127
         versionName projectVersion
@@ -34,7 +34,6 @@ dependencies {
 
     // DSL
     provided 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
-    provided 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
     provided 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
 
     provided kotlib
