@@ -166,6 +166,11 @@ class ProjectFactory:
             .replace_all_text('compile project(":component")',
                               'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
+            
+        # build.gradle
+        TextProcesser('app/proguard-rules.pro') \
+            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
+            .finish()
 
         # AndroidManifest.xml
         TextProcesser('app/src/main/AndroidManifest.xml') \

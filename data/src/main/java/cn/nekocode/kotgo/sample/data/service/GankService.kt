@@ -16,7 +16,7 @@ import rx.Observable
 class GankService {
     companion object {
         // Host
-        val API_HOST_URL: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
+        const val API_HOST_URL: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
 
         val api: APIs
 
