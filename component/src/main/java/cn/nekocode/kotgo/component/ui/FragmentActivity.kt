@@ -9,7 +9,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.support.annotation.CallSuper
 import android.util.Log
+import android.util.SparseArray
 import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.collections.asSequence
 import org.jetbrains.anko.collections.forEachReversed
 import org.jetbrains.anko.frameLayout
 import java.util.*
@@ -17,7 +19,7 @@ import java.util.*
 abstract class FragmentActivity: BaseActivity() {
     private lateinit var stack: FragmentStack
     private var containerId: Int = 0
-    private var requestFragments = HashMap<Int, RequestFragmentsRecord>()
+    private var requestFragments = SparseArray<RequestFragmentsRecord>()
 
     // Stack operation
     fun <T: BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
@@ -41,7 +43,7 @@ abstract class FragmentActivity: BaseActivity() {
             stack.restoreStack(savedInstanceState)
             savedInstanceState.getParcelableArrayList<RequestFragmentsRecord>("__requestFragments")
                     .forEach {
-                        requestFragments[it.requestCode] = it
+                        requestFragments.setValueAt(it.requestCode, it)
                     }
         }
 
@@ -63,17 +65,16 @@ abstract class FragmentActivity: BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         stack.saveStack(outState)
         outState?.putParcelableArrayList("__requestFragments",
-                requestFragments.toList().map {
-                    it.second
-                } as ArrayList<out Parcelable>
+                requestFragments.asSequence().toMutableList() as ArrayList<RequestFragmentsRecord>
         )
 
         super.onSaveInstanceState(outState)
     }
 
     private fun addRequestToRecord(fragmentTag: String, requestCode: Int) {
-        if(!requestFragments.containsKey(requestCode)) {
-            requestFragments[requestCode] = RequestFragmentsRecord(1, arrayListOf(fragmentTag), requestCode)
+        requestFragments
+        if(requestFragments[requestCode] == null) {
+            requestFragments.setValueAt(requestCode, RequestFragmentsRecord(1, arrayListOf(fragmentTag), requestCode))
         } else {
             requestFragments[requestCode]!!.reqCount ++
             requestFragments[requestCode]!!.tags += fragmentTag
@@ -197,7 +198,7 @@ abstract class FragmentActivity: BaseActivity() {
             val trans = fragmentManager.beginTransaction()
 
             // Hide the fragment top in stack
-            var topFragment = getFragmentTopInStack()
+            val topFragment = getFragmentTopInStack()
             if(topFragment != null) {
                 trans.hide(topFragment)
             }

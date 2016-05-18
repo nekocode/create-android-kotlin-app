@@ -6,10 +6,10 @@ group='com.github.nekocode'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 127
         versionName projectVersion
@@ -29,12 +29,12 @@ dependencies {
     provided "com.android.support:recyclerview-v7:$supportLibVersion"
 
     // Reactive library
-    provided "io.reactivex:rxkotlin:0.40.1"
-    provided "io.reactivex:rxandroid:1.1.0"
+    provided "io.reactivex:rxkotlin:$rxkotlinVersion"
+    provided "io.reactivex:rxandroid:$rxandroidVersion"
 
     // DSL
-    provided 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
-    provided 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
+    provided "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
+    provided "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
 
     provided kotlib
 }

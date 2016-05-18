@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 127
         versionName projectVersion
@@ -23,8 +23,6 @@ kapt {
     generateStubs = true
 }
 
-def retrofitVersion = "2.0.0-beta4"
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -34,16 +32,16 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
-    compile 'com.github.orhanobut:hawk:1.22'
+    compile "com.github.orhanobut:hawk:$hawkVersion"
 
     // Debug library
-    compile 'com.facebook.stetho:stetho:1.3.1'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+    compile "com.facebook.stetho:stetho:$stethoVersion"
+    compile "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // Instance State
-    compile 'com.github.grandstaish.paperparcel:paperparcel:1.0.0-rc4'
-    compile 'com.github.grandstaish.paperparcel:paperparcel-kotlin:1.0.0-rc4'
-    kapt 'com.github.grandstaish.paperparcel:compiler:1.0.0-rc4'
+    compile "com.github.grandstaish.paperparcel:paperparcel:$paperparcelVersion"
+    compile "com.github.grandstaish.paperparcel:paperparcel-kotlin:$paperparcelVersion"
+    kapt "com.github.grandstaish.paperparcel:compiler:$paperparcelVersion"
 
     compile kotlib
 }

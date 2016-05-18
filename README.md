@@ -39,15 +39,16 @@ com.nekocode.baseframework
 - **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
 
 ### Kotlin
-- **kotlin version: `1.0.1`**
+- **kotlin version: `1.0.2`**
 
 ### Libraries
 - anko: **`0.8.3`**
-- rxkotlin: **`0.40.1`**
-- retrofit: **`2.0.0-beta4`**
+- rxkotlin: **`0.55.0`**
+- retrofit: **`2.0.2`**
 - picasso: **`2.5.2`**
-- hawk: **`1.22`**
+- hawk: **`1.23`**
 - stetho: **`1.3.1`**
+- paperparcel: **`1.0.0-rc4`**
 
 ### Screenshots
 Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
