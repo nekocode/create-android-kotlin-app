@@ -9,10 +9,9 @@ import butterknife.bindView
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.rx.bus
 import cn.nekocode.kotgo.component.ui.BaseFragment
-import cn.nekocode.kotgo.component.util.args
+import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.data.dto.MeiziParcel
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
 import cn.nekocode.kotgo.sample.ui.page2.Page2Fragment
 import org.jetbrains.anko.toast
@@ -20,6 +19,10 @@ import org.jetbrains.anko.toast
 class MainFragment: BaseFragment(), Contract.View {
     companion object {
         const val TAG = "MainFragment"
+
+        fun push(fragmentActivity: FragmentActivity) {
+            fragmentActivity.push(TAG, MainFragment::class.java)
+        }
     }
 
     override val layoutId: Int = R.layout.fragment_main
@@ -47,11 +50,7 @@ class MainFragment: BaseFragment(), Contract.View {
         recyclerView.adapter = adapter
 
         adapter.onMeiziItemClickListener = {
-            fragAct?.push(
-                    Page2Fragment.TAG,
-                    Page2Fragment::class.java,
-                    args(Pair("meizi", MeiziParcel(it)))
-            )
+            Page2Fragment.push(fragAct!!, it)
         }
 
         meiziPresenter

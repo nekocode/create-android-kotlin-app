@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import butterknife.bindView
 import cn.nekocode.kotgo.component.ui.BaseFragment
+import cn.nekocode.kotgo.component.ui.FragmentActivity
+import cn.nekocode.kotgo.component.util.args
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.data.dto.MeiziParcel
@@ -17,6 +19,13 @@ import com.squareup.picasso.Picasso
 class Page2Fragment: BaseFragment(), Contract.View {
     companion object {
         const val TAG = "Page2Fragment"
+
+        fun push(fragmentActivity: FragmentActivity, meizi: Meizi) {
+            fragmentActivity.push(
+                    TAG, Page2Fragment::class.java,
+                    args(Pair("meizi", MeiziParcel(meizi)))
+            )
+        }
     }
 
     override val layoutId: Int = R.layout.fragment_page2

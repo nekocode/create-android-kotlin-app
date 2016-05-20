@@ -10,6 +10,6 @@ class MainActivity: FragmentActivity() {
 
         window.setBackgroundDrawable(null)
 
-        push(MainFragment.TAG, MainFragment::class.java)
+        MainFragment.push(this)
     }
 }
