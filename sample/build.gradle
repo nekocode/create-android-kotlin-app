@@ -1,17 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply from: '../config.gradle'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
-
-    defaultConfig {
-        applicationId "cn.nekocode.kotgo.sample"
-        minSdkVersion 17
-        targetSdkVersion 23
-        versionCode 127
-        versionName projectVersion
-    }
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
@@ -44,14 +35,4 @@ dependencies {
 
     // Artwork
     compile "com.squareup.picasso:picasso:$picassoVersion"
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-    }
 }

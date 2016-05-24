@@ -1,0 +1,11 @@
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 213
+        versionName "0.9.6"
+    }
+}
