@@ -48,7 +48,7 @@ com.nekocode.baseframework
 
 ### 分层
 - **Data Layer：**非传统意义的 **Model** 层，包含 `dto`（Data Transfer Object）、`service`、`model`、`exception` 等。其中 service 包含 `Net` 等不同服务，用于从不同途径获取数据。model 负责处理某个业务对象的业务逻辑，并通过 **dto 或基本类型** 与 Presenter 层进行交互（建议使用 RxJava）。
-- **View Layer：**视图层，包括各种 `activity`，`adapter`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、界面输出、更新等）。
+- **View Layer：**视图层，包括各种 `activity`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、界面输出、更新等）。
 - **Presenter Layer：**控制逻辑层。是**「Model 与 View 层中间的交互控制层」**。
 
 ### Kotlin
