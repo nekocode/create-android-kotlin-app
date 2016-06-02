@@ -93,17 +93,10 @@ MeiziModel.getMeizis(50, 1).onUI().bindLifecycle(view).subscribe {
 ```
 
 ### 强大的 RxBus！！
-它使用 RxJava 来模拟事件总线，它通过一系列 Kotlin 的语法糖，将订阅 EventBus 变得十分简洁，并且自动绑定了 Avtivity 或者 Fragment 的生命周期，你无需担心任何意外！只需要像下面一样在 `bus` 中订阅事件就行了。  
+它使用 RxJava 来模拟事件总线，它通过一系列 Kotlin 的语法糖，将订阅 EventBus 变得十分简洁，并且自动绑定了 Avtivity 或者 Fragment 的生命周期，你无需担心任何产生泄漏！只需要像下面一样在任意地方发送，并在实现了 `RxLifecycle.Impl` 的类中订阅事件就行了。  
 ```kotlin
-bus {
-    subscribe(String::class.java) {
-        showToast(it)
-    }
-    
-    subscribe(Int::class.java) {
-        showToast(it.toString())
-    }
-}
+RxBus.send("Success")
+RxBus.subscribe(String::class.java) { showToast(it) }
 ```
 
 ### 继承自 Fragment 的 Presenter！！
