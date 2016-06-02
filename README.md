@@ -85,7 +85,6 @@ It simulates the Event Bus by RxJava. It uses many syntax sugar of Kotlin to mak
 RxBus.send("Success")
 RxBus.subscribe(String::class.java) { showToast(it) }
 ```
-```
 
 ### The Prsenter Inherited From Fragment!!
 **[Using the Fragment to implement Presenter maybe is one of the best ways!](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** Now we can move the logic which depended on Activity's lifecycle to Presenter. And we can also use `setRetainInstance(true)` to solve the screen rotation problem.
