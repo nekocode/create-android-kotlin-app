@@ -1,6 +1,8 @@
 package cn.nekocode.kotgo.component.rx
 
 import rx.Observable
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.BehaviorSubject
 
 /**
@@ -19,6 +21,31 @@ class RxLifecycle {
 
     interface Impl {
         val lifecycle: RxLifecycle
+
+        fun <T: Any> RxBus.subscribe(classType: Class<T>, subscriber: Subscriber<T>) {
+            RxBus.toObserverable()
+                    .bindLifecycle(this@Impl)
+                    .filterByType(classType)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(subscriber)
+        }
+
+        fun <T> RxBus.subscribe(classType: Class<T>, onNext: (T)->Unit) {
+            RxBus.toObserverable()
+                    .bindLifecycle(this@Impl)
+                    .filterByType(classType)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(onNext)
+        }
+
+        private fun <T> Observable<Any>.filterByType(classType: Class<T>): Observable<T> {
+            return this.filter {
+                if(!classType.isInstance(it)) {
+                    return@filter false
+                }
+                true
+            } as Observable<T>
+        }
     }
 }
 

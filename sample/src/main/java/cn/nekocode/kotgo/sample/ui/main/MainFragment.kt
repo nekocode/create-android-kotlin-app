@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
 import butterknife.bindView
-import cn.nekocode.kotgo.component.rx.bus
+import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.R
@@ -38,10 +38,8 @@ class MainFragment: BaseFragment(), Contract.View {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = meiziPresenter.getAdapter()
 
-        bus {
-            subscribe(LoadFinishedEvent::class.java) {
-                toolbar.title = "Meizi List - Load finished"
-            }
+        RxBus.subscribe(LoadFinishedEvent::class.java) {
+            toolbar.title = "Meizi List - Load finished"
         }
     }
 
