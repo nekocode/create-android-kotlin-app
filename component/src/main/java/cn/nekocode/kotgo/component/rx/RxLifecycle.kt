@@ -8,7 +8,7 @@ import rx.subjects.BehaviorSubject
 /**
  * Created by nekocode on 16/3/7.
  */
-class RxLifecycle {
+final class RxLifecycle {
     enum class Event {
         DESTROY
     }
@@ -22,7 +22,7 @@ class RxLifecycle {
     interface Impl {
         val lifecycle: RxLifecycle
 
-        fun <T: Any> RxBus.subscribe(classType: Class<T>, subscriber: Subscriber<T>) {
+        fun <T : Any> RxBus.subscribe(classType: Class<T>, subscriber: Subscriber<T>) {
             RxBus.toObserverable()
                     .bindLifecycle(this@Impl)
                     .filterByType(classType)
@@ -30,7 +30,7 @@ class RxLifecycle {
                     .subscribe(subscriber)
         }
 
-        fun <T> RxBus.subscribe(classType: Class<T>, onNext: (T)->Unit) {
+        fun <T> RxBus.subscribe(classType: Class<T>, onNext: (T) -> Unit) {
             RxBus.toObserverable()
                     .bindLifecycle(this@Impl)
                     .filterByType(classType)
@@ -40,7 +40,7 @@ class RxLifecycle {
 
         private fun <T> Observable<Any>.filterByType(classType: Class<T>): Observable<T> {
             return this.filter {
-                if(!classType.isInstance(it)) {
+                if (!classType.isInstance(it)) {
                     return@filter false
                 }
                 true
@@ -49,7 +49,7 @@ class RxLifecycle {
     }
 }
 
-class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<RxLifecycle.Event>):
+class CheckLifeCycleTransformer<T>(val eventBehavior: BehaviorSubject<RxLifecycle.Event>) :
         Observable.Transformer<T, T> {
     override fun call(observable: Observable<T>): Observable<T> {
         return observable.takeUntil(

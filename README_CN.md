@@ -61,7 +61,7 @@ com.nekocode.baseframework
 - picasso: **`2.5.2`**
 - hawk: **`1.23`**
 - stetho: **`1.3.1`**
-- paperparcel: **`1.0.0-rc4`**
+- paperparcel: **`1.0.0-rc5`**
 
 ### 截图
 感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取美女照片信息的。  
@@ -123,7 +123,7 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 ```
 
 ### 简单的依赖注入！！
-查看 [这里的代码](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34)。
+查看 [这里的代码](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-31)。
 
 我们可以继承一个 Dependency 类来储存一些依赖生成。
 ```kotlin

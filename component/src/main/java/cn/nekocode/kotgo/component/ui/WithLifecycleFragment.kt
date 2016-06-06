@@ -6,7 +6,7 @@ import cn.nekocode.kotgo.component.rx.RxLifecycle
 /**
  * Created by nekocode on 2015/11/20.
  */
-open class WithLifecycleFragment(): Fragment(), RxLifecycle.Impl {
+open class WithLifecycleFragment() : Fragment(), RxLifecycle.Impl {
     override val lifecycle = RxLifecycle()
 
     override fun onDestroyView() {

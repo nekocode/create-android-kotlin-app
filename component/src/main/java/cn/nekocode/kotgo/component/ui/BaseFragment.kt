@@ -11,7 +11,7 @@ import android.view.ViewGroup
 /**
  * Created by nekocode on 16/3/3.
  */
-abstract class BaseFragment: WithLifecycleFragment() {
+abstract class BaseFragment : WithLifecycleFragment() {
     abstract val layoutId: Int
     var requestInfo: FragmentActivity.RequestInfo? = null
     val fragAct: FragmentActivity?
@@ -19,7 +19,7 @@ abstract class BaseFragment: WithLifecycleFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             requestInfo = savedInstanceState.getParcelable("__requestInfo")
         }
     }
@@ -29,7 +29,7 @@ abstract class BaseFragment: WithLifecycleFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        if(requestInfo != null)
+        if (requestInfo != null)
             outState?.putParcelable("__requestInfo", requestInfo!!)
 
         super.onSaveInstanceState(outState)
@@ -49,7 +49,7 @@ abstract class BaseFragment: WithLifecycleFragment() {
         }
     }
 
-    inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle? = null): T {
+    inline protected fun <reified T : BasePresenter> bindPresenter(args: Bundle? = null): T {
         val fragmentClass = T::class.java
         val trans = childFragmentManager.beginTransaction()
         val framgnet = checkAndAddFragment(trans, 0, fragmentClass.canonicalName, fragmentClass, args)
@@ -57,7 +57,7 @@ abstract class BaseFragment: WithLifecycleFragment() {
         return framgnet
     }
 
-    final protected fun <T: Fragment> checkAndAddFragment(
+    final protected fun <T : Fragment> checkAndAddFragment(
             trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
         val className = fragmentClass.canonicalName

@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.sample.data.model
+package cn.nekocode.kotgo.sample.data.repo
 
 import cn.nekocode.kotgo.sample.data.dto.Meizi
 import cn.nekocode.kotgo.sample.data.exception.GankServiceException
@@ -10,7 +10,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by nekocode on 2016/1/13.
  */
-object MeiziModel {
+object MeiziRepo {
 
     // Bussines Logic
     fun getMeizis(count: Int, pageNum: Int): Observable<List<Meizi>> =
@@ -21,7 +21,7 @@ object MeiziModel {
                         it.results
                     }
                     .onErrorResumeNext {
-                        // Fetech data from local cache
+                        // Fetch data from local cache
                         val meiziList: List<Meizi> = Hawk.get("meizis")
                                 ?: throw GankServiceException(it.message)
                         Observable.just(meiziList)

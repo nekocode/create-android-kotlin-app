@@ -48,7 +48,7 @@ com.nekocode.baseframework
 - picasso: **`2.5.2`**
 - hawk: **`1.23`**
 - stetho: **`1.3.1`**
-- paperparcel: **`1.0.0-rc4`**
+- paperparcel: **`1.0.0-rc5`**
 
 ### Screenshots
 Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
@@ -111,7 +111,7 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 
 
 ### Simple Dependency Injection!!
-Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-34).
+Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-31).
 
 We can inherit the Dependency class for storing some denpendencies providing.
 ```kotlin

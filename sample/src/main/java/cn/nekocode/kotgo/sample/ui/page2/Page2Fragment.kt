@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by nekocode on 16/3/3.
  */
-class Page2Fragment: BaseFragment(), Contract.View {
+class Page2Fragment : BaseFragment(), Contract.View {
     companion object {
         const val TAG = "Page2Fragment"
 

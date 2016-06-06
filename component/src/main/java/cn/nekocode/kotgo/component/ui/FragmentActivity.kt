@@ -16,19 +16,21 @@ import org.jetbrains.anko.collections.forEachReversed
 import org.jetbrains.anko.frameLayout
 import java.util.*
 
-abstract class FragmentActivity: BaseActivity() {
+abstract class FragmentActivity : BaseActivity() {
     private lateinit var stack: FragmentStack
     private var containerId: Int = 0
     private var requestFragments = SparseArray<RequestFragmentsRecord>()
 
     // Stack operation
-    fun <T: BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
+    fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
         stack.push(tag, classType, args)
     }
-    fun <T: BaseFragment> pushForResult(originalTag: String, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
+
+    fun <T : BaseFragment> pushForResult(originalTag: String, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
         addRequestToRecord(originalTag, requestCode)
         stack.push(fragmentTag, classType, args, requestCode)
     }
+
     fun pop() = stack.pop()
     fun get(tag: String) = stack.get(tag)
     fun getFragmentTopInStack() = stack.getFragmentTopInStack()
@@ -39,7 +41,7 @@ abstract class FragmentActivity: BaseActivity() {
         containerId = onCreateContainer()
         stack = FragmentStack(fragmentManager, containerId)
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             stack.restoreStack(savedInstanceState)
             savedInstanceState.getParcelableArrayList<RequestFragmentsRecord>("__requestFragments")
                     .forEach {
@@ -73,15 +75,15 @@ abstract class FragmentActivity: BaseActivity() {
 
     private fun addRequestToRecord(fragmentTag: String, requestCode: Int) {
         requestFragments
-        if(requestFragments[requestCode] == null) {
+        if (requestFragments[requestCode] == null) {
             requestFragments.setValueAt(requestCode, RequestFragmentsRecord(1, arrayListOf(fragmentTag), requestCode))
         } else {
-            requestFragments[requestCode]!!.reqCount ++
+            requestFragments[requestCode]!!.reqCount++
             requestFragments[requestCode]!!.tags += fragmentTag
         }
     }
 
-    fun startActivityForResult(fragmentTag: String, intent: Intent?, requestCode: Int, options: Bundle?=null) {
+    fun startActivityForResult(fragmentTag: String, intent: Intent?, requestCode: Int, options: Bundle? = null) {
         addRequestToRecord(fragmentTag, requestCode)
         super.startActivityForResult(intent, requestCode, options)
     }
@@ -89,21 +91,21 @@ abstract class FragmentActivity: BaseActivity() {
     @CallSuper
     override public fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val reqs = requestFragments[requestCode]
-        if(reqs != null) {
-            if((--requestFragments[requestCode]!!.reqCount) == 0) {
+        if (reqs != null) {
+            if ((--requestFragments[requestCode]!!.reqCount) == 0) {
                 requestFragments.remove(requestCode)
             }
 
             var found = false
-            for(tag in reqs.tags) {
+            for (tag in reqs.tags) {
                 val fragment = stack.get(tag)
-                if(fragment is BaseFragment) {
+                if (fragment is BaseFragment) {
                     fragment.onResult(requestCode, resultCode, data)
                     found = true
                 }
             }
 
-            if(!found) requestFragments.remove(requestCode)
+            if (!found) requestFragments.remove(requestCode)
         }
 
         super.onActivityResult(requestCode, resultCode, data)
@@ -114,21 +116,22 @@ abstract class FragmentActivity: BaseActivity() {
         do {
             val topFragment = stack.getFragmentTopInStack()
 
-            if(topFragment is BaseFragment) {
-                if(topFragment.onBackPressed()) {
+            if (topFragment is BaseFragment) {
+                if (topFragment.onBackPressed()) {
                     break
                 }
             }
 
             // Pop fragment stack
-            if(stack.pop()) break
+            if (stack.pop()) break
 
             // Finish when only one fragment in the stack
             finish()
-        } while(false)
+        } while (false)
     }
 
-    open fun afterOnCreate(savedInstanceState: Bundle?) {}
+    open fun afterOnCreate(savedInstanceState: Bundle?) {
+    }
 
     inner class FragmentStack {
         private var activity: FragmentActivity
@@ -164,7 +167,7 @@ abstract class FragmentActivity: BaseActivity() {
                 fragmentStackRecord.forEachReversed { tag ->
                     val fragment = fragmentManager.findFragmentByTag(tag)
 
-                    if(!showFlag) {
+                    if (!showFlag) {
                         trans.show(fragment)
                         showFlag = true
                     } else {
@@ -177,18 +180,18 @@ abstract class FragmentActivity: BaseActivity() {
             }
         }
 
-        fun <T: BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null, requestCode: Int? = null) {
+        fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null, requestCode: Int? = null) {
             val time = System.currentTimeMillis()
 
             var fragment = fragmentManager.findFragmentByTag(tag)
-            if(fragment != null) {
+            if (fragment != null) {
                 // If the tag has already been used
                 curSystemTime = time
                 Log.d("FragmentStack", "The tag \"$tag\" has already been used.")
                 return
             }
 
-            if(time - curSystemTime < PUSH_INTERVAL) {
+            if (time - curSystemTime < PUSH_INTERVAL) {
                 // Refuse to push when the previous commit hasn't been applied
                 curSystemTime = time
                 return
@@ -199,7 +202,7 @@ abstract class FragmentActivity: BaseActivity() {
 
             // Hide the fragment top in stack
             val topFragment = getFragmentTopInStack()
-            if(topFragment != null) {
+            if (topFragment != null) {
                 trans.hide(topFragment)
             }
 
@@ -209,7 +212,7 @@ abstract class FragmentActivity: BaseActivity() {
             trans.add(containerId, fragment, tag)
 
             // Set request code
-            if(requestCode != null)
+            if (requestCode != null)
                 (fragment as BaseFragment).apply {
                     requestInfo = RequestInfo(requestCode)
                 }
@@ -223,11 +226,11 @@ abstract class FragmentActivity: BaseActivity() {
 
         fun pop(): Boolean {
             val count = fragmentManager.backStackEntryCount
-            if(count > 1) {
+            if (count > 1) {
                 val tag = fragmentStackRecord.last()
 
                 val reqInfo = get(tag)!!.requestInfo
-                if(reqInfo != null) {
+                if (reqInfo != null) {
                     activity.onActivityResult(reqInfo.requestCode, reqInfo.resultCode, reqInfo.resultData)
                 }
 
@@ -249,7 +252,7 @@ abstract class FragmentActivity: BaseActivity() {
 
         fun getFragmentTopInStack(): Fragment? {
             val count = fragmentManager.backStackEntryCount
-            if(count > 0) {
+            if (count > 0) {
                 val tag = fragmentManager.getBackStackEntryAt(count - 1).name
                 val fragment = fragmentManager.findFragmentByTag(tag)
 
@@ -261,7 +264,7 @@ abstract class FragmentActivity: BaseActivity() {
     }
 
     data class RequestFragmentsRecord(var reqCount: Int, val tags: ArrayList<String>, var requestCode: Int) : Parcelable {
-        constructor(source: Parcel): this(source.readInt(), source.createStringArrayList(), source.readInt())
+        constructor(source: Parcel) : this(source.readInt(), source.createStringArrayList(), source.readInt())
 
         override fun describeContents(): Int {
             return 0
@@ -287,7 +290,7 @@ abstract class FragmentActivity: BaseActivity() {
     }
 
     data class RequestInfo(var requestCode: Int, var resultCode: Int = 0, var resultData: Intent? = null) : Parcelable {
-        constructor(source: Parcel): this(
+        constructor(source: Parcel) : this(
                 source.readInt(),
                 source.readInt(),
                 source.readParcelable<Intent?>(Intent::class.java.classLoader)

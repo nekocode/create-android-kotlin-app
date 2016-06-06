@@ -11,12 +11,12 @@ open class Provider<T>(val creator: (args: Array<Any>) -> T) {
     }
 }
 
-class SingletonProvider<T>(creator: (args: Array<Any>) -> T): Provider<T>(creator) {
+class SingletonProvider<T>(creator: (args: Array<Any>) -> T) : Provider<T>(creator) {
     var instance: T? = null
     val lock = Any()
 
     override fun get(vararg args: Any): T {
-        if(instance != null) {
+        if (instance != null) {
             return instance!!
 
         } else {
@@ -38,11 +38,11 @@ abstract class Dependency {
         createDependencies()
     }
 
-    protected inline fun <reified T: Any> bind(noinline creator: (args: Array<Any>)->T) {
+    protected inline fun <reified T : Any> bind(noinline creator: (args: Array<Any>) -> T) {
         dependencies[T::class.java] = Provider(creator) as Provider<Any>
     }
 
-    protected inline fun <reified T: Any> bindSingleton(noinline creator: (args: Array<Any>)->T) {
+    protected inline fun <reified T : Any> bindSingleton(noinline creator: (args: Array<Any>) -> T) {
         dependencies[T::class.java] = SingletonProvider(creator) as SingletonProvider<Any>
     }
 
@@ -53,5 +53,5 @@ abstract class Dependency {
     abstract fun createDependencies()
 }
 
-inline fun <reified T: Any> Dependency.injectNotNull(vararg args: Any): T = provide(T::class.java, *args)!!
-inline fun <reified T: Any> Dependency.inject(vararg args: Any): T? = provide(T::class.java, *args)
+inline fun <reified T : Any> Dependency.injectNotNull(vararg args: Any): T = provide(T::class.java, *args)!!
+inline fun <reified T : Any> Dependency.inject(vararg args: Any): T? = provide(T::class.java, *args)

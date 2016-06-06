@@ -13,7 +13,7 @@ import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
 import org.jetbrains.anko.toast
 
-class MainFragment: BaseFragment(), Contract.View {
+class MainFragment : BaseFragment(), Contract.View {
     companion object {
         const val TAG = "MainFragment"
 
@@ -31,16 +31,20 @@ class MainFragment: BaseFragment(), Contract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 绑定 Presenter
+        // You should bind presenter on view's onViewCreated() for the
+        // fragment manager can correctly find the presenter in cache
         meiziPresenter = bindPresenter<MeiziPresenter>()
 
         toolbar.title = "Meizi List - Loading"
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = meiziPresenter.getAdapter()
 
         RxBus.subscribe(LoadFinishedEvent::class.java) {
             toolbar.title = "Meizi List - Load finished"
         }
+    }
+
+    override fun setupAdapter(adapter: RecyclerView.Adapter<*>) {
+        recyclerView.adapter = adapter
     }
 
     override fun onBackPressed(): Boolean {

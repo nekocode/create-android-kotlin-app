@@ -5,7 +5,15 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 300
-        versionName "1.0.0"
+        versionCode 305
+        versionName "1.0.5"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt' // multiple libs have this file -> cause build error
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning', 'UnusedResources' // Lint still does not detect usage of resources from Kotlin code.
     }
 }

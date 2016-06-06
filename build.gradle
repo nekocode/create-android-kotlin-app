@@ -11,7 +11,14 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+        // classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+    }
+
+
+    // Prevent Gradle Workers from taking focus! #DevelopersLikeComfort
+    // https://gist.github.com/artem-zinnatullin/4c250e04636e25797165
+    tasks.withType(JavaForkOptions) {
+        jvmArgs '-Djava.awt.headless=true'
     }
 }
 
@@ -32,4 +39,28 @@ allprojects {
 
 ext {
     kotlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+}
+
+// Option to disable Pre-Dexing on CI env.
+project.ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+    project.plugins.whenPluginAdded { plugin ->
+        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name)
+                || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+
+            // Enable or disable pre-dexing.
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+
+            // Treat all Android Lint warning in all sub-projects as errors.
+            project.android.lintOptions.warningsAsErrors = true
+
+            project.android.testOptions.unitTests.all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                    exceptionFormat 'full'
+                }
+            }
+        }
+    }
 }

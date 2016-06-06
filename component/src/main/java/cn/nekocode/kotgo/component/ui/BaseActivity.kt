@@ -10,9 +10,9 @@ import android.support.v7.app.AppCompatActivity
 import cn.nekocode.kotgo.component.rx.RxLifecycle
 import java.lang.ref.WeakReference
 
-abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
+abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
     companion object {
-        class GlobalHandler: Handler {
+        class GlobalHandler : Handler {
             private val mOuter: WeakReference<BaseActivity>
 
             constructor(activity: BaseActivity) {
@@ -52,7 +52,7 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
         }
     }
 
-    fun runDelayed(delayMillis: Long, runnable: ()->Unit) {
+    fun runDelayed(delayMillis: Long, runnable: () -> Unit) {
         val msg = Message()
         msg.what = -101
         msg.arg1 = -102
@@ -71,7 +71,7 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
 
     }
 
-    inline protected fun <reified T: BasePresenter> bindPresenter(args: Bundle? = null): T {
+    inline protected fun <reified T : BasePresenter> bindPresenter(args: Bundle? = null): T {
         val fragmentClass = T::class.java
         val trans = fragmentManager.beginTransaction()
         val framgnet = checkAndAddFragment(trans, 0, fragmentClass.canonicalName, fragmentClass, args)
@@ -79,7 +79,7 @@ abstract class BaseActivity: AppCompatActivity(), RxLifecycle.Impl {
         return framgnet
     }
 
-    final fun <T: Fragment> checkAndAddFragment(
+    final fun <T : Fragment> checkAndAddFragment(
             trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
         val className = fragmentClass.canonicalName

@@ -4,7 +4,7 @@ import android.os.Bundle
 import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.ui.main.MainFragment
 
-class MainActivity: FragmentActivity() {
+class MainActivity : FragmentActivity() {
     override fun afterOnCreate(savedInstanceState: Bundle?) {
         super.afterOnCreate(savedInstanceState)
 
