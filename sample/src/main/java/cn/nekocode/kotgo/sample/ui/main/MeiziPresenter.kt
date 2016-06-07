@@ -45,9 +45,11 @@ class MeiziPresenter() : BasePresenter(), Contract.Presenter {
                 .flatMap {
                     RxBus.send(LoadFinishedEvent())
 
-                    meiziList.clear()
-                    meiziList.addAll(it)
-                    Observable.empty<Unit>()
+                    Observable.fromCallable {
+                        meiziList.clear()
+                        meiziList.addAll(it)
+                        Unit
+                    }
                 }
                 .onUI {
                     adapter.notifyDataSetChanged()

@@ -157,4 +157,4 @@ startActivityForResult(fragmentTag, intent, requestCode, options)
 我们还处理了更多的细节，详情可以查看 `FragmentActivity.kt`。
 
 ### 其他
-它还包括一些其他常用的工具和拓展（例如 [KotterKnife](https://github.com/JakeWharton/kotterknife)）。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。
+它还包括一些其他常用的工具和拓展。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。
