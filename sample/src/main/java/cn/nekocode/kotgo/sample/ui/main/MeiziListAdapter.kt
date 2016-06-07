@@ -3,9 +3,6 @@ package cn.nekocode.kotgo.sample.ui.main
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.bindView
 
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.DO.Meizi
@@ -13,6 +10,7 @@ import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick
+import kotlinx.android.synthetic.main.item_meizi.view.*
 
 /**
  * Created by nekocode on 2015/7/22.
@@ -52,9 +50,6 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
     }
 
     private inner class ItemViewHolder : RecyclerView.ViewHolder {
-        val imageView: ImageView by bindView(R.id.imageView)
-        val textView: TextView by bindView(R.id.textView)
-        val textView2: TextView by bindView(R.id.textView2)
         var meizi: Meizi? = null
 
         constructor(view: View) : super(view) {
@@ -67,9 +62,9 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
         fun setData(meizi: Meizi) {
             this.meizi = meizi
 
-            Picasso.with(itemView.context).load(meizi.url).centerCrop().fit().into(imageView)
-            textView.text = meizi.id
-            textView2.text = "${meizi.who} - ${meizi.type}"
+            Picasso.with(itemView.context).load(meizi.url).centerCrop().fit().into(itemView.imageView)
+            itemView.textView.text = meizi.id
+            itemView.textView2.text = "${meizi.who} - ${meizi.type}"
         }
     }
 }
