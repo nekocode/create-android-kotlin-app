@@ -3,7 +3,6 @@ package cn.nekocode.kotgo.sample.ui.main
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.View
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.ui.BaseFragment

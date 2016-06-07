@@ -3,14 +3,13 @@ package cn.nekocode.kotgo.sample.ui.main
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_meizi.view.*
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick
-import kotlinx.android.synthetic.main.item_meizi.view.*
 
 /**
  * Created by nekocode on 2015/7/22.
