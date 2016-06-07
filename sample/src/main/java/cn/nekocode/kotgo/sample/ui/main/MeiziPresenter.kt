@@ -7,8 +7,8 @@ import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.component.ui.BasePresenter
-import cn.nekocode.kotgo.sample.data.dto.Meizi
-import cn.nekocode.kotgo.sample.data.dto.MeiziParcel
+import cn.nekocode.kotgo.sample.data.DO.Meizi
+import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
 import cn.nekocode.kotgo.sample.data.repo.MeiziRepo
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
 import cn.nekocode.kotgo.sample.ui.page2.Page2Fragment

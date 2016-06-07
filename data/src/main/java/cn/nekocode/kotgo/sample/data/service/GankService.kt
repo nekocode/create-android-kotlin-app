@@ -1,7 +1,7 @@
 package cn.nekocode.kotgo.sample.data.service
 
 import cn.nekocode.kotgo.sample.data.DataLayer
-import cn.nekocode.kotgo.sample.data.dto.Meizi
+import cn.nekocode.kotgo.sample.data.DO.Meizi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

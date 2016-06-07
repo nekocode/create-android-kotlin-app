@@ -1,6 +1,6 @@
 package cn.nekocode.kotgo.sample.data.repo
 
-import cn.nekocode.kotgo.sample.data.dto.Meizi
+import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.exception.GankServiceException
 import cn.nekocode.kotgo.sample.data.service.GankService
 import com.orhanobut.hawk.Hawk

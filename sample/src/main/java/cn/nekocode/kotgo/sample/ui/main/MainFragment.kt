@@ -5,12 +5,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
-import butterknife.bindView
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.jetbrains.anko.toast
 
 class MainFragment : BaseFragment(), Contract.View {
@@ -23,9 +23,6 @@ class MainFragment : BaseFragment(), Contract.View {
     }
 
     override val layoutId: Int = R.layout.fragment_main
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
-
     lateinit var meiziPresenter: Contract.Presenter
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

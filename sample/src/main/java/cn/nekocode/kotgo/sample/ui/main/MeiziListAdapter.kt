@@ -8,7 +8,7 @@ import android.widget.TextView
 import butterknife.bindView
 
 import cn.nekocode.kotgo.sample.R
-import cn.nekocode.kotgo.sample.data.dto.Meizi
+import cn.nekocode.kotgo.sample.data.DO.Meizi
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick

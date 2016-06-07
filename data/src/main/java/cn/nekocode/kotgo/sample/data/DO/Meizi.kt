@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.sample.data.dto
+package cn.nekocode.kotgo.sample.data.DO
 
 import com.google.gson.annotations.SerializedName
 import nz.bradcampbell.paperparcel.PaperParcel

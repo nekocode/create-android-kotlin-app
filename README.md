@@ -20,7 +20,7 @@ Of course, you can also download the python script to your local disk to run it.
 ```
 com.nekocode.baseframework
 ├─ data
-│  ├─ dto
+│  ├─ DO
 │  ├─ exception
 │  ├─ model
 │  └─ service
@@ -34,7 +34,7 @@ com.nekocode.baseframework
 ```
 
 ### Layer
-- **Data Layer:** It likes the traditional **Model Layer**, includes `dto`(Data Transfer Object), `service`, `model`, `exception` or other element directories. It uses the dtos or other meta object to interact with the Presenter Layer.
+- **Data Layer:** It likes the traditional **Model Layer**, includes `DO`(Data Object), `service`, `repository`, `exception` or other element directories. It uses the DOs or other meta object to interact with the Presenter Layer.
 - **View Layer:** Including `activity`, `fragment`, `view`. Only concerned with the user interaction, as well as view manipulation (animation, interface input, output and update, etc.).
 - **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
 
