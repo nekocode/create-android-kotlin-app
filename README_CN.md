@@ -35,7 +35,7 @@ com.nekocode.baseframework
 ├─ data
 │  ├─ DO
 │  ├─ exception
-│  ├─ model
+│  ├─ repo
 │  └─ service
 │ 
 ├─ ui
