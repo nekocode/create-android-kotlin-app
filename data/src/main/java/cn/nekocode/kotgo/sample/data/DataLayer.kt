@@ -1,6 +1,6 @@
 package cn.nekocode.kotgo.sample.data
 
-import android.app.Application
+import android.content.Context
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
@@ -24,11 +24,11 @@ object DataLayer {
     const val HTTP_READ_TIMEOUT = 30L
     const val HTTP_WRITE_TIMEOUT = 10L
 
-    lateinit var app: Application
+    lateinit var app: Context
     lateinit var okHttpClient: OkHttpClient
     val gson: Gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
-    fun hook(app: Application) {
+    fun hook(app: Context) {
         DataLayer.app = app
 
         Hawk.init(app)

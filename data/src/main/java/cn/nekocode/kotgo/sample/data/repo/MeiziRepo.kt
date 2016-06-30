@@ -17,10 +17,12 @@ object MeiziRepo {
             GankService.api.getMeizi(count, pageNum)
                     .subscribeOn(Schedulers.io())
                     .map {
-                        Hawk.put("meizis", it.results)
+                        if (pageNum == 1) Hawk.put("meizis", it.results)
                         it.results
                     }
                     .onErrorResumeNext {
+                        if (pageNum != 1) throw GankServiceException(it.message)
+
                         // Fetch data from local cache
                         val meiziList: List<Meizi> = Hawk.get("meizis")
                                 ?: throw GankServiceException(it.message)

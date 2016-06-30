@@ -8,6 +8,7 @@ kapt {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
 
     // Retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"

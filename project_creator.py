@@ -166,7 +166,7 @@ class ProjectFactory:
             .replace_all_text('compile project(":component")',
                               'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
-            
+
         # build.gradle
         TextProcesser('app/proguard-rules.pro') \
             .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
@@ -234,6 +234,20 @@ class ProjectFactory:
 
         new_package_path = 'data/src/main/java/' + package_dir_postfix + '/'
 
+        # move test package
+        package_dir_postfix = package_name.replace('.', '/')
+        tmp_package_path = 'data/src/test/javaTmp/' + package_dir_postfix + '/'
+        old_package_path = 'data/src/test/java/cn/nekocode/kotgo/sample/data/'
+        os.makedirs(tmp_package_path)
+
+        for f in os.listdir(old_package_path):
+            shutil.move(old_package_path + f, tmp_package_path)
+        shutil.rmtree('data/src/test/java')
+
+        os.renames('data/src/test/javaTmp', 'data/src/test/java')
+
+        new_test_package_path = 'data/src/test/java/' + package_dir_postfix + '/'
+
         # src files
         def process_all_src(path):
             for p in os.listdir(path):
@@ -247,6 +261,7 @@ class ProjectFactory:
                         .finish()
 
         process_all_src(new_package_path)
+        process_all_src(new_test_package_path)
 
         return self
 
