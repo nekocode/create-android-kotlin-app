@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 307
-        versionName "1.0.7"
+        versionCode 308
+        versionName "1.0.8"
     }
 
     packagingOptions {

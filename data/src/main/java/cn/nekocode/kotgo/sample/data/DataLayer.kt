@@ -28,7 +28,7 @@ object DataLayer {
     lateinit var okHttpClient: OkHttpClient
     val gson: Gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
-    fun hook(app: Context) {
+    fun init(app: Context, useStetho: Boolean = true) {
         DataLayer.app = app
 
         Hawk.init(app)
@@ -46,6 +46,6 @@ object DataLayer {
                 .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
-        Stetho.initializeWithDefaults(app)
+        if (useStetho) Stetho.initializeWithDefaults(app)
     }
 }

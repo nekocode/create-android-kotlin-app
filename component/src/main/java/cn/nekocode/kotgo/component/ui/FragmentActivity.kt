@@ -12,7 +12,7 @@ import android.util.Log
 import android.util.SparseArray
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.collections.asSequence
-import org.jetbrains.anko.collections.forEachReversed
+import org.jetbrains.anko.collections.forEachReversedByIndex
 import org.jetbrains.anko.frameLayout
 import java.util.*
 
@@ -164,7 +164,7 @@ abstract class FragmentActivity : BaseActivity() {
                 val trans = fragmentManager.beginTransaction()
                 // Restore all fragments' visibility state
                 var showFlag = false
-                fragmentStackRecord.forEachReversed { tag ->
+                fragmentStackRecord.forEachReversedByIndex { tag ->
                     val fragment = fragmentManager.findFragmentByTag(tag)
 
                     if (!showFlag) {

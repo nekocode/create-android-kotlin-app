@@ -15,7 +15,7 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        DataLayer.hook(this)
+        DataLayer.init(this)
 
         // Dependency Injection Test
         // Singleton

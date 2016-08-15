@@ -146,7 +146,7 @@ class ProjectFactory:
         TextProcesser('build.gradle').rm_line_has_text('android-maven').finish()
 
         # settings.gradle
-        TextProcesser('settings.gradle').recreate("include ':app', ':data'").finish()
+        TextProcesser('settings.gradle').recreate("include ':app', ':data', ':component'").finish()
 
         # rm unnessary files
         os.remove('README.md')
@@ -155,16 +155,12 @@ class ProjectFactory:
         if os.path.exists('project_creator.py'):
             os.remove('project_creator.py')
 
-        shutil.rmtree('component')
-
         # =================
         #       app
         # =================
         # build.gradle
         TextProcesser('app/build.gradle') \
             .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
-            .replace_all_text('compile project(":component")',
-                              'compile "com.github.nekocode:kotgo:%s"' % self.version) \
             .finish()
 
         # build.gradle
