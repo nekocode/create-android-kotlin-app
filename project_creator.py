@@ -156,6 +156,15 @@ class ProjectFactory:
             os.remove('project_creator.py')
 
         # =================
+        #     component
+        # =================
+        # build.gradle
+        TextProcesser('component/build.gradle') \
+            .rm_line_has_text("apply plugin: 'com.github.dcendents.android-maven'") \
+            .rm_line_has_text("group='com.github.nekocode'") \
+            .finish()
+
+        # =================
         #       app
         # =================
         # build.gradle
