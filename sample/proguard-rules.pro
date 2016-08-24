@@ -235,5 +235,5 @@
 }
 
 # Keep your model classes
--keep class cn.nekocode.kotgo.sample.data.dto.** { *; }
+-keep class cn.nekocode.kotgo.sample.data.DO.** { *; }
 -keep public class cn.nekocode.kotgo.sample.data.service.GankService$* { *; }
