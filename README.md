@@ -131,12 +131,14 @@ You can build applications that have only one activity with the help of the `Fra
 
 It provides following functions for helping you manage the fragment stack.
 ```kotlin
-push(fragmentTag, classType, args)
-pushForResult(originalTag, requestCode, fragmentTag, classType, args)
-pop()
-get(fragmentTag)
-getFragmentTopInStack()
-startActivityForResult(fragmentTag, intent, requestCode, options)
+push()
+pushSafety()
+pushForResult()
+pushForResultSafety()
+popAll()
+popUntil()
+popTop()
+startActivityForResult()
 ```
 
 We also deal with more details, look at the `FragmentActivity.kt`.

@@ -12,15 +12,52 @@ import android.view.ViewGroup
  * Created by nekocode on 16/3/3.
  */
 abstract class BaseFragment : WithLifecycleFragment() {
+    companion object {
+        const val KEY_SAVE_REQUEST_INFO = "__REQUEST_IFNO__"
+    }
+
+    private fun stackActivity() = if (activity is FragmentActivity) activity as FragmentActivity else null
+
+    /**
+     * Stack operations
+     */
+
+    fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
+        stackActivity()?.push(tag, classType, args)
+    }
+
+    fun <T : BaseFragment> pushSafety(tag: String, classType: Class<T>, args: Bundle? = null) {
+        stackActivity()?.pushSafety(tag, classType, args)
+    }
+
+    fun <T : BaseFragment> pushForResult(requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
+        stackActivity()?.pushForResult(this, requestCode, fragmentTag, classType, args)
+    }
+
+    fun <T : BaseFragment> pushForResultSafety(requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
+        stackActivity()?.pushForResultSafety(this, requestCode, fragmentTag, classType, args)
+    }
+
+    override final fun startActivityForResult(intent: Intent?, requestCode: Int, options: Bundle?) {
+        stackActivity()?.startActivityForResult(this, intent, requestCode, options)
+    }
+
+    fun popAll() = stackActivity()?.popAll()
+    fun popUntil(tag: String) = stackActivity()?.popUntil(tag)
+    fun popTop() = stackActivity()?.popTop()
+
+
+    /**
+     * Lifecycle methods
+     */
+
     abstract val layoutId: Int
-    var requestInfo: FragmentActivity.RequestInfo? = null
-    val fragAct: FragmentActivity?
-        get() = activity as FragmentActivity?
+    var requestInfo: RequestInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            requestInfo = savedInstanceState.getParcelable("__requestInfo")
+            requestInfo = savedInstanceState.getParcelable(KEY_SAVE_REQUEST_INFO)
         }
     }
 
@@ -29,9 +66,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        if (requestInfo != null)
-            outState?.putParcelable("__requestInfo", requestInfo!!)
-
+        requestInfo?.apply { outState?.putParcelable(KEY_SAVE_REQUEST_INFO, this) }
         super.onSaveInstanceState(outState)
     }
 
@@ -57,7 +92,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
         return framgnet
     }
 
-    final protected fun <T : Fragment> checkAndAddFragment(
+    protected fun <T : Fragment> checkAndAddFragment(
             trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
         val className = fragmentClass.canonicalName

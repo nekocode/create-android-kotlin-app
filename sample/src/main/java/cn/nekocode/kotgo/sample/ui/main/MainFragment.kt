@@ -14,10 +14,16 @@ import org.jetbrains.anko.toast
 
 class MainFragment : BaseFragment(), Contract.View {
     companion object {
-        const val TAG = "MainFragment"
+        fun push(act: FragmentActivity,
+                 tag: String = MainFragment::class.java.canonicalName) {
 
-        fun push(fragmentActivity: FragmentActivity) {
-            fragmentActivity.push(TAG, MainFragment::class.java)
+            act.push(tag, MainFragment::class.java)
+        }
+
+        fun push(fragment: BaseFragment,
+                 tag: String = MainFragment::class.java.canonicalName) {
+
+            fragment.push(tag, MainFragment::class.java)
         }
     }
 

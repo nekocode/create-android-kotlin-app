@@ -6,6 +6,7 @@ import android.os.Parcelable
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
+import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.ui.BasePresenter
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
@@ -64,7 +65,7 @@ class MeiziPresenter() : BasePresenter(), Contract.Presenter {
             view?.setupAdapter(this)
 
             onMeiziItemClickListener = {
-                Page2Fragment.push(fragAct!!, it)
+                Page2Fragment.push(parentFragment as BaseFragment, it)
             }
         }
     }

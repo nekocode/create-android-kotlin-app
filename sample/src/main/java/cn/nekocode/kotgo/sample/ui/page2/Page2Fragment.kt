@@ -16,13 +16,10 @@ import kotlinx.android.synthetic.main.fragment_page2.*
  */
 class Page2Fragment : BaseFragment(), Contract.View {
     companion object {
-        const val TAG = "Page2Fragment"
+        fun push(fragment: BaseFragment, meizi: Meizi,
+                 tag: String = Page2Fragment::class.java.canonicalName) {
 
-        fun push(fragmentActivity: FragmentActivity, meizi: Meizi) {
-            fragmentActivity.push(
-                    TAG, Page2Fragment::class.java,
-                    args(Pair("meizi", MeiziParcel(meizi)))
-            )
+            fragment.push(tag, Page2Fragment::class.java, args(Pair("meizi", MeiziParcel(meizi))))
         }
     }
 

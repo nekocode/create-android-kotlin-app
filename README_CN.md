@@ -143,12 +143,14 @@ val int = TestDep.inject<Int>(1)
 
 FragmentActivity 提供了以下的一些方法来帮助你管理 Fragment 栈。
 ```kotlin
-push(fragmentTag, classType, args)
-pushForResult(originalTag, requestCode, fragmentTag, classType, args)
-pop()
-get(fragmentTag)
-getFragmentTopInStack()
-startActivityForResult(fragmentTag, intent, requestCode, options)
+push()
+pushSafety()
+pushForResult()
+pushForResultSafety()
+popAll()
+popUntil()
+popTop()
+startActivityForResult()
 ```
 
 我们还处理了更多的细节，详情可以查看 `FragmentActivity.kt`。
