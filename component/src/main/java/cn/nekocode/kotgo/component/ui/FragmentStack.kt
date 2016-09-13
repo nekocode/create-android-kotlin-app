@@ -45,7 +45,7 @@ class FragmentStack {
 
         // Restore all fragments' visibility state
         var showFlag = false
-        for (i in (manager.backStackEntryCount - 1)..0) {
+        for (i in (manager.backStackEntryCount - 1) downTo 0) {
             val tag = manager.getBackStackEntryAt(i).name
             val fragment = get(tag)!!
 
@@ -135,8 +135,8 @@ class FragmentStack {
     fun popUntil(tag: String) {
         // TODO: Make sure have the tag
         val count = manager.backStackEntryCount
-        for (i in (count - 1)..0) {
-            val topTag = manager.getBackStackEntryAt(count - 1).name
+        for (i in (count - 1) downTo 0) {
+            val topTag = manager.getBackStackEntryAt(i).name
             if (topTag != tag) {
                 manager.popBackStack()
 
