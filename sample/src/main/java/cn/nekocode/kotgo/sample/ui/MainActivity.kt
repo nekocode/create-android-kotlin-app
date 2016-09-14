@@ -10,6 +10,7 @@ class MainActivity : FragmentActivity() {
 
         window.setBackgroundDrawable(null)
 
-        MainFragment.push(this)
+        if (savedInstanceState == null)
+            MainFragment.push(this)
     }
 }

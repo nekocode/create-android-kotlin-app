@@ -1,12 +1,12 @@
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 310
-        versionName "1.1.0"
+        versionName "1.1.1"
     }
 
     packagingOptions {

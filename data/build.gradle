@@ -17,7 +17,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
-    compile "com.github.orhanobut:hawk:$hawkVersion"
+    compile "com.orhanobut:hawk:$hawkVersion"
 
     // Debug library
     compile "com.facebook.stetho:stetho:$stethoVersion"

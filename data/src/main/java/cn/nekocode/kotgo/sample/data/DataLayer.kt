@@ -6,8 +6,6 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.orhanobut.hawk.Hawk
-import com.orhanobut.hawk.HawkBuilder
-import com.orhanobut.hawk.LogLevel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
@@ -31,20 +29,17 @@ object DataLayer {
     fun init(app: Context, useStetho: Boolean = true) {
         DataLayer.app = app
 
-        Hawk.init(app)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
-                .setStorage(HawkBuilder.newSqliteStorage(app))
-                .setLogLevel(LogLevel.FULL)
-                .build()
+        Hawk.init(app).build()
 
-        val cacheDir = File(app.cacheDir, RESPONSE_CACHE_FILE)
-        okHttpClient = OkHttpClient.Builder()
-                .cache(Cache(cacheDir, RESPONSE_CACHE_SIZE))
-                .connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
-                .addNetworkInterceptor(StethoInterceptor())
-                .build()
+        okHttpClient = OkHttpClient.Builder().apply {
+            val cacheDir = File(app.cacheDir, RESPONSE_CACHE_FILE)
+            cache(Cache(cacheDir, RESPONSE_CACHE_SIZE))
+            connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
+
+            if (useStetho) addNetworkInterceptor(StethoInterceptor())
+        }.build()
 
         if (useStetho) Stetho.initializeWithDefaults(app)
     }
