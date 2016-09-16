@@ -5,6 +5,8 @@ apply from: '../config.gradle'
 
 group='com.github.nekocode'
 
+def ankoVersion = "0.9"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android support library
@@ -12,8 +14,8 @@ dependencies {
     provided "com.android.support:recyclerview-v7:$supportLibVersion"
 
     // Reactive library
-    provided "io.reactivex:rxkotlin:$rxkotlinVersion"
-    provided "io.reactivex:rxandroid:$rxandroidVersion"
+    provided "io.reactivex:rxkotlin:0.60.0"
+    provided "io.reactivex:rxandroid:1.2.1"
 
     // DSL
     provided "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available

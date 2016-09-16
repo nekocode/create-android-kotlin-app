@@ -6,7 +6,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 310
-        versionName "1.1.1"
+        versionName "1.2"
     }
 
     packagingOptions {

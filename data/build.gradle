@@ -6,6 +6,10 @@ kapt {
     generateStubs = true
 }
 
+def paperparcelVersion = "1.0.0"
+def retrofitVersion = "2.1.0"
+def stethoVersion = "1.4.1"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -17,7 +21,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
-    compile "com.orhanobut:hawk:$hawkVersion"
+    compile "com.orhanobut:hawk:2.0.0-Alpha"
 
     // Debug library
     compile "com.facebook.stetho:stetho:$stethoVersion"

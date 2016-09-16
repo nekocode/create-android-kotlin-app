@@ -15,6 +15,8 @@ android {
     }
 }
 
+def ankoVersion = "0.9"
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile kotlib
@@ -26,8 +28,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
 
     // Reactive library
-    compile "io.reactivex:rxkotlin:$rxkotlinVersion"
-    compile "io.reactivex:rxandroid:$rxandroidVersion"
+    compile "io.reactivex:rxkotlin:0.60.0"
+    compile "io.reactivex:rxandroid:1.2.1"
 
     // DSL
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
@@ -35,7 +37,7 @@ dependencies {
     compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
 
     // Artwork
-    compile "com.squareup.picasso:picasso:$picassoVersion"
+    compile "com.squareup.picasso:picasso:2.5.2"
 }
 
 buildscript {

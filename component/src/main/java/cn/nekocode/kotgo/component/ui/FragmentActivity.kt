@@ -101,19 +101,19 @@ abstract class FragmentActivity : BaseActivity() {
     @CallSuper
     override fun onBackPressed() {
         do {
-            val stackSize = stack.size()
-            if (stackSize <= 1) {
-                // Finish the activity when no or only one fragment in the stack
-                finish()
-                break
-            }
-
             val topFragment = stack.getTopInStack()
             if (topFragment is BaseFragment) {
                 if (topFragment.onBackPressed()) {
                     // If the fragment intercepted the event, don't pop this fragment
                     break
                 }
+            }
+
+            val stackSize = stack.size()
+            if (stackSize <= 1) {
+                // Finish the activity when no or only one fragment in the stack
+                finish()
+                break
             }
 
             // Pop fragment
