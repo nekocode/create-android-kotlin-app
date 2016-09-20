@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: '../config.gradle'
+apply from: '../context.gradle'
 
 kapt {
     generateStubs = true

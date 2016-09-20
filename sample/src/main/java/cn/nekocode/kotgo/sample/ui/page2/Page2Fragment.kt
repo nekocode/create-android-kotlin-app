@@ -3,7 +3,6 @@ package cn.nekocode.kotgo.sample.ui.page2
 import android.os.Bundle
 import android.view.View
 import cn.nekocode.kotgo.component.ui.BaseFragment
-import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.component.util.args
 import cn.nekocode.kotgo.sample.R
 import cn.nekocode.kotgo.sample.data.DO.Meizi
