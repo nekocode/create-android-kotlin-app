@@ -1,8 +1,6 @@
 package cn.nekocode.kotgo.sample.data
 
 import android.content.Context
-import com.facebook.stetho.Stetho
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.orhanobut.hawk.Hawk
@@ -26,7 +24,7 @@ object DataLayer {
     lateinit var okHttpClient: OkHttpClient
     val gson: Gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
-    fun init(app: Context, useStetho: Boolean = true) {
+    fun init(app: Context) {
         DataLayer.app = app
 
         Hawk.init(app).build()
@@ -37,10 +35,6 @@ object DataLayer {
             connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
-
-            if (useStetho) addNetworkInterceptor(StethoInterceptor())
         }.build()
-
-        if (useStetho) Stetho.initializeWithDefaults(app)
     }
 }

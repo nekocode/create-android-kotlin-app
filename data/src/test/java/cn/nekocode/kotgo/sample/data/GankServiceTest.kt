@@ -21,7 +21,7 @@ class GankServiceTest {
 
     @Before
     fun setUp() {
-        DataLayer.init(RuntimeEnvironment.application, false)
+        DataLayer.init(RuntimeEnvironment.application)
     }
 
     @Test

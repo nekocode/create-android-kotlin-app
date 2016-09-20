@@ -2,13 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../context.gradle'
 
-kapt {
-    generateStubs = true
-}
-
 def paperparcelVersion = "1.0.0"
 def retrofitVersion = "2.1.0"
-def stethoVersion = "1.4.1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -22,10 +17,6 @@ dependencies {
 
     // Storage library
     compile "com.orhanobut:hawk:2.0.0-Alpha"
-
-    // Debug library
-    compile "com.facebook.stetho:stetho:$stethoVersion"
-    compile "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // Instance State
     compile "com.github.grandstaish.paperparcel:paperparcel:$paperparcelVersion"
