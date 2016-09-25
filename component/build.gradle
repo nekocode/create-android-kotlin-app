@@ -21,7 +21,7 @@ dependencies {
     provided "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
     provided "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
 
-    provided kotlib
+    provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
 
 task sourcesJar(type: Jar) {

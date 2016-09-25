@@ -23,5 +23,5 @@ dependencies {
     compile "com.github.grandstaish.paperparcel:paperparcel-kotlin:$paperparcelVersion"
     kapt "com.github.grandstaish.paperparcel:compiler:$paperparcelVersion"
 
-    compile kotlib
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }

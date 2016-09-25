@@ -13,13 +13,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    if (project.hasProperty('storeFile') &&
+            project.hasProperty('storePassword') &&
+            project.hasProperty('keyAlias') &&
+            project.hasProperty('keyPassword')) {
+
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyAlias = keyAlias
+        android.signingConfigs.release.keyPassword = keyPassword
+    } else {
+
+        buildTypes.release.signingConfig = null
+    }
 }
 
 def ankoVersion = "0.9"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile kotlib
     compile project(":data")
     compile project(":component")
 
@@ -38,6 +51,8 @@ dependencies {
 
     // Artwork
     compile "com.squareup.picasso:picasso:2.5.2"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
 
 buildscript {

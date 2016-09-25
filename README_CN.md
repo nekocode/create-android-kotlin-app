@@ -52,19 +52,18 @@ com.nekocode.baseframework
 - **Presenter Layer：**控制逻辑层。是**「Model 与 View 层中间的交互控制层」**。
 
 ### Kotlin
-- **kotlin version: `1.0.3`**
+- **kotlin version: `1.0.4`**
 
 ### 依赖库
-- anko: **`0.8.3`**
-- rxkotlin: **`0.55.0`**
-- retrofit: **`2.0.2`**
+- anko: **`0.9`**
+- rxkotlin: **`0.60.0`**
+- retrofit: **`2.1.0`**
 - picasso: **`2.5.2`**
-- hawk: **`1.23`**
-- stetho: **`1.3.1`**
+- hawk: **`2.0.0-Alpha`**
 - paperparcel: **`1.0.0`**
 
 ### 截图
-感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取美女照片信息的。  
+感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取照片的。
 ![](art/screenshot.png)
 
 另外一个更完善的例子：**[查看这里](https://github.com/nekocode/murmur)**
@@ -87,7 +86,7 @@ dependencies {
 ### 更灵活的 RxLifecycle！！
 它帮助你将 RxJava 的订阅绑定在 Avtivity 或者 Fragment 的生命周期上。它会在 Activity 或者 Fragment 进行销毁的时候终止订阅。更关键的是，他还能在任何地方使用（例如 Presenter 中），比 [RxLifecycle](https://github.com/trello/RxLifecycle) 更加灵活。  
 ```kotlin
-MeiziRepo.getMeizis(50, 1).onUI().bindLifecycle(view).subscribe {
+MeiziRepo.getMeizis(50, 1).bindLifecycle(view).onUI {
     view.refreshMeizis(it)
 }
 ```

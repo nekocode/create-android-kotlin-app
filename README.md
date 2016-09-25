@@ -39,19 +39,18 @@ com.nekocode.baseframework
 - **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
 
 ### Kotlin
-- **kotlin version: `1.0.3`**
+- **kotlin version: `1.0.4`**
 
 ### Libraries
-- anko: **`0.8.3`**
-- rxkotlin: **`0.55.0`**
-- retrofit: **`2.0.2`**
+- anko: **`0.9`**
+- rxkotlin: **`0.60.0`**
+- retrofit: **`2.1.0`**
 - picasso: **`2.5.2`**
-- hawk: **`1.23`**
-- stetho: **`1.3.1`**
+- hawk: **`2.0.0-Alpha`**
 - paperparcel: **`1.0.0`**
 
 ### Screenshots
-Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs beautiful girl photos' information from it.  
+Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs photos from it.
 ![](art/screenshot.png)
 
 Another better sample: **[Check this](https://github.com/nekocode/murmur)**
@@ -74,7 +73,7 @@ dependencies {
 ### More Flexible RxLifecycle!! 
 It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
 ```kotlin
-MeiziRepo.getMeizis(50, 1).onUI().bindLifecycle(view).subscribe {
+MeiziRepo.getMeizis(50, 1).bindLifecycle(view).onUI {
     view.refreshMeizis(it)
 }
 ```

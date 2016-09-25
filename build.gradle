@@ -1,5 +1,3 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
@@ -12,12 +10,12 @@ buildscript {
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
+}
 
-    // Prevent Gradle Workers from taking focus! #DevelopersLikeComfort
-    // https://gist.github.com/artem-zinnatullin/4c250e04636e25797165
-    tasks.withType(JavaForkOptions) {
-        jvmArgs '-Djava.awt.headless=true'
-    }
+ext {
+    // Option to disable Pre-Dexing on CI env.
+    // You can add disablePreDex property to local.properties on CI env.
+    disablePreDex = project.hasProperty('disablePreDex') && disablePreDex.toBoolean()
 }
 
 allprojects {
@@ -27,20 +25,7 @@ allprojects {
             url "https://jitpack.io"
         }
     }
-
-    repositories {
-        maven {
-            url "https://clojars.org/repo/"
-        }
-    }
 }
-
-ext {
-    kotlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-}
-
-// Option to disable Pre-Dexing on CI env.
-project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
     project.plugins.whenPluginAdded { plugin ->
@@ -48,7 +33,7 @@ subprojects {
                 || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
 
             // Enable or disable pre-dexing.
-            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+            project.android.dexOptions.preDexLibraries = !rootProject.ext.disablePreDex
 
             // Treat all Android Lint warning in all sub-projects as errors.
             project.android.lintOptions.warningsAsErrors = true
