@@ -64,6 +64,7 @@ com.nekocode.baseframework
 
 ### 截图
 感谢 **[gank.io](http://gank.io/)**。Sample App 是在它上面获取照片的。
+
 ![](art/screenshot.png)
 
 另外一个更完善的例子：**[查看这里](https://github.com/nekocode/murmur)**

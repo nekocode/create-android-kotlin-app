@@ -50,7 +50,8 @@ com.nekocode.baseframework
 - paperparcel: **`1.0.0`**
 
 ### Screenshots
-Thanks to **[gank.io](http://gank.io/)**. The sample App fetchs photos from it.
+Thanks to **[gank.io](http://gank.io/)**. The sample app fetchs photos from it.
+
 ![](art/screenshot.png)
 
 Another better sample: **[Check this](https://github.com/nekocode/murmur)**
