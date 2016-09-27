@@ -21,7 +21,6 @@ Of course, you can also download the python script to your local disk to run it.
 com.nekocode.baseframework
 ├─ data
 │  ├─ DO
-│  ├─ exception
 │  ├─ repo
 │  └─ service
 │ 
@@ -33,15 +32,10 @@ com.nekocode.baseframework
 └─ App.kt
 ```
 
-### Layer
-- **Data Layer:** It likes the traditional **Model Layer**, includes `DO`(Data Object), `service`, `repository`, `exception` or other element directories. It uses the DOs or other meta object to interact with the Presenter Layer.
-- **View Layer:** Including `activity`, `fragment`, `view`. Only concerned with the user interaction, as well as view manipulation (animation, interface input, output and update, etc.).
-- **Presenter Layer:** Control logic layer. Contains the logic to respond to the events, updates the model (both the business logic and the application data), and alters the state of the view.
-
 ### Kotlin
 - **kotlin version: `1.0.4`**
 
-### Libraries
+### Dependencies
 - anko: **`0.9`**
 - rxkotlin: **`0.60.0`**
 - retrofit: **`2.1.0`**
@@ -87,7 +81,7 @@ RxBus.subscribe(String::class.java) { showToast(it) }
 ```
 
 ### The Prsenter Inherited From Fragment!!
-**[Using the Fragment to implement Presenter maybe is one of the best ways!](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** Now we can move the logic which depended on Activity's lifecycle to Presenter. And we can also use `setRetainInstance(true)` to solve the screen rotation problem.
+**[Using the Fragment to implement Presenter maybe is one of the best ways!](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** Now we can move the logic which depended on Activity's lifecycle to Presenter.
 
 It look like this:
 ```kotlin
@@ -106,35 +100,13 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 }
 ```
 
-
-### Simple Dependency Injection!!
-Look at [these code](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-31).
-
-We can inherit the Dependency class for storing some denpendencies providing.
-```kotlin
-object TestDep : Dependency() {
-    override fun createDependencies() {
-        bindSingleton<Int> {
-            args ->
-            args[0] as Int
-        }
-    }
-}
-```
-And then use the following code to inject dependency.
-```kotlin
-val int = TestDep.inject<Int>
-```
-
 ### Supporting for Single Activity Multiple Fragment Architecture!!
 You can build applications that have only one activity with the help of the `FragmentActivity` provided by the Component Library.
 
 It provides following functions for helping you manage the fragment stack.
 ```kotlin
 push()
-pushSafety()
 pushForResult()
-pushForResultSafety()
 popAll()
 popUntil()
 popTop()
@@ -142,6 +114,3 @@ startActivityForResult()
 ```
 
 We also deal with more details, look at the `FragmentActivity.kt`.
-
-### Others
-It also contains some other useful tools and extensions. Check the [util package](component/src/main/java/cn/nekocode/kotgo/component/util) for more details.

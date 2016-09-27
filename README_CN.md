@@ -34,7 +34,6 @@ Kotgo 是一个采用 **MVP** 模式进行设计的 Android 应用框架。它�
 com.nekocode.baseframework
 ├─ data
 │  ├─ DO
-│  ├─ exception
 │  ├─ repo
 │  └─ service
 │ 
@@ -45,11 +44,6 @@ com.nekocode.baseframework
 │
 └─ App.kt
 ```
-
-### 分层
-- **Data Layer：**非传统意义的 **Model** 层，包含 `DO`（Data Object）、`service`、`repository`、`exception` 等。其中 service 包含 `Net` 等不同服务，用于从不同途径获取数据。repository 负责处理某个业务对象的业务逻辑，并通过 **DO 或基本类型** 与 Presenter 层进行交互（建议使用 RxJava）。
-- **View Layer：**视图层，包括各种 `activity`，`fragment`，`view`。只关注与用户交互，以及视图操作（动画、界面输出、更新等）。
-- **Presenter Layer：**控制逻辑层。是**「Model 与 View 层中间的交互控制层」**。
 
 ### Kotlin
 - **kotlin version: `1.0.4`**
@@ -100,7 +94,7 @@ RxBus.subscribe(String::class.java) { showToast(it) }
 ```
 
 ### 继承自 Fragment 的 Presenter！！
-**[使用 Fragment 来实现 Presenter 是最好的方式之一！](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** 我们现在能将原先在 Activity 中的各种依赖 Activity 生命周期的逻辑迁移到 Presenter 中了，并且还能够使用 `setRetainInstance(true)` 来处理屏幕旋转的问题。
+**[使用 Fragment 来实现 Presenter 是最好的方式之一！](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** 我们现在能将原先在 Activity 中的各种依赖 Activity 生命周期的逻辑迁移到 Presenter 中了。
 
 它看起来是这样的：
 ```kotlin
@@ -119,34 +113,13 @@ class MeiziPresenter(): BasePresenter(), Contract.Presenter {
 }
 ```
 
-### 简单的依赖注入！！
-查看 [这里的代码](https://github.com/nekocode/kotgo/blob/master/sample%2Fsrc%2Fmain%2Fjava%2Fcn%2Fnekocode%2Fkotgo%2Fsample%2FApp.kt#L22-31)。
-
-我们可以继承一个 Dependency 类来储存一些依赖生成。
-```kotlin
-object TestDep : Dependency() {
-    override fun createDependencies() {
-        bindSingleton<Int> {
-            args ->
-            args[0] as Int
-        }
-    }
-}
-```
-然后在需要的时候注入的地方使用下面的代码：
-```kotlin
-val int = TestDep.inject<Int>(1)
-```
-
 ### 支持单个 Activity 多个 Fragment 架构！！
 你可以借助 Component 库提供的 `FragmentActivity` 来构建只有单个 Activity 的应用，它非常适合页面层次结构不深的应用。
 
 FragmentActivity 提供了以下的一些方法来帮助你管理 Fragment 栈。
 ```kotlin
 push()
-pushSafety()
 pushForResult()
-pushForResultSafety()
 popAll()
 popUntil()
 popTop()
@@ -154,6 +127,3 @@ startActivityForResult()
 ```
 
 我们还处理了更多的细节，详情可以查看 `FragmentActivity.kt`。
-
-### 其他
-它还包括一些其他常用的工具和拓展。你可以通过查看 [util 包](component/src/main/java/cn/nekocode/kotgo/component/util) 获得更多的细节。
