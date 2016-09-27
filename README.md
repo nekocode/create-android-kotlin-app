@@ -68,7 +68,7 @@ dependencies {
 ### More Flexible RxLifecycle!! 
 It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
 ```kotlin
-MeiziRepo.getMeizis(50, 1).bindLifecycle(view).onUI {
+MeiziRepo.getMeizis(50, 1).bindLifecycle(presenter).onUI {
     view.refreshMeizis(it)
 }
 ```
@@ -88,14 +88,8 @@ It look like this:
 class MeiziPresenter(): BasePresenter(), Contract.Presenter {
     var view: Contract.View? = null
 
-    override fun onAttach(activity: Activity?) {
-        super.onAttach(activity)
-        view = getParent() as Contract.View
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Do something
+    override fun onViewCreated(viewOfContract: Any, savedInstanceState: Bundle?) {
+        view = viewOfContract as Contract.View
     }
 }
 ```

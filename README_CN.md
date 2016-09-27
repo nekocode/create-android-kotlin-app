@@ -81,7 +81,7 @@ dependencies {
 ### 更灵活的 RxLifecycle！！
 它帮助你将 RxJava 的订阅绑定在 Avtivity 或者 Fragment 的生命周期上。它会在 Activity 或者 Fragment 进行销毁的时候终止订阅。更关键的是，他还能在任何地方使用（例如 Presenter 中），比 [RxLifecycle](https://github.com/trello/RxLifecycle) 更加灵活。  
 ```kotlin
-MeiziRepo.getMeizis(50, 1).bindLifecycle(view).onUI {
+MeiziRepo.getMeizis(50, 1).bindLifecycle(presenter).onUI {
     view.refreshMeizis(it)
 }
 ```
@@ -101,14 +101,8 @@ RxBus.subscribe(String::class.java) { showToast(it) }
 class MeiziPresenter(): BasePresenter(), Contract.Presenter {
     var view: Contract.View? = null
 
-    override fun onAttach(activity: Activity?) {
-        super.onAttach(activity)
-        view = getParent() as Contract.View
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Do something
+    override fun onViewCreated(viewOfContract: Any, savedInstanceState: Bundle?) {
+        view = viewOfContract as Contract.View
     }
 }
 ```
