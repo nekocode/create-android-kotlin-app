@@ -8,7 +8,7 @@ import org.jetbrains.anko.collections.asSequence
 import java.util.*
 
 /**
- * Created by nekocode on 16/8/25.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 class FragmentStack {
     companion object {
@@ -63,32 +63,14 @@ class FragmentStack {
         trans.commit()
     }
 
-    fun <T : BaseFragment> pushSafety(
-            tag: String, classType: Class<T>, args: Bundle? = null,
-            originalTag: String? = null, requestCode: Int? = null) {
+    internal fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null,
+                                         originalTag: String? = null, requestCode: Int? = null) {
 
-        val fragment = manager.findFragmentByTag(tag) as BaseFragment?
-        if (fragment != null) return
-
-        _push(tag, classType, args, originalTag, requestCode)
-    }
-
-    fun <T : BaseFragment> push(
-            tag: String, classType: Class<T>, args: Bundle? = null,
-            originalTag: String? = null, requestCode: Int? = null) {
-
-        val fragment = manager.findFragmentByTag(tag) as BaseFragment?
+        var fragment = manager.findFragmentByTag(tag) as BaseFragment?
         if (fragment != null) {
             // If the tag has already been used, throw exception
             throw IllegalArgumentException("Push framgnet error, the tag \"$tag\" has already been used.")
         }
-
-        _push(tag, classType, args, originalTag, requestCode)
-    }
-
-    internal fun <T : BaseFragment> _push(
-            tag: String, classType: Class<T>, args: Bundle? = null,
-            originalTag: String? = null, requestCode: Int? = null) {
 
         val trans = manager.beginTransaction()
 
@@ -100,7 +82,7 @@ class FragmentStack {
 
         // Obtain and show a new fragment
         val className = classType.canonicalName
-        val fragment = Fragment.instantiate(activity, className, args) as BaseFragment
+        fragment = Fragment.instantiate(activity, className, args) as BaseFragment
         trans.add(containerId, fragment, tag)
 
         // Add request record

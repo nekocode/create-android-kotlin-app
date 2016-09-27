@@ -13,7 +13,7 @@ import org.robolectric.annotation.Config
 import rx.observers.TestSubscriber
 
 /**
- * Created by nekocode on 16/6/14.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class)

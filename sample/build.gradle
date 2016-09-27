@@ -1,9 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../context.gradle'
 
 android {
+    compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
+    buildToolsVersion(BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0.0"
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
@@ -27,6 +36,10 @@ android {
 
         buildTypes.release.signingConfig = null
     }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning', 'UnusedResources' // Lint still does not detect usage of resources from Kotlin code.
+    }
 }
 
 def ankoVersion = "0.9"
@@ -36,9 +49,10 @@ dependencies {
     compile project(":data")
     compile project(":component")
 
-    // Android support library
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    // Android support libraries
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBS_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBS_VERSION"
+    compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Reactive library
     compile "io.reactivex:rxkotlin:0.60.0"
@@ -52,7 +66,7 @@ dependencies {
     // Artwork
     compile "com.squareup.picasso:picasso:2.5.2"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }
 
 buildscript {
@@ -60,6 +74,6 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$KOTLIN_VERSION"
     }
 }

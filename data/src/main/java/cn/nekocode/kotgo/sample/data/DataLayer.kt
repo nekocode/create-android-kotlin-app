@@ -10,7 +10,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by nekocode on 2016/1/15.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 object DataLayer {
     // OkHttp Config
@@ -20,12 +20,12 @@ object DataLayer {
     const val HTTP_READ_TIMEOUT = 30L
     const val HTTP_WRITE_TIMEOUT = 10L
 
-    lateinit var app: Context
-    lateinit var okHttpClient: OkHttpClient
-    val gson: Gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
+    internal lateinit var app: Context
+    internal lateinit var okHttpClient: OkHttpClient
+    internal val gson: Gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
-    fun init(app: Context) {
-        DataLayer.app = app
+    fun init(context: Context) {
+        DataLayer.app = context.applicationContext
 
         Hawk.init(app).build()
 

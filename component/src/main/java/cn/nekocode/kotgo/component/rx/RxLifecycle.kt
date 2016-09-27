@@ -6,16 +6,16 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.subjects.BehaviorSubject
 
 /**
- * Created by nekocode on 16/3/7.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
-final class RxLifecycle {
+class RxLifecycle {
     enum class Event {
         DESTROY
     }
 
-    final val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
+    val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
-    final fun onDestory() {
+    fun onDestory() {
         eventBehavior.onNext(Event.DESTROY)
     }
 
@@ -39,12 +39,7 @@ final class RxLifecycle {
         }
 
         private fun <T> Observable<Any>.filterByType(classType: Class<T>): Observable<T> {
-            return this.filter {
-                if (!classType.isInstance(it)) {
-                    return@filter false
-                }
-                true
-            } as Observable<T>
+            return this.filter { classType.isInstance(it) } as Observable<T>
         }
     }
 }

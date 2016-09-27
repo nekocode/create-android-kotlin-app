@@ -1,6 +1,6 @@
 package cn.nekocode.kotgo.sample.data.exception
 
 /**
- * Created by nekocode on 1/13/16.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 class GankServiceException(val msg: String?) : Exception()

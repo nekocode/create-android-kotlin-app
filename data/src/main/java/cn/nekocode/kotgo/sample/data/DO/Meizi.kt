@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import nz.bradcampbell.paperparcel.PaperParcel
 
 /**
- * Created by nekocode on 16/3/3.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 @PaperParcel
 class Meizi(

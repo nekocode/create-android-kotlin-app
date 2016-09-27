@@ -5,9 +5,9 @@ import android.os.Parcelable
 import java.io.Serializable
 
 /**
- * Created by nekocode on 2015/8/13.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
-fun args(vararg params: Pair<String, Any>): Bundle {
+fun argsToBundle(vararg params: Pair<String, Any>): Bundle {
     val arguments = Bundle()
     params.forEach {
         val value = it.second

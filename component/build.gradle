@@ -1,17 +1,29 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
-apply from: '../context.gradle'
-
 group='com.github.nekocode'
+
+android {
+    compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
+    buildToolsVersion(BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.3.0"
+    }
+}
 
 def ankoVersion = "0.9"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // Android support library
-    provided "com.android.support:appcompat-v7:$supportLibVersion"
-    provided "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    // Android support libraries
+    provided "com.android.support:appcompat-v7:$SUPPORT_LIBS_VERSION"
+    provided "com.android.support:recyclerview-v7:$SUPPORT_LIBS_VERSION"
+    provided "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Reactive library
     provided "io.reactivex:rxkotlin:0.60.0"
@@ -21,7 +33,7 @@ dependencies {
     provided "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
     provided "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
 
-    provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    provided "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }
 
 task sourcesJar(type: Jar) {

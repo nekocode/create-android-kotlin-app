@@ -6,9 +6,8 @@ import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 
 /**
- * Created by nekocode on 2016/3/14.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
-
 fun <T> Observable<T>.onUI(): Observable<T> {
     return observeOn(AndroidSchedulers.mainThread())
 }

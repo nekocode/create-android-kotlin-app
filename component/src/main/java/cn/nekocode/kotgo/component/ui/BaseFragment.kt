@@ -4,56 +4,50 @@ import android.app.Fragment
 import android.app.FragmentTransaction
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.support.annotation.CallSuper
 import android.view.View
-import android.view.ViewGroup
 
 /**
- * Created by nekocode on 16/3/3.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 abstract class BaseFragment : WithLifecycleFragment() {
     companion object {
         const val KEY_SAVE_REQUEST_INFO = "__REQUEST_IFNO__"
     }
 
-    private fun stackActivity() = if (activity is FragmentActivity) activity as FragmentActivity else null
+    private val stackActivity: FragmentActivity?
+        get() = if (activity is FragmentActivity) activity as FragmentActivity else null
 
     /**
      * Stack operations
      */
 
     fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
-        stackActivity()?.push(tag, classType, args)
+        stackActivity?.push(tag, classType, args)
     }
 
-    fun <T : BaseFragment> pushSafety(tag: String, classType: Class<T>, args: Bundle? = null) {
-        stackActivity()?.pushSafety(tag, classType, args)
-    }
+    fun <T : BaseFragment> pushForResult(requestCode: Int, fragmentTag: String,
+                                         classType: Class<T>, args: Bundle? = null) {
 
-    fun <T : BaseFragment> pushForResult(requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
-        stackActivity()?.pushForResult(this, requestCode, fragmentTag, classType, args)
-    }
-
-    fun <T : BaseFragment> pushForResultSafety(requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
-        stackActivity()?.pushForResultSafety(this, requestCode, fragmentTag, classType, args)
+        stackActivity?.pushForResult(this, requestCode, fragmentTag, classType, args)
     }
 
     override final fun startActivityForResult(intent: Intent?, requestCode: Int, options: Bundle?) {
-        stackActivity()?.startActivityForResult(this, intent, requestCode, options)
+        stackActivity?.startActivityForResult(this, intent, requestCode, options)
     }
 
-    fun popAll() = stackActivity()?.popAll()
-    fun popUntil(tag: String) = stackActivity()?.popUntil(tag)
-    fun popTop() = stackActivity()?.popTop()
+    fun popAll() = stackActivity?.popAll()
+    fun popUntil(tag: String) = stackActivity?.popUntil(tag)
+    fun popTop() = stackActivity?.popTop()
 
 
     /**
      * Lifecycle methods
      */
 
-    abstract val layoutId: Int
-    var requestInfo: RequestInfo? = null
+    internal var requestInfo: RequestInfo? = null
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
@@ -61,8 +55,13 @@ abstract class BaseFragment : WithLifecycleFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutId, container, false)
+    abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
+
+    @CallSuper
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        val trans = childFragmentManager.beginTransaction()
+        onCreatePresenter(PresenterFactory(trans))
+        trans.commit()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -77,26 +76,23 @@ abstract class BaseFragment : WithLifecycleFragment() {
     open fun onResult(requestCode: Int, resultCode: Int, data: Intent?) {
     }
 
-    protected fun setResult(resultCode: Int, data: Intent? = null) {
+    fun setResult(resultCode: Int, data: Intent? = null) {
         requestInfo?.apply {
             this.resultCode = resultCode
             this.resultData = data
         }
     }
 
-    inline protected fun <reified T : BasePresenter> bindPresenter(args: Bundle? = null): T {
-        val fragmentClass = T::class.java
-        val trans = childFragmentManager.beginTransaction()
-        val framgnet = checkAndAddFragment(trans, 0, fragmentClass.canonicalName, fragmentClass, args)
-        trans.commit()
-        return framgnet
+    inner class PresenterFactory(val trans: FragmentTransaction) {
+        fun <T : BasePresenter> create(presenterClass: Class<T>, args: Bundle? = null): T =
+                checkAndAddFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
     }
 
-    protected fun <T : Fragment> checkAndAddFragment(
-            trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
+    fun <T : Fragment> checkAndAddFragment(
+            trans: FragmentTransaction, containerId: Int,
+            tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
         val className = fragmentClass.canonicalName
-
         var fragment = childFragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
             fragment = Fragment.instantiate(activity, className, args) as T

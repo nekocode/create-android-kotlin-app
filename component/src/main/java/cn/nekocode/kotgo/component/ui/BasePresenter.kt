@@ -6,30 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 
 /**
- * Created by nekocode on 2015/11/20.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 abstract class BasePresenter() : WithLifecycleFragment() {
-    protected fun getParent(): Any? {
-        var view: Any? = null
 
-        if (parentFragment != null) {
-            view = parentFragment
+    final override fun onCreateView(inflater: LayoutInflater?,
+                                    container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        } else if (activity != null) {
-            view = activity
-        }
-
-        return view
+        onViewCreated(parentFragment ?: activity, savedInstanceState)
+        return null
     }
 
-    final override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        onVewCreated(savedInstanceState)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    abstract fun onVewCreated(savedInstanceState: Bundle?)
+    abstract fun onViewCreated(viewOfContract: Any, savedInstanceState: Bundle?)
 
     final override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }

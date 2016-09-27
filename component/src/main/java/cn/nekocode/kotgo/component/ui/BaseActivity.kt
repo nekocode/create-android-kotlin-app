@@ -10,80 +10,80 @@ import android.support.v7.app.AppCompatActivity
 import cn.nekocode.kotgo.component.rx.RxLifecycle
 import java.lang.ref.WeakReference
 
+/**
+ * @author nekocode (nekocode.cn@gmail.com)
+ */
 abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
-    companion object {
-        class GlobalHandler : Handler {
-            private val mOuter: WeakReference<BaseActivity>
+    private class MessageHandler : Handler {
+        private val mOuter: WeakReference<BaseActivity>
 
-            constructor(activity: BaseActivity) {
-                mOuter = WeakReference(activity)
-            }
+        constructor(activity: BaseActivity) {
+            mOuter = WeakReference(activity)
+        }
 
-            override fun handleMessage(msg: Message) {
-                mOuter.get()?.apply {
-                    if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
-                        val runnable = (msg.obj as WeakReference<() -> Unit>).get()
-                        runnable?.invoke()
-                        return
-                    }
-
-                    this.handler(msg)
+        override fun handleMessage(msg: Message) {
+            mOuter.get()?.apply {
+                if (msg.what == -101 && msg.arg1 == -102 && msg.arg2 == -103) {
+                    val runnable = (msg.obj as WeakReference<() -> Unit>).get()
+                    runnable?.invoke()
+                    return
                 }
+
+                this.handlerMessage(msg)
             }
         }
     }
 
     override final val lifecycle = RxLifecycle()
-    val handler: GlobalHandler by lazy {
-        GlobalHandler(this)
+    private var handler: MessageHandler? = null
+
+    abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
+
+    @CallSuper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        handler = MessageHandler(this)
+
+        val trans = fragmentManager.beginTransaction()
+        onCreatePresenter(PresenterFactory(trans))
+        trans.commit()
     }
 
-    fun msg(message: Message) {
-        Message().apply {
-            copyFrom(message)
-            handler.sendMessage(this)
-        }
+    fun sendMessage(message: Message) {
+        handler?.sendMessage(Message.obtain(message))
     }
 
-    fun msgDelayed(message: Message, delayMillis: Long) {
-        Message().apply {
-            copyFrom(message)
-            handler.sendMessageDelayed(this, delayMillis)
-        }
+    fun sendMessageDelayed(message: Message, delayMillis: Long) {
+        handler?.sendMessageDelayed(Message.obtain(message), delayMillis)
     }
 
     fun runDelayed(delayMillis: Long, runnable: () -> Unit) {
-        val msg = Message()
-        msg.what = -101
-        msg.arg1 = -102
-        msg.arg2 = -103
-        msg.obj = WeakReference<() -> Unit>(runnable)
-        handler.sendMessageDelayed(msg, delayMillis)
+        handler?.sendMessageDelayed(
+                Message.obtain(handler, -101, -102, -103, WeakReference<() -> Unit>(runnable)),
+                delayMillis)
     }
 
     @CallSuper
     override fun onDestroy() {
+        handler = null
         lifecycle.onDestory()
         super.onDestroy()
     }
 
-    open fun handler(msg: Message) {
+    open fun handlerMessage(msg: Message) {
 
     }
 
-    inline protected fun <reified T : BasePresenter> bindPresenter(args: Bundle? = null): T {
-        val fragmentClass = T::class.java
-        val trans = fragmentManager.beginTransaction()
-        val framgnet = checkAndAddFragment(trans, 0, fragmentClass.canonicalName, fragmentClass, args)
-        trans.commit()
-        return framgnet
+    inner class PresenterFactory(val trans: FragmentTransaction) {
+        fun <T : BasePresenter> create(presenterClass: Class<T>, args: Bundle? = null): T =
+                checkAndAddFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
     }
 
-    final fun <T : Fragment> checkAndAddFragment(
-            trans: FragmentTransaction, containerId: Int, tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
+    fun <T : Fragment> checkAndAddFragment(
+            trans: FragmentTransaction, containerId: Int, tag: String,
+            fragmentClass: Class<T>, args: Bundle? = null): T {
 
         val className = fragmentClass.canonicalName
-
         var fragment = supportFragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
             fragment = Fragment.instantiate(this@BaseActivity, className, args) as T

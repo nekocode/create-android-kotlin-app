@@ -1,6 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: '../context.gradle'
+
+android {
+    compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
+    buildToolsVersion(BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0.0"
+    }
+}
 
 def paperparcelVersion = "1.0.0"
 def retrofitVersion = "2.1.0"
@@ -9,6 +20,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.1.2"
+
+    // Android support libraries
+    compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -23,5 +37,5 @@ dependencies {
     compile "com.github.grandstaish.paperparcel:paperparcel-kotlin:$paperparcelVersion"
     kapt "com.github.grandstaish.paperparcel:compiler:$paperparcelVersion"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

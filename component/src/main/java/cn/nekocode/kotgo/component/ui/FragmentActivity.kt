@@ -7,6 +7,9 @@ import android.support.annotation.CallSuper
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.frameLayout
 
+/**
+ * @author nekocode (nekocode.cn@gmail.com)
+ */
 abstract class FragmentActivity : BaseActivity() {
     private lateinit var stack: FragmentStack
 
@@ -18,16 +21,8 @@ abstract class FragmentActivity : BaseActivity() {
         stack.push(tag, classType, args)
     }
 
-    fun <T : BaseFragment> pushSafety(tag: String, classType: Class<T>, args: Bundle? = null) {
-        stack.pushSafety(tag, classType, args)
-    }
-
     fun <T : BaseFragment> pushForResult(fragment: BaseFragment, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
         stack.push(fragmentTag, classType, args, stack.getTag(fragment), requestCode)
-    }
-
-    fun <T : BaseFragment> pushForResultSafety(fragment: BaseFragment, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
-        stack.pushSafety(fragmentTag, classType, args, stack.getTag(fragment), requestCode)
     }
 
     fun startActivityForResult(fragment: BaseFragment, intent: Intent?, requestCode: Int, options: Bundle? = null) {
@@ -44,16 +39,16 @@ abstract class FragmentActivity : BaseActivity() {
      * Lifecycle methods
      */
 
-    final override fun onCreate(savedInstanceState: Bundle?) {
+    @CallSuper
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val containerId = onCreateContainer()
         stack = FragmentStack(this, fragmentManager, containerId)
 
         if (savedInstanceState != null) {
             stack.restoreStack(savedInstanceState)
         }
-
-        afterOnCreate(savedInstanceState)
     }
 
     open fun onCreateContainer(): Int {
@@ -120,8 +115,4 @@ abstract class FragmentActivity : BaseActivity() {
             stack.popTop()
         } while (false)
     }
-
-    open fun afterOnCreate(savedInstanceState: Bundle?) {
-    }
-
 }

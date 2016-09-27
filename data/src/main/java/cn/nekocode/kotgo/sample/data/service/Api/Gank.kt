@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import rx.Observable
 
 /**
- * Created by nekocode on 16/8/26.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 internal interface Gank {
     companion object {

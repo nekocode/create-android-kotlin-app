@@ -6,9 +6,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Created by nekocode on 2015/8/13 0013.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
-
 internal object GankService {
     // Host
     const val API_HOST_URL: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"

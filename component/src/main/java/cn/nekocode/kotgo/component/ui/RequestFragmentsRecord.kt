@@ -5,7 +5,7 @@ import android.os.Parcelable
 import java.util.*
 
 /**
- * Created by nekocode on 16/8/25.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 data class RequestFragmentsRecord(var reqCount: Int, val tags: ArrayList<String>, var requestCode: Int) : Parcelable {
     constructor(source: Parcel) : this(source.readInt(), source.createStringArrayList(), source.readInt())

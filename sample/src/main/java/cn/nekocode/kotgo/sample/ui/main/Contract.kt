@@ -3,7 +3,7 @@ package cn.nekocode.kotgo.sample.ui.main
 import android.support.v7.widget.RecyclerView
 
 /**
- * Created by nekocode on 16/4/9.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 interface Contract {
     interface View {

@@ -12,7 +12,7 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.onLongClick
 
 /**
- * Created by nekocode on 2015/7/22.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     object Type {
@@ -36,9 +36,7 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
 
     override fun getItemCount() = list.size
 
-    override fun getItemViewType(position: Int) = when (position) {
-        else -> Type.TYPE_ITEM
-    }
+    override fun getItemViewType(position: Int) = Type.TYPE_ITEM
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

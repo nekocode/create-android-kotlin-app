@@ -6,7 +6,7 @@ import rx.subjects.SerializedSubject
 import rx.subjects.Subject
 
 /**
- * Created by nekocode on 16/3/6.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 object RxBus {
     private val bus: Subject<Any, Any> = SerializedSubject(PublishSubject.create())

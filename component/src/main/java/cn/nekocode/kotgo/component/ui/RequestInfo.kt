@@ -5,7 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by nekocode on 16/8/25.
+ * @author nekocode (nekocode.cn@gmail.com)
  */
 class RequestInfo(var requestCode: Int, var resultCode: Int = 0, var resultData: Intent? = null) : Parcelable {
     constructor(source: Parcel) : this(
