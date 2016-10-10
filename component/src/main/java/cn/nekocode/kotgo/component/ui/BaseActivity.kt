@@ -75,11 +75,11 @@ abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {
-        fun <T : BasePresenter> create(presenterClass: Class<T>, args: Bundle? = null): T =
-                checkAndAddFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
+        fun <T : BasePresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
+                addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
     }
 
-    fun <T : Fragment> checkAndAddFragment(
+    fun <T : Fragment> addOrGetFragment(
             trans: FragmentTransaction, containerId: Int, tag: String,
             fragmentClass: Class<T>, args: Bundle? = null): T {
 

@@ -33,7 +33,7 @@ class MainFragment : BaseFragment(), Contract.View {
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
-        meiziPresenter = presenterFactory.create(MeiziPresenter::class.java)
+        meiziPresenter = presenterFactory.createOrGet(MeiziPresenter::class.java)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

@@ -1,24 +1,22 @@
-# README/[中文文档](/README_CN.md)
+# README
 
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Release](https://jitpack.io/v/nekocode/kotgo.svg)](https://jitpack.io/#nekocode/kotgo) [![Join the chat at https://gitter.im/nekocode/kotgo](https://badges.gitter.im/nekocode/kotgo.svg)](https://gitter.im/nekocode/kotgo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Create Template Project
-You can create a new Kotgo template project fast by using the following command. Just paste and execute it at a terminal prompt. Have fun!
+You can createOrGet a new Kotgo template project fast by using the following command. Just paste and execute it at a terminal prompt. Have fun!
 ```bash
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/kotgo/master/project_creator.py)"
 ```
 Of course, you can also download the python script to your local disk to run it. It depends on the `requests` lib.
 
 ## Description
-**Kotgo** is an android development framework using **MVP** architecture. It is built with pure **Kotlin**.  
-![](art/layer.png)
+**Kotgo** is an android development framework using **MVP** architecture, it is built entirely with **Kotlin**. There are some [related articles](http://zhuanlan.zhihu.com/kotandroid) talk about it.
 
-### Related articles
-- [**Zhihu Column**](http://zhuanlan.zhihu.com/kotandroid) 
+![](art/layer.png)
 
 ### Package structure
 ```
-com.nekocode.baseframework
+cn.nekocode.kotgo.sample
 ├─ data
 │  ├─ DO
 │  ├─ repo
@@ -26,16 +24,15 @@ com.nekocode.baseframework
 │ 
 ├─ ui
 │  └─ screen_one
+│     ├─ Contract.kt
 │     ├─ Presenter.kt
 │     └─ Activity.kt
 │
 └─ App.kt
 ```
 
-### Kotlin
-- **kotlin version: `1.0.4`**
-
 ### Dependencies
+- **kotlin: `1.0.4`**
 - anko: **`0.9`**
 - rxkotlin: **`0.60.0`**
 - retrofit: **`2.1.0`**
@@ -43,15 +40,15 @@ com.nekocode.baseframework
 - hawk: **`2.0.0-Alpha`**
 - paperparcel: **`1.0.0`**
 
-### Screenshots
+### Sample
 Thanks to **[gank.io](http://gank.io/)**. The sample app fetchs photos from it.
 
 ![](art/screenshot.png)
 
-Another better sample: **[Check this](https://github.com/nekocode/murmur)**
+Another more perfect Sample: **[Murmur](https://github.com/nekocode/murmur)**
 
-## Use Component Library
-You can only use the kotgo's component library with gradle. It provides many useful tools to help you to build a MVP project fast and simply. Just add the JitPack repository to your root build.gradle:
+## Component Library
+You can only use the kotgo's component library. It provides many useful tools to help you to build a MVP project fast and simply. Just add the JitPack repository to your root build.gradle:
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
@@ -65,39 +62,33 @@ dependencies {
 }
 ```
 
-### More Flexible RxLifecycle!! 
-It helps you to bind the RxJava subscriptions into the lifecycle of Activity and Fragment. It will terminate the RxJava subscription when the activity or fragment is destorying or detaching. And the most importent thing is that it can be used anywhere (such in Prensenter), It's more flexible then the [RxLifecycle](https://github.com/trello/RxLifecycle).
+### RxLifecycle & RxBus
+You can bind the RxJava subscriptions into the lifecycle of the class that implements `RxLifecycle.Impl` (such as base activity, fragment and presenter). It can help you unsubscribe the `Observable` when the activity or fragment is destoried.
 ```kotlin
 MeiziRepo.getMeizis(50, 1).bindLifecycle(presenter).onUI {
     view.refreshMeizis(it)
 }
 ```
 
-### Powerful RxBus!!
-It simulates the Event Bus by RxJava. It uses many syntax sugar of Kotlin to make subscribing the Bus's events easier. And it is also binded into the lifecyle of Activity and Fragment automatically. You can just send events everywhere. And then subscribe events in the class that implements from `RxLifecycle.Impl` without worrying about casuing any leaks!  
+And you can use `RxBus` to send events everywhere. And then subscribe them in the class that implements `RxLifecycle.Impl`
+
 ```kotlin
 RxBus.send("Success")
 RxBus.subscribe(String::class.java) { showToast(it) }
 ```
 
-### The Prsenter Inherited From Fragment!!
-**[Using the Fragment to implement Presenter maybe is one of the best ways!](http://zhuanlan.zhihu.com/p/20656755?refer=kotandroid)** Now we can move the logic which depended on Activity's lifecycle to Presenter.
-
-It look like this:
+### Fragment Presenter
+This library uses fragment to implement presenter.
 ```kotlin
-class MeiziPresenter(): BasePresenter(), Contract.Presenter {
-    var view: Contract.View? = null
-
-    override fun onViewCreated(viewOfContract: Any, savedInstanceState: Bundle?) {
-        view = viewOfContract as Contract.View
+class MeiziPresenter(): BasePresenter<Contract.View>(), Contract.Presenter {
+    override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
+        view?.showToast("View created.")
     }
 }
 ```
 
-### Supporting for Single Activity Multiple Fragment Architecture!!
-You can build applications that have only one activity with the help of the `FragmentActivity` provided by the Component Library.
-
-It provides following functions for helping you manage the fragment stack.
+### Single Activity Multiple Fragments
+You can build applications with only one single activity (`FragmentActivity`). Then use fragment instead of activity to make pages. The `FragmentActivity` provides following functions to help you manage the fragment page in the stack.
 ```kotlin
 push()
 pushForResult()
@@ -106,5 +97,3 @@ popUntil()
 popTop()
 startActivityForResult()
 ```
-
-We also deal with more details, look at the `FragmentActivity.kt`.

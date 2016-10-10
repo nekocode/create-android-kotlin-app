@@ -18,7 +18,7 @@ import java.util.*
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class MeiziPresenter() : BasePresenter(), Contract.Presenter {
+class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
     companion object {
         const val KEY_PARCEL_MEIZIS = "meizis"
     }
@@ -52,11 +52,9 @@ class MeiziPresenter() : BasePresenter(), Contract.Presenter {
                 }
     }
 
-    override fun onViewCreated(viewOfContract: Any, savedInstanceState: Bundle?) {
-        val view = (viewOfContract as Contract.View)
-
+    override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
         with(adapter) {
-            view.setupAdapter(this)
+            view?.setupAdapter(this)
 
             onMeiziItemClickListener = {
                 Page2Fragment.push(parentFragment as BaseFragment, it)
