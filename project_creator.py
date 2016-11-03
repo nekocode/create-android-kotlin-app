@@ -150,7 +150,6 @@ class ProjectFactory:
 
         # rm unnessary files
         os.remove('README.md')
-        os.remove('README_CN.md')
         shutil.rmtree('art')
         if os.path.exists('project_creator.py'):
             os.remove('project_creator.py')
