@@ -16,8 +16,7 @@ import rx.observers.TestSubscriber
  * @author nekocode (nekocode.cn@gmail.com)
  */
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class,
-        manifest = "build/intermediates/manifests/aapt/debug/AndroidManifest.xml")
+@Config(constants = BuildConfig::class, sdk = intArrayOf(23))
 class GankServiceTest {
 
     @Before
