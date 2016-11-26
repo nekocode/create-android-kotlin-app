@@ -1,9 +1,11 @@
-package cn.nekocode.kotgo.component.ui
+package cn.nekocode.kotgo.component.ui.stack
 
 import android.app.Fragment
 import android.app.FragmentManager
 import android.os.Bundle
 import android.util.SparseArray
+import cn.nekocode.kotgo.component.ui.BaseFragment
+import cn.nekocode.kotgo.component.ui.FragmentActivity
 import org.jetbrains.anko.collections.asSequence
 import java.util.*
 
@@ -19,7 +21,7 @@ class FragmentStack {
     private val containerId: Int
     private val manager: FragmentManager
     private val mapOfTag: HashMap<BaseFragment, String>
-    internal val requestRecords: SparseArray<RequestFragmentsRecord>
+    internal val requestsRecord: SparseArray<RequestsRecord>
 
 
     constructor(fragmentActivity: FragmentActivity, fragmentManager: FragmentManager, containerId: Int) {
@@ -27,18 +29,18 @@ class FragmentStack {
         this.manager = fragmentManager
         this.containerId = containerId
         mapOfTag = HashMap<BaseFragment, String>()
-        requestRecords = SparseArray<RequestFragmentsRecord>()
+        requestsRecord = SparseArray<RequestsRecord>()
     }
 
     internal fun saveStack(outState: Bundle?) {
         outState?.putParcelableArrayList(KEY_SAVE_RECORDS,
-                requestRecords.asSequence().toMutableList() as ArrayList<RequestFragmentsRecord>
+                requestsRecord.asSequence().toMutableList() as ArrayList<RequestsRecord>
         )
     }
 
     internal fun restoreStack(savedInstanceState: Bundle) {
-        savedInstanceState.getParcelableArrayList<RequestFragmentsRecord>(KEY_SAVE_RECORDS)
-                .forEach { requestRecords.setValueAt(it.requestCode, it) }
+        savedInstanceState.getParcelableArrayList<RequestsRecord>(KEY_SAVE_RECORDS)
+                .forEach { requestsRecord.setValueAt(it.requestCode, it) }
 
         mapOfTag.clear()
         val trans = manager.beginTransaction()
@@ -88,7 +90,7 @@ class FragmentStack {
         // Add request record
         if (originalTag != null && requestCode != null) {
             addRequestToRecord(originalTag, requestCode)
-            fragment.requestInfo = RequestInfo(requestCode)
+            fragment.requestData = RequestData(requestCode)
         }
 
         mapOfTag[fragment] = tag
@@ -97,11 +99,11 @@ class FragmentStack {
     }
 
     internal fun addRequestToRecord(originalTag: String, requestCode: Int) {
-        if (requestRecords[requestCode] == null) {
-            requestRecords.setValueAt(requestCode, RequestFragmentsRecord(1, arrayListOf(originalTag), requestCode))
+        if (requestsRecord[requestCode] == null) {
+            requestsRecord.append(requestCode, RequestsRecord(1, arrayListOf(originalTag), requestCode))
         } else {
-            requestRecords[requestCode]!!.reqCount++
-            requestRecords[requestCode]!!.tags.add(originalTag)
+            requestsRecord[requestCode]!!.reqCount++
+            requestsRecord[requestCode]!!.tags.add(originalTag)
         }
     }
 
@@ -131,7 +133,7 @@ class FragmentStack {
         val topFragment = getTopInStack()
 
         if (topFragment != null) {
-            val reqInfo = topFragment.requestInfo
+            val reqInfo = topFragment.requestData
             if (reqInfo != null) {
                 activity.onActivityResult(reqInfo.requestCode, reqInfo.resultCode, reqInfo.resultData)
             }

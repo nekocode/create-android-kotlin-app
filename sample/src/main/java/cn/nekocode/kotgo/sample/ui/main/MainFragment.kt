@@ -26,25 +26,29 @@ class MainFragment : BaseFragment(), Contract.View {
         }
     }
 
-    lateinit var meiziPresenter: Contract.Presenter
+    var meiziPresenter: Contract.Presenter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_main, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        RxBus.subscribe(LoadFinishedEvent::class.java) {
+            toolbar.title = "Meizi List - Load finished"
+        }
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
         meiziPresenter = presenterFactory.createOrGet(MeiziPresenter::class.java)
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_main, container, false)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.title = "Meizi List - Loading"
+        toolbar.title = "Meizi List"
         recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        RxBus.subscribe(LoadFinishedEvent::class.java) {
-            toolbar.title = "Meizi List - Load finished"
-        }
     }
 
     override fun setupAdapter(adapter: RecyclerView.Adapter<*>) {

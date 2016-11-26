@@ -19,13 +19,3 @@ fun <T> Observable<T>.onUI(uiAction: (T) -> Unit): Subscription {
 fun <T> Observable<T>.onUI(subscriber: Subscriber<T>): Subscription {
     return observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber)
 }
-
-fun <T> onUI(uiAction: (T) -> Unit): ((Observable<T>) -> Subscription) {
-    return { observable -> observable.onUI(uiAction) }
-}
-
-fun <T> onUI(subscriber: Subscriber<T>): ((Observable<T>) -> Subscription) {
-    return { observable -> observable.onUI(subscriber) }
-}
-
-fun <T> Observable<T>.bindAction(uiAction: ((Observable<T>) -> Subscription)) = uiAction(this)

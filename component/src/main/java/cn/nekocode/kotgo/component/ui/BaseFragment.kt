@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.view.View
+import cn.nekocode.kotgo.component.ui.stack.RequestData
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -15,43 +16,17 @@ abstract class BaseFragment : WithLifecycleFragment() {
         const val KEY_SAVE_REQUEST_INFO = "__REQUEST_IFNO__"
     }
 
-    private val stackActivity: FragmentActivity?
-        get() = if (activity is FragmentActivity) activity as FragmentActivity else null
-
-    /**
-     * Stack operations
-     */
-
-    fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
-        stackActivity?.push(tag, classType, args)
-    }
-
-    fun <T : BaseFragment> pushForResult(requestCode: Int, fragmentTag: String,
-                                         classType: Class<T>, args: Bundle? = null) {
-
-        stackActivity?.pushForResult(this, requestCode, fragmentTag, classType, args)
-    }
-
-    override final fun startActivityForResult(intent: Intent?, requestCode: Int, options: Bundle?) {
-        stackActivity?.startActivityForResult(this, intent, requestCode, options)
-    }
-
-    fun popAll() = stackActivity?.popAll()
-    fun popUntil(tag: String) = stackActivity?.popUntil(tag)
-    fun popTop() = stackActivity?.popTop()
-
-
     /**
      * Lifecycle methods
      */
 
-    internal var requestInfo: RequestInfo? = null
+    internal var requestData: RequestData? = null
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            requestInfo = savedInstanceState.getParcelable(KEY_SAVE_REQUEST_INFO)
+            requestData = savedInstanceState.getParcelable(KEY_SAVE_REQUEST_INFO)
         }
     }
 
@@ -65,7 +40,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        requestInfo?.apply { outState?.putParcelable(KEY_SAVE_REQUEST_INFO, this) }
+        requestData?.apply { outState?.putParcelable(KEY_SAVE_REQUEST_INFO, this) }
         super.onSaveInstanceState(outState)
     }
 
@@ -77,7 +52,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     }
 
     fun setResult(resultCode: Int, data: Intent? = null) {
-        requestInfo?.apply {
+        requestData?.apply {
             this.resultCode = resultCode
             this.resultData = data
         }

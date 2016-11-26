@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import cn.nekocode.kotgo.component.ui.stack.FragmentStack
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.frameLayout
 
@@ -32,7 +33,16 @@ abstract class FragmentActivity : BaseActivity() {
 
     fun popAll() = stack.popAll()
     fun popUntil(tag: String) = stack.popUntil(tag)
-    fun popTop() = stack.popTop()
+    fun popTop(checkEmpty: Boolean = true) {
+        if (stack.size() <= 1) {
+            // Finish the activity when no or only one fragment in the stack
+            finish()
+
+        } else {
+            // Pop fragment
+            stack.popTop()
+        }
+    }
 
 
     /**
@@ -70,7 +80,7 @@ abstract class FragmentActivity : BaseActivity() {
 
     @CallSuper
     override public fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val records = stack.requestRecords
+        val records = stack.requestsRecord
 
         val reqs = records[requestCode]
         if (reqs != null) {
@@ -95,24 +105,14 @@ abstract class FragmentActivity : BaseActivity() {
 
     @CallSuper
     override fun onBackPressed() {
-        do {
-            val topFragment = stack.getTopInStack()
-            if (topFragment is BaseFragment) {
-                if (topFragment.onBackPressed()) {
-                    // If the fragment intercepted the event, don't pop this fragment
-                    break
-                }
+        val topFragment = stack.getTopInStack()
+        if (topFragment is BaseFragment) {
+            if (topFragment.onBackPressed()) {
+                // If the fragment intercepted the event, don't pop this fragment
+                return
             }
+        }
 
-            val stackSize = stack.size()
-            if (stackSize <= 1) {
-                // Finish the activity when no or only one fragment in the stack
-                finish()
-                break
-            }
-
-            // Pop fragment
-            stack.popTop()
-        } while (false)
+        popTop()
     }
 }

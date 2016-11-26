@@ -5,8 +5,8 @@ import android.os.Parcelable
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
-import cn.nekocode.kotgo.component.ui.BaseFragment
 import cn.nekocode.kotgo.component.ui.BasePresenter
+import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
 import cn.nekocode.kotgo.sample.data.repo.MeiziRepo
@@ -20,7 +20,7 @@ import java.util.*
  */
 class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
     companion object {
-        const val KEY_PARCEL_MEIZIS = "meizis"
+        const val KEY_SAVED_MEIZIS = "KEY_SAVED_MEIZIS"
     }
 
     val meiziList = ArrayList<Meizi>()
@@ -36,7 +36,8 @@ class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
 
                     } else {
                         Observable.just(
-                                it.getParcelableArrayList<MeiziParcel>(KEY_PARCEL_MEIZIS).map { it.data }
+                                it.getParcelableArrayList<MeiziParcel>(
+                                        KEY_SAVED_MEIZIS).map { it.data }
                         )
                     }
                 }
@@ -57,7 +58,7 @@ class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
             view?.setupAdapter(this)
 
             onMeiziItemClickListener = {
-                Page2Fragment.push(parentFragment as BaseFragment, it)
+                Page2Fragment.push(activity as FragmentActivity, it)
             }
         }
     }
@@ -65,7 +66,7 @@ class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putParcelableArrayList(
-                KEY_PARCEL_MEIZIS,
+                KEY_SAVED_MEIZIS,
                 meiziList.map(::MeiziParcel) as ArrayList<out Parcelable>)
     }
 }

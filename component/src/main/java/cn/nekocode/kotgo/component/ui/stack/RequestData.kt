@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.ui
+package cn.nekocode.kotgo.component.ui.stack
 
 import android.content.Intent
 import android.os.Parcel
@@ -7,7 +7,7 @@ import android.os.Parcelable
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class RequestInfo(var requestCode: Int, var resultCode: Int = 0, var resultData: Intent? = null) : Parcelable {
+class RequestData(var requestCode: Int, var resultCode: Int = 0, var resultData: Intent? = null) : Parcelable {
     constructor(source: Parcel) : this(
             source.readInt(),
             source.readInt(),
@@ -25,12 +25,12 @@ class RequestInfo(var requestCode: Int, var resultCode: Int = 0, var resultData:
     }
 
     companion object {
-        @JvmField final val CREATOR: Parcelable.Creator<RequestInfo> = object : Parcelable.Creator<RequestInfo> {
-            override fun createFromParcel(source: Parcel): RequestInfo {
-                return RequestInfo(source)
+        @JvmField final val CREATOR: Parcelable.Creator<RequestData> = object : Parcelable.Creator<RequestData> {
+            override fun createFromParcel(source: Parcel): RequestData {
+                return RequestData(source)
             }
 
-            override fun newArray(size: Int): Array<RequestInfo?> {
+            override fun newArray(size: Int): Array<RequestData?> {
                 return arrayOfNulls(size)
             }
         }

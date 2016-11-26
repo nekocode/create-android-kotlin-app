@@ -46,10 +46,10 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
         }
     }
 
-    private inner class ItemViewHolder : RecyclerView.ViewHolder {
+    private inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var meizi: Meizi? = null
 
-        constructor(view: View) : super(view) {
+        init {
             with(view) {
                 onClick { onMeiziItemClickListener?.invoke(meizi!!) }
                 onLongClick { onMeiziItemLongClickListener?.invoke(meizi!!) ?: false }
