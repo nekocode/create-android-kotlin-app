@@ -117,14 +117,15 @@ class FragmentStack {
     }
 
     fun popUntil(tag: String) {
-        // TODO: Make sure have the tag
-        val count = manager.backStackEntryCount
-        for (i in (count - 1) downTo 0) {
-            val topTag = manager.getBackStackEntryAt(i).name
-            if (topTag != tag) {
-                manager.popBackStack()
+        if (tag in mapOfTag.values) {
+            val count = manager.backStackEntryCount
+            for (i in (count - 1) downTo 0) {
+                val topTag = manager.getBackStackEntryAt(i).name
+                if (topTag != tag) {
+                    manager.popBackStack()
 
-            } else return
+                } else return
+            }
         }
     }
 
