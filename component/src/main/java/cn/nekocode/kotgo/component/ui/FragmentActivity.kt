@@ -34,7 +34,7 @@ abstract class FragmentActivity : BaseActivity() {
     fun popAll() = stack.popAll()
     fun popUntil(tag: String) = stack.popUntil(tag)
     fun popTop(checkEmpty: Boolean = true) {
-        if (stack.size() <= 1) {
+        if (checkEmpty && stack.size() <= 1) {
             // Finish the activity when no or only one fragment in the stack
             finish()
 
