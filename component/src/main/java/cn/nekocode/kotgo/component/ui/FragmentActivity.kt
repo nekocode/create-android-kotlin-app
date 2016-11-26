@@ -80,7 +80,7 @@ abstract class FragmentActivity : BaseActivity() {
 
     @CallSuper
     override public fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val records = stack.requestsRecord
+        val records = stack.requestsRecords
 
         val reqs = records[requestCode]
         if (reqs != null) {

@@ -13,7 +13,7 @@ import cn.nekocode.kotgo.component.ui.stack.RequestData
  */
 abstract class BaseFragment : WithLifecycleFragment() {
     companion object {
-        const val KEY_SAVE_REQUEST_INFO = "__REQUEST_IFNO__"
+        const val KEY_SAVE_REQUEST_INFO = "KEY_SAVE_REQUEST_INFO"
     }
 
     /**
