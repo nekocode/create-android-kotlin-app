@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
 
     @CallSuper
     override fun onDestroy() {
-        lifecycle.onDestory()
+        lifecycle.onDestroy()
         super.onDestroy()
     }
 

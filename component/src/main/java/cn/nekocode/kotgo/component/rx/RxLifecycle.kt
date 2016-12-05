@@ -15,7 +15,7 @@ class RxLifecycle {
 
     val eventBehavior: BehaviorSubject<Event> = BehaviorSubject.create()
 
-    fun onDestory() {
+    fun onDestroy() {
         eventBehavior.onNext(Event.DESTROY)
     }
 
