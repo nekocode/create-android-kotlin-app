@@ -3,7 +3,7 @@ package cn.nekocode.kotgo.sample.data.repo
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.exception.GankServiceException
 import cn.nekocode.kotgo.sample.data.service.Api.Gank
-import com.orhanobut.hawk.Hawk
+import io.paperdb.Paper
 import rx.Observable
 import rx.schedulers.Schedulers
 
@@ -17,14 +17,14 @@ object MeiziRepo {
             Gank.API.getMeizi(count, pageNum)
                     .subscribeOn(Schedulers.io())
                     .map {
-                        if (pageNum == 1) Hawk.put("meizis", it.results)
+                        if (pageNum == 1) Paper.book().write("meizis", it.results)
                         it.results
                     }
                     .onErrorResumeNext {
                         if (pageNum != 1) throw GankServiceException(it.message)
 
                         // Fetch data from local cache
-                        val meiziList: List<Meizi> = Hawk.get("meizis")
+                        val meiziList: List<Meizi> = Paper.book().read("meizis")
                                 ?: throw GankServiceException(it.message)
                         Observable.just(meiziList)
                     }

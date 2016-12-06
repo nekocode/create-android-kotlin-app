@@ -3,7 +3,7 @@ package cn.nekocode.kotgo.sample.data
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.orhanobut.hawk.Hawk
+import io.paperdb.Paper
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
@@ -27,7 +27,7 @@ object DataLayer {
     fun init(context: Context) {
         DataLayer.app = context.applicationContext
 
-        Hawk.init(app).build()
+        Paper.init(app)
 
         okHttpClient = OkHttpClient.Builder().apply {
             val cacheDir = File(app.cacheDir, RESPONSE_CACHE_FILE)

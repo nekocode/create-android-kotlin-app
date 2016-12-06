@@ -13,11 +13,13 @@ import java.util.*
  */
 class FragmentStack {
     companion object {
-        private const val KEY_SAVE_RECORDS = "KEY_SAVE_RECORDS"
+        private const val KEY_SAVED_RECORDS = "KEY_SAVED_RECORDS"
+        private const val KEY_SAVED_STACK = "KEY_SAVED_STACK"
     }
 
     private val activity: FragmentActivity
     private val containerId: Int
+    private val stack: ArrayList<String>
     private val manager: FragmentManager
     private val mapOfTag: HashMap<BaseFragment, String>
     internal val requestsRecords: SparseArray<RequestsRecord>
@@ -27,41 +29,44 @@ class FragmentStack {
         this.activity = fragmentActivity
         this.manager = fragmentManager
         this.containerId = containerId
-        mapOfTag = HashMap<BaseFragment, String>()
-        requestsRecords = SparseArray<RequestsRecord>()
+        this.stack = ArrayList<String>()
+        this.mapOfTag = HashMap<BaseFragment, String>()
+        this.requestsRecords = SparseArray<RequestsRecord>()
     }
 
     internal fun saveStack(outState: Bundle?) {
-        outState?.putSparseParcelableArray(KEY_SAVE_RECORDS, requestsRecords)
+        outState?.putSparseParcelableArray(KEY_SAVED_RECORDS, requestsRecords)
+        outState?.putStringArrayList(KEY_SAVED_STACK, stack)
     }
 
     internal fun restoreStack(savedInstanceState: Bundle) {
-        val sp = savedInstanceState.getSparseParcelableArray<RequestsRecord>(KEY_SAVE_RECORDS)
-        for (i in 0..sp.size() - 1) {
-            requestsRecords.put(sp.keyAt(i), sp.valueAt(i))
+        val savedRecords = savedInstanceState.getSparseParcelableArray<RequestsRecord>(KEY_SAVED_RECORDS)
+        val savedStack = savedInstanceState.getStringArrayList(KEY_SAVED_STACK)
+
+        for (i in 0..savedRecords.size() - 1) {
+            requestsRecords.put(savedRecords.keyAt(i), savedRecords.valueAt(i))
         }
 
+        stack.clear()
         mapOfTag.clear()
-        val trans = manager.beginTransaction()
 
         // Restore all fragments' visibility state
-        var showFlag = false
-        for (i in (manager.backStackEntryCount - 1) downTo 0) {
-            val tag = manager.getBackStackEntryAt(i).name
-            val fragment = get(tag)!!
+        manager.beginTransaction().apply {
+            val lastIndex = savedStack.size - 1
+            for (i in 0..lastIndex) {
+                val tag = savedStack[i]
+                val fragment = get(tag)!!
 
-            if (!showFlag) {
-                trans.show(fragment)
-                showFlag = true
-            } else {
-                trans.hide(fragment)
+                if (i == lastIndex) {
+                    show(fragment)
+                } else {
+                    hide(fragment)
+                }
+
+                stack.add(tag)
+                mapOfTag[fragment] = tag
             }
-
-            // Restore map of fragments' tags
-            mapOfTag[fragment] = tag
-        }
-
-        trans.commit()
+        }.commit()
     }
 
     internal fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null,
@@ -73,28 +78,30 @@ class FragmentStack {
             throw IllegalArgumentException("Push framgnet error, the tag \"$tag\" has already been used.")
         }
 
-        val trans = manager.beginTransaction()
+        manager.beginTransaction().apply {
+            // TODO You can set custom animations here
 
-        // Hide the fragment top in stack
-        val topFragment = getTopInStack()
-        if (topFragment != null) {
-            trans.hide(topFragment)
-        }
+            // Hide the fragment top in stack
+            val topFragment = getTopInStack()
+            if (topFragment != null) {
+                hide(topFragment)
+            }
 
-        // Obtain and show a new fragment
-        val className = classType.canonicalName
-        fragment = Fragment.instantiate(activity, className, args) as BaseFragment
-        trans.add(containerId, fragment, tag)
+            // Obtain and show a new fragment
+            val className = classType.canonicalName
+            val fragment = Fragment.instantiate(activity, className, args) as BaseFragment
+            add(containerId, fragment, tag)
 
-        // Add request record
-        if (originalTag != null && requestCode != null) {
-            addRequestToRecord(originalTag, requestCode)
-            fragment.requestData = RequestData(requestCode)
-        }
+            // Add request record
+            if (originalTag != null && requestCode != null) {
+                addRequestToRecord(originalTag, requestCode)
+                fragment.requestData = RequestData(requestCode)
+            }
 
-        mapOfTag[fragment] = tag
-        trans.addToBackStack(tag)
-        trans.commit()
+            stack.add(tag)
+            mapOfTag[fragment] = tag
+
+        }.commit()
     }
 
     internal fun addRequestToRecord(originalTag: String, requestCode: Int) {
@@ -109,38 +116,57 @@ class FragmentStack {
     fun popAll() {
         mapOfTag.clear()
 
-        val count = manager.backStackEntryCount
-        kotlin.repeat(count) {
-            manager.popBackStack()
-        }
+        manager.beginTransaction().apply {
+            for (tag in stack) {
+                remove(get(tag)!!)
+            }
+            stack.clear()
+
+        }.commit()
     }
 
     fun popUntil(tag: String) {
-        if (tag in mapOfTag.values) {
-            val count = manager.backStackEntryCount
-            for (i in (count - 1) downTo 0) {
-                val topTag = manager.getBackStackEntryAt(i).name
-                if (topTag != tag) {
-                    manager.popBackStack()
+        if (tag in stack) {
+            manager.beginTransaction().apply {
+                stack.reversed()
+                        .takeWhile { it != tag }
+                        .forEach { remove(get(tag)!!) }
 
-                } else return
-            }
+            }.commit()
         }
     }
 
     fun popTop(): Boolean {
+        return pop(getTagTopInStack())
+    }
+
+    fun pop(tag: String?): Boolean {
         var failed = true
-        val topFragment = getTopInStack()
 
-        if (topFragment != null) {
-            val reqInfo = topFragment.requestData
-            if (reqInfo != null) {
-                activity.onActivityResult(reqInfo.requestCode, reqInfo.resultCode, reqInfo.resultData)
+        if (tag != null && tag in stack) {
+            val fragmentToRemove = get(tag)
+
+            if (fragmentToRemove != null) {
+                val reqInfo = fragmentToRemove.requestData
+                if (reqInfo != null) {
+                    activity.onActivityResult(reqInfo.requestCode, reqInfo.resultCode, reqInfo.resultData)
+                }
+
+                manager.beginTransaction().apply {
+                    // TODO You can set custom animations here
+
+                    remove(fragmentToRemove)
+                    if (tag == stack.last()) {
+                        show(getTopInStack())
+                    }
+
+                    stack.remove(tag)
+                    mapOfTag.remove(fragmentToRemove)
+
+                }.commit()
+
+                failed = false
             }
-
-            mapOfTag.remove(topFragment)
-            manager.popBackStack()
-            failed = false
         }
 
         return !failed
@@ -156,9 +182,9 @@ class FragmentStack {
     fun getTag(fragment: BaseFragment?): String? = mapOfTag[fragment]
 
     fun getTagTopInStack(): String? {
-        val count = manager.backStackEntryCount
+        val count = stack.size
         if (count > 0) {
-            val topTag = manager.getBackStackEntryAt(count - 1).name
+            val topTag = stack.last()
             return topTag
         }
 
@@ -170,5 +196,5 @@ class FragmentStack {
         return if (topTag == null) null else get(topTag)
     }
 
-    fun size() = manager.backStackEntryCount
+    fun size() = stack.size
 }

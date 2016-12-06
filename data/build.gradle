@@ -30,7 +30,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Storage library
-    compile "com.orhanobut:hawk:2.0.1"
+    compile "io.paperdb:paperdb:2.0"
 
     // Instance State
     compile "com.github.grandstaish.paperparcel:paperparcel:$paperparcelVersion"

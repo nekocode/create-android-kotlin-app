@@ -13,7 +13,7 @@ import cn.nekocode.kotgo.component.ui.stack.RequestData
  */
 abstract class BaseFragment : WithLifecycleFragment() {
     companion object {
-        const val KEY_SAVE_REQUEST_INFO = "KEY_SAVE_REQUEST_INFO"
+        const val KEY_SAVED_REQUEST_INFO = "KEY_SAVED_REQUEST_INFO"
     }
 
     /**
@@ -26,7 +26,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            requestData = savedInstanceState.getParcelable(KEY_SAVE_REQUEST_INFO)
+            requestData = savedInstanceState.getParcelable(KEY_SAVED_REQUEST_INFO)
         }
     }
 
@@ -40,7 +40,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        requestData?.apply { outState?.putParcelable(KEY_SAVE_REQUEST_INFO, this) }
+        requestData?.apply { outState?.putParcelable(KEY_SAVED_REQUEST_INFO, this) }
         super.onSaveInstanceState(outState)
     }
 

@@ -32,12 +32,12 @@ cn.nekocode.kotgo.sample
 ```
 
 ### Dependencies
-- **kotlin: `1.0.4`**
+- **kotlin: `1.0.5-2`**
 - anko: **`0.9`**
 - rxkotlin: **`0.60.0`**
 - retrofit: **`2.1.0`**
 - picasso: **`2.5.2`**
-- hawk: **`2.0.0-Alpha`**
+- paper: **`2.0.0`**
 - paperparcel: **`1.0.0`**
 
 ### Sample
@@ -95,5 +95,6 @@ pushForResult()
 popAll()
 popUntil()
 popTop()
+pop()
 startActivityForResult()
 ```

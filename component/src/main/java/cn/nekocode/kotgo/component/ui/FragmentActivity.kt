@@ -43,9 +43,20 @@ abstract class FragmentActivity : BaseActivity() {
             stack.popTop()
         }
     }
+    fun pop(tag: String, checkEmpty: Boolean = true) {
+        if (checkEmpty && stack.size() <= 1) {
+            // Finish the activity when no or only one fragment in the stack
+            finish()
+
+        } else {
+            // Pop fragment
+            stack.pop(tag)
+        }
+    }
 
 
-    /**
+
+        /**
      * Lifecycle methods
      */
 
