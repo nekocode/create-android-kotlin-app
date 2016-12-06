@@ -114,13 +114,12 @@ class FragmentStack {
     }
 
     fun popAll() {
-        mapOfTag.clear()
-
         manager.beginTransaction().apply {
             for (tag in stack) {
                 remove(get(tag)!!)
             }
             stack.clear()
+            mapOfTag.clear()
 
         }.commit()
     }
@@ -156,8 +155,8 @@ class FragmentStack {
                     // TODO You can set custom animations here
 
                     remove(fragmentToRemove)
-                    if (tag == stack.last()) {
-                        show(getTopInStack())
+                    if (tag == getTagTopInStack() && stack.size > 1) {
+                        show(get(stack[stack.size - 2]))
                     }
 
                     stack.remove(tag)
@@ -182,10 +181,8 @@ class FragmentStack {
     fun getTag(fragment: BaseFragment?): String? = mapOfTag[fragment]
 
     fun getTagTopInStack(): String? {
-        val count = stack.size
-        if (count > 0) {
-            val topTag = stack.last()
-            return topTag
+        if (stack.size > 0) {
+            return stack.last()
         }
 
         return null
