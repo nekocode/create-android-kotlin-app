@@ -10,7 +10,7 @@ open class WithLifecycleFragment() : Fragment(), RxLifecycle.Impl {
     override val lifecycle = RxLifecycle()
 
     override fun onDestroyView() {
-        lifecycle.onDestory()
+        lifecycle.onDestroy()
         super.onDestroyView()
     }
 }
