@@ -88,7 +88,7 @@ class MeiziPresenter(): KtPresenter<Contract.View>(), Contract.Presenter {
 ```
 
 ### Single Activity Multiple Fragments
-You can build applications with only one single `FragmentActivity`. Then use fragment instead of activity to make pages. The `FragmentActivity` provides following functions to help you manage the fragment page in the stack.
+You can build applications with only one single `KtFragmentActivity`. Then use fragment instead of activity to make pages. The `KtFragmentActivity` provides following functions to help you manage the fragment page in the stack.
 ```kotlin
 push()
 pushForResult()
