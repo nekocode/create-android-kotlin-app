@@ -1,6 +1,8 @@
 package cn.nekocode.kotgo.sample.ui.page2
 
 import android.os.Bundle
+import cn.nekocode.kotgo.component.rx.bindLifecycle
+import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.component.ui.KtPresenter
 import cn.nekocode.kotgo.component.ui.KtFragmentActivity
 import cn.nekocode.kotgo.sample.data.DO.Meizi
@@ -34,6 +36,7 @@ class Page2Presenter() : KtPresenter<Contract.View>(), Contract.Presenter {
                     // DO to VO
                     MeiziVO(it.id, it.url, it)
                 }
+                .bindLifecycle(this).onUI()
                 .subscribe {
                     view?.showMeizi(it)
                 }

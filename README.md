@@ -80,7 +80,7 @@ RxBus.subscribe(String::class.java) { showToast(it) }
 ### Fragment Presenter
 This library uses fragment to implement presenter.
 ```kotlin
-class MeiziPresenter(): BasePresenter<Contract.View>(), Contract.Presenter {
+class MeiziPresenter(): KtPresenter<Contract.View>(), Contract.Presenter {
     override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
         view?.showToast("View created.")
     }
