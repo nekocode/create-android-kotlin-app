@@ -1,13 +1,13 @@
 package cn.nekocode.kotgo.sample.ui
 
 import android.os.Bundle
-import cn.nekocode.kotgo.component.ui.FragmentActivity
-import cn.nekocode.kotgo.sample.ui.main.MainFragment
+import cn.nekocode.kotgo.component.ui.KtFragmentActivity
+import cn.nekocode.kotgo.sample.ui.main.MainPresenter
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class MainActivity : FragmentActivity() {
+class MainActivity : KtFragmentActivity() {
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
     }
 
@@ -16,6 +16,6 @@ class MainActivity : FragmentActivity() {
         window.setBackgroundDrawable(null)
 
         if (savedInstanceState == null)
-            MainFragment.push(this)
+            MainPresenter.push(this)
     }
 }

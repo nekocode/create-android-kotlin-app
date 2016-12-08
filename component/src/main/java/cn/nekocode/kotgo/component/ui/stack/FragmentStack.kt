@@ -4,8 +4,8 @@ import android.app.Fragment
 import android.app.FragmentManager
 import android.os.Bundle
 import android.util.SparseArray
-import cn.nekocode.kotgo.component.ui.BaseFragment
-import cn.nekocode.kotgo.component.ui.FragmentActivity
+import cn.nekocode.kotgo.component.ui.KtFragment
+import cn.nekocode.kotgo.component.ui.KtFragmentActivity
 import java.util.*
 
 /**
@@ -17,20 +17,20 @@ class FragmentStack {
         private const val KEY_SAVED_STACK = "KEY_SAVED_STACK"
     }
 
-    private val activity: FragmentActivity
+    private val activity: KtFragmentActivity
     private val containerId: Int
     private val stack: ArrayList<String>
     private val manager: FragmentManager
-    private val mapOfTag: HashMap<BaseFragment, String>
+    private val mapOfTag: HashMap<KtFragment, String>
     internal val requestsRecords: SparseArray<RequestsRecord>
 
 
-    constructor(fragmentActivity: FragmentActivity, fragmentManager: FragmentManager, containerId: Int) {
+    constructor(fragmentActivity: KtFragmentActivity, fragmentManager: FragmentManager, containerId: Int) {
         this.activity = fragmentActivity
         this.manager = fragmentManager
         this.containerId = containerId
         this.stack = ArrayList<String>()
-        this.mapOfTag = HashMap<BaseFragment, String>()
+        this.mapOfTag = HashMap<KtFragment, String>()
         this.requestsRecords = SparseArray<RequestsRecord>()
     }
 
@@ -69,10 +69,10 @@ class FragmentStack {
         }.commit()
     }
 
-    internal fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null,
-                                         originalTag: String? = null, requestCode: Int? = null) {
+    internal fun <T : KtFragment> push(tag: String, classType: Class<T>, args: Bundle? = null,
+                                       originalTag: String? = null, requestCode: Int? = null) {
 
-        var fragment = manager.findFragmentByTag(tag) as BaseFragment?
+        var fragment = manager.findFragmentByTag(tag) as KtFragment?
         if (fragment != null) {
             // If the tag has already been used, throw exception
             throw IllegalArgumentException("Push framgnet error, the tag \"$tag\" has already been used.")
@@ -89,7 +89,7 @@ class FragmentStack {
 
             // Obtain and show a new fragment
             val className = classType.canonicalName
-            val fragment = Fragment.instantiate(activity, className, args) as BaseFragment
+            val fragment = Fragment.instantiate(activity, className, args) as KtFragment
             add(containerId, fragment, tag)
 
             // Add request record
@@ -176,9 +176,9 @@ class FragmentStack {
      * Query Operations
      */
 
-    fun get(tag: String): BaseFragment? = manager.findFragmentByTag(tag) as BaseFragment?
+    fun get(tag: String): KtFragment? = manager.findFragmentByTag(tag) as KtFragment?
 
-    fun getTag(fragment: BaseFragment?): String? = mapOfTag[fragment]
+    fun getTag(fragment: KtFragment?): String? = mapOfTag[fragment]
 
     fun getTagTopInStack(): String? {
         if (stack.size > 0) {
@@ -188,7 +188,7 @@ class FragmentStack {
         return null
     }
 
-    fun getTopInStack(): BaseFragment? {
+    fun getTopInStack(): KtFragment? {
         val topTag = getTagTopInStack()
         return if (topTag == null) null else get(topTag)
     }

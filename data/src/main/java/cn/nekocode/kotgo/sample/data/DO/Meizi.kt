@@ -1,5 +1,6 @@
 package cn.nekocode.kotgo.sample.data.DO
 
+import cn.nekocode.kotgo.sample.data.base.DO
 import com.google.gson.annotations.SerializedName
 import nz.bradcampbell.paperparcel.PaperParcel
 
@@ -12,4 +13,4 @@ class Meizi(
         val type: String,
         val url: String,
         val who: String
-)
+) : DO

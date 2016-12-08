@@ -3,17 +3,14 @@ package cn.nekocode.kotgo.component.ui
 import android.app.Fragment
 import android.app.FragmentTransaction
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import cn.nekocode.kotgo.component.rx.RxLifecycle
-import java.lang.ref.WeakReference
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
+abstract class KtActivity : AppCompatActivity(), RxLifecycle.Impl {
     override final val lifecycle = RxLifecycle()
 
     abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
@@ -34,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {
-        fun <T : BasePresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
+        fun <T : KtPresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
                 addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
     }
 
@@ -42,10 +39,13 @@ abstract class BaseActivity : AppCompatActivity(), RxLifecycle.Impl {
             trans: FragmentTransaction, containerId: Int, tag: String,
             fragmentClass: Class<T>, args: Bundle? = null): T {
 
+        val _args = if (intent.extras != null) Bundle(intent.extras) else Bundle()
+        if (args != null) _args.putAll(args)
+
         val className = fragmentClass.canonicalName
         var fragment = supportFragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
-            fragment = Fragment.instantiate(this@BaseActivity, className, args) as T
+            fragment = Fragment.instantiate(this@KtActivity, className, _args) as T
 
             trans.add(containerId, fragment, tag)
         }

@@ -11,22 +11,22 @@ import org.jetbrains.anko.frameLayout
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class FragmentActivity : BaseActivity() {
+abstract class KtFragmentActivity : KtActivity() {
     private lateinit var stack: FragmentStack
 
     /**
      * Stack operations
      */
 
-    fun <T : BaseFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
+    fun <T : KtFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
         stack.push(tag, classType, args)
     }
 
-    fun <T : BaseFragment> pushForResult(fragment: BaseFragment, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
+    fun <T : KtFragment> pushForResult(fragment: KtFragment, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
         stack.push(fragmentTag, classType, args, stack.getTag(fragment), requestCode)
     }
 
-    fun startActivityForResult(fragment: BaseFragment, intent: Intent?, requestCode: Int, options: Bundle? = null) {
+    fun startActivityForResult(fragment: KtFragment, intent: Intent?, requestCode: Int, options: Bundle? = null) {
         stack.addRequestToRecord(stack.getTag(fragment)!!, requestCode)
         super.startActivityForResult(intent, requestCode, options)
     }
@@ -102,7 +102,7 @@ abstract class FragmentActivity : BaseActivity() {
             var found = false
             for (tag in reqs.tags) {
                 val fragment = stack.get(tag)
-                if (fragment is BaseFragment) {
+                if (fragment is KtFragment) {
                     fragment.onResult(requestCode, resultCode, data)
                     found = true
                 }
@@ -117,7 +117,7 @@ abstract class FragmentActivity : BaseActivity() {
     @CallSuper
     override fun onBackPressed() {
         val topFragment = stack.getTopInStack()
-        if (topFragment is BaseFragment) {
+        if (topFragment is KtFragment) {
             if (topFragment.onBackPressed()) {
                 // If the fragment intercepted the event, don't pop this fragment
                 return

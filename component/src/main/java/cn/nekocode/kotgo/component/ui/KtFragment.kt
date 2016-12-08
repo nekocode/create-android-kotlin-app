@@ -11,7 +11,7 @@ import cn.nekocode.kotgo.component.ui.stack.RequestData
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class BaseFragment : WithLifecycleFragment() {
+abstract class KtFragment : WithLifecycleFragment() {
     companion object {
         const val KEY_SAVED_REQUEST_INFO = "KEY_SAVED_REQUEST_INFO"
     }
@@ -59,7 +59,7 @@ abstract class BaseFragment : WithLifecycleFragment() {
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {
-        fun <T : BasePresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
+        fun <T : KtPresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
                 addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
     }
 
@@ -67,10 +67,13 @@ abstract class BaseFragment : WithLifecycleFragment() {
             trans: FragmentTransaction, containerId: Int,
             tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
+        val _args = if (arguments != null) Bundle(arguments) else Bundle()
+        if (args != null) _args.putAll(args)
+
         val className = fragmentClass.canonicalName
         var fragment = childFragmentManager.findFragmentByTag(tag) as T?
         if (fragment?.isDetached ?: true) {
-            fragment = Fragment.instantiate(activity, className, args) as T
+            fragment = Fragment.instantiate(activity, className, _args) as T
 
             trans.add(containerId, fragment, tag)
         }

@@ -46,8 +46,11 @@ def ankoVersion = "0.9"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(":data")
     compile project(":component")
+
+    // Data Layer
+    debugCompile project(path: ':data', configuration: "debug")
+    releaseCompile project(path: ':data', configuration: "release")
 
     // Android support libraries
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBS_VERSION"

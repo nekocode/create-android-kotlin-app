@@ -5,22 +5,29 @@ import android.os.Parcelable
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.rx.bindLifecycle
 import cn.nekocode.kotgo.component.rx.onUI
-import cn.nekocode.kotgo.component.ui.BasePresenter
-import cn.nekocode.kotgo.component.ui.FragmentActivity
+import cn.nekocode.kotgo.component.ui.KtPresenter
+import cn.nekocode.kotgo.component.ui.KtFragmentActivity
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
 import cn.nekocode.kotgo.sample.data.repo.MeiziRepo
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
 import cn.nekocode.kotgo.sample.ui.page2.Page2Fragment
+import cn.nekocode.kotgo.sample.ui.page2.Page2Presenter
 import rx.Observable
 import java.util.*
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
+class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
     companion object {
         const val KEY_SAVED_MEIZIS = "KEY_SAVED_MEIZIS"
+
+        fun push(act: KtFragmentActivity,
+                 tag: String = MainFragment::class.java.canonicalName) {
+
+            act.push(tag, MainFragment::class.java)
+        }
     }
 
     val meiziList = ArrayList<Meizi>()
@@ -58,7 +65,7 @@ class MeiziPresenter() : BasePresenter<Contract.View>(), Contract.Presenter {
             view?.setupAdapter(this)
 
             onMeiziItemClickListener = {
-                Page2Fragment.push(activity as FragmentActivity, it)
+                Page2Presenter.push(activity as KtFragmentActivity, it)
             }
         }
     }

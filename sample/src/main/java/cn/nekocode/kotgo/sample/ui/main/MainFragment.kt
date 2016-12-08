@@ -7,26 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.nekocode.kotgo.component.rx.RxBus
-import cn.nekocode.kotgo.component.ui.BaseFragment
-import cn.nekocode.kotgo.component.ui.FragmentActivity
 import cn.nekocode.kotgo.sample.R
+import cn.nekocode.kotgo.sample.base.BaseFragment
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.jetbrains.anko.toast
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class MainFragment : BaseFragment(), Contract.View {
-    companion object {
-        fun push(act: FragmentActivity,
-                 tag: String = MainFragment::class.java.canonicalName) {
-
-            act.push(tag, MainFragment::class.java)
-        }
-    }
-
-    var meiziPresenter: Contract.Presenter? = null
+    var presenter: Contract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +27,7 @@ class MainFragment : BaseFragment(), Contract.View {
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
-        meiziPresenter = presenterFactory.createOrGet(MeiziPresenter::class.java)
+        presenter = presenterFactory.createOrGet(MainPresenter::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

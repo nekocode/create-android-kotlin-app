@@ -8,7 +8,7 @@ import android.view.ViewGroup
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class BasePresenter<in V>() : WithLifecycleFragment() {
+abstract class KtPresenter<in V>() : WithLifecycleFragment() {
 
     final override fun onCreateView(inflater: LayoutInflater?,
                                     container: ViewGroup?, savedInstanceState: Bundle?): View? {
