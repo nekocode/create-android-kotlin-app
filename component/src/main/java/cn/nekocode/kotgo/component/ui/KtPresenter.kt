@@ -13,6 +13,7 @@ abstract class KtPresenter<in V>() : WithLifecycleFragment() {
     final override fun onCreateView(inflater: LayoutInflater?,
                                     container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        super.onCreateView(inflater, container, savedInstanceState)
         onViewCreated((parentFragment ?: activity) as V?, savedInstanceState)
         return null
     }

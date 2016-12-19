@@ -28,7 +28,7 @@ open class WithLifecycleFragment() : Fragment(), RxLifecycle.Impl {
     }
 
     @CallSuper
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         lifecycle.onCreateView()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
