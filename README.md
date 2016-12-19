@@ -65,16 +65,22 @@ dependencies {
 ### RxLifecycle & RxBus
 You can bind the RxJava subscriptions into the lifecycle of the class that implements `RxLifecycle.Impl` (such as base activity, fragment and presenter). It can help you unsubscribe the `Observable` when the activity or fragment is destoried.
 ```kotlin
-MeiziRepo.getMeizis(50, 1).bindLifecycle(presenter).onUI {
+MeiziRepo.getMeizis(50, 1).safetySubscribe({
     view.refreshMeizis(it)
-}
+}, {
+    // onError
+})
 ```
 
 And you can use `RxBus` to send events everywhere. And then subscribe them in the class that implements `RxLifecycle.Impl`
 
 ```kotlin
 RxBus.send("Success")
-RxBus.subscribe(String::class.java) { showToast(it) }
+RxBus.safetySubscribe(String::class.java, {
+    showToast(it)
+}, {
+    // onError
+})
 ```
 
 ### Fragment Presenter

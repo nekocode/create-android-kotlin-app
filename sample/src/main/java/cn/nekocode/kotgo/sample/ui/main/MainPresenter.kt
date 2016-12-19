@@ -3,15 +3,12 @@ package cn.nekocode.kotgo.sample.ui.main
 import android.os.Bundle
 import android.os.Parcelable
 import cn.nekocode.kotgo.component.rx.RxBus
-import cn.nekocode.kotgo.component.rx.bindLifecycle
-import cn.nekocode.kotgo.component.rx.onUI
 import cn.nekocode.kotgo.component.ui.KtPresenter
 import cn.nekocode.kotgo.component.ui.KtFragmentActivity
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
 import cn.nekocode.kotgo.sample.data.repo.MeiziRepo
 import cn.nekocode.kotgo.sample.event.LoadFinishedEvent
-import cn.nekocode.kotgo.sample.ui.page2.Page2Fragment
 import cn.nekocode.kotgo.sample.ui.page2.Page2Presenter
 import rx.Observable
 import java.util.*
@@ -36,7 +33,7 @@ class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Observable.just(savedInstanceState).bindLifecycle(this)
+        Observable.just(savedInstanceState)
                 .flatMap {
                     if (it == null) {
                         MeiziRepo.getMeizis(50, 1)
@@ -55,9 +52,9 @@ class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
                         RxBus.send(LoadFinishedEvent())
                     }
                 }
-                .onUI {
+                .safetySubscribe({
                     adapter.notifyDataSetChanged()
-                }
+                }, {})
     }
 
     override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {

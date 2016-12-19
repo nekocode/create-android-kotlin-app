@@ -10,8 +10,7 @@ import cn.nekocode.kotgo.component.rx.RxLifecycle
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class KtActivity : AppCompatActivity(), RxLifecycle.Impl {
-    override final val lifecycle = RxLifecycle()
+abstract class KtActivity : WithLifecycleActivity() {
 
     abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
 
@@ -22,12 +21,6 @@ abstract class KtActivity : AppCompatActivity(), RxLifecycle.Impl {
         val trans = fragmentManager.beginTransaction()
         onCreatePresenter(PresenterFactory(trans))
         trans.commit()
-    }
-
-    @CallSuper
-    override fun onDestroy() {
-        lifecycle.onDestroy()
-        super.onDestroy()
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {

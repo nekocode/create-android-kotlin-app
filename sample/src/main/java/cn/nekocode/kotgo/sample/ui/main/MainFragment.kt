@@ -21,9 +21,9 @@ class MainFragment : BaseFragment(), Contract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        RxBus.subscribe(LoadFinishedEvent::class.java) {
+        RxBus.safetySubscribe(LoadFinishedEvent::class.java, {
             toolbar.title = "Meizi List - Load finished"
-        }
+        }, {})
     }
 
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {

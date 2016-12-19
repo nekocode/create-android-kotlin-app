@@ -43,6 +43,7 @@ abstract class KtFragmentActivity : KtActivity() {
             stack.popTop()
         }
     }
+
     fun pop(tag: String, checkEmpty: Boolean = true) {
         if (checkEmpty && stack.size() <= 1) {
             // Finish the activity when no or only one fragment in the stack
@@ -54,9 +55,11 @@ abstract class KtFragmentActivity : KtActivity() {
         }
     }
 
+    fun get(tag: String) = stack.get(tag)
+    fun getTagTopInStack() = stack.getTagTopInStack()
 
 
-        /**
+    /**
      * Lifecycle methods
      */
 
