@@ -129,7 +129,14 @@ class FragmentStack {
             manager.beginTransaction().apply {
                 stack.reversed()
                         .takeWhile { it != tag }
-                        .forEach { remove(get(tag)!!) }
+                        .forEach { tagToRemove ->
+                            val fragmentToRemove = get(tagToRemove)
+                            stack.remove(tagToRemove)
+                            mapOfTag.remove(fragmentToRemove)
+                            remove(fragmentToRemove)
+                        }
+
+                show(get(tag))
 
             }.commit()
         }
