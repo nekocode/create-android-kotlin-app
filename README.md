@@ -32,7 +32,7 @@ cn.nekocode.kotgo.sample
 ```
 
 ### Dependencies
-- **kotlin: `1.0.5-2`**
+- **kotlin: `1.0.6`**
 - anko: **`0.9`**
 - rxkotlin: **`0.60.0`**
 - retrofit: **`2.1.0`**
@@ -94,10 +94,11 @@ class MeiziPresenter(): KtPresenter<Contract.View>(), Contract.Presenter {
 ```
 
 ### Single Activity Multiple Fragments
-You can build applications with only one single `KtFragmentActivity`. Then use fragment instead of activity to make pages. The `KtFragmentActivity` provides following functions to help you manage the fragment page in the stack.
+You can build applications with only one single `KtFragmentActivity`. Then use fragment instead of activity to make pages. The `KtFragmentActivity` and `KtPresenter` provides some functions to help you manage the fragments in the stack. Such as:
 ```kotlin
 push()
 pushForResult()
+popThis()
 popAll()
 popUntil()
 popTop()

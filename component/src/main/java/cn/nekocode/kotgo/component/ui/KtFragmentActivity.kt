@@ -12,22 +12,24 @@ import org.jetbrains.anko.frameLayout
  * @author nekocode (nekocode.cn@gmail.com)
  */
 abstract class KtFragmentActivity : KtActivity() {
-    private lateinit var stack: FragmentStack
+    internal lateinit var stack: FragmentStack
 
     /**
      * Stack operations
      */
 
-    fun <T : KtFragment> push(tag: String, classType: Class<T>, args: Bundle? = null) {
-        stack.push(tag, classType, args)
+    fun <T : KtFragment> push(fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
+        stack.push(fragmentTag, classType, args)
     }
 
     fun <T : KtFragment> pushForResult(fragment: KtFragment, requestCode: Int, fragmentTag: String, classType: Class<T>, args: Bundle? = null) {
-        stack.push(fragmentTag, classType, args, stack.getTag(fragment), requestCode)
+        val tag = stack.getTag(fragment) ?: return
+        stack.push(fragmentTag, classType, args, tag, requestCode)
     }
 
     fun startActivityForResult(fragment: KtFragment, intent: Intent?, requestCode: Int, options: Bundle? = null) {
-        stack.addRequestToRecord(stack.getTag(fragment)!!, requestCode)
+        val tag = stack.getTag(fragment) ?: return
+        stack.addRequestToRecord(tag, requestCode)
         super.startActivityForResult(intent, requestCode, options)
     }
 
@@ -93,12 +95,12 @@ abstract class KtFragmentActivity : KtActivity() {
     }
 
     @CallSuper
-    override public fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val records = stack.requestsRecords
 
         val reqs = records[requestCode]
         if (reqs != null) {
-            if ((--records[requestCode]!!.reqCount) == 0) {
+            if ((--reqs.reqCount) == 0) {
                 records.remove(requestCode)
             }
 

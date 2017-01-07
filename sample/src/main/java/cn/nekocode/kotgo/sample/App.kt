@@ -10,13 +10,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
 
         DataLayer.init(this)
-    }
-
-    companion object {
-        lateinit var instance: App
     }
 
 }

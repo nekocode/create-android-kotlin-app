@@ -55,7 +55,7 @@ class FragmentStack {
             val lastIndex = savedStack.size - 1
             for (i in 0..lastIndex) {
                 val tag = savedStack[i]
-                val fragment = get(tag)!!
+                val fragment = get(tag) ?: continue
 
                 if (i == lastIndex) {
                     show(fragment)
@@ -72,7 +72,7 @@ class FragmentStack {
     internal fun <T : KtFragment> push(tag: String, classType: Class<T>, args: Bundle? = null,
                                        originalTag: String? = null, requestCode: Int? = null) {
 
-        var fragment = manager.findFragmentByTag(tag) as KtFragment?
+        var fragment = get(tag)
         if (fragment != null) {
             // If the tag has already been used, throw exception
             throw IllegalArgumentException("Push framgnet error, the tag \"$tag\" has already been used.")
@@ -105,18 +105,19 @@ class FragmentStack {
     }
 
     internal fun addRequestToRecord(originalTag: String, requestCode: Int) {
-        if (requestsRecords[requestCode] == null) {
+        val record = requestsRecords[requestCode]
+        if (record == null) {
             requestsRecords.append(requestCode, RequestsRecord(1, arrayListOf(originalTag), requestCode))
         } else {
-            requestsRecords[requestCode]!!.reqCount++
-            requestsRecords[requestCode]!!.tags.add(originalTag)
+            record.reqCount++
+            record.tags.add(originalTag)
         }
     }
 
     fun popAll() {
         manager.beginTransaction().apply {
             for (tag in stack) {
-                remove(get(tag)!!)
+                remove(get(tag) ?: continue)
             }
             stack.clear()
             mapOfTag.clear()
@@ -183,7 +184,14 @@ class FragmentStack {
      * Query Operations
      */
 
-    fun get(tag: String): KtFragment? = manager.findFragmentByTag(tag) as KtFragment?
+    fun get(tag: String?): KtFragment? {
+        val fragment = manager.findFragmentByTag(tag ?: return null)
+
+        return when (fragment) {
+            is KtFragment -> fragment
+            else -> null
+        }
+    }
 
     fun getTag(fragment: KtFragment?): String? = mapOfTag[fragment]
 

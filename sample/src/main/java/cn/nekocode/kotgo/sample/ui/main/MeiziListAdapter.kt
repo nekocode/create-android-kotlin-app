@@ -8,8 +8,6 @@ import cn.nekocode.kotgo.sample.data.DO.Meizi
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_meizi.view.*
 import org.jetbrains.anko.layoutInflater
-import org.jetbrains.anko.onClick
-import org.jetbrains.anko.onLongClick
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -22,10 +20,10 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
     var onMeiziItemClickListener: ((Meizi) -> Unit)? = null
     var onMeiziItemLongClickListener: ((Meizi) -> Boolean)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
             Type.TYPE_ITEM -> {
-                val v = parent!!.context.layoutInflater.inflate(R.layout.item_meizi, parent, false)
+                val v = parent.context.layoutInflater.inflate(R.layout.item_meizi, parent, false)
                 return ItemViewHolder(v)
             }
 
@@ -50,9 +48,16 @@ class MeiziListAdapter(private val list: List<Meizi>) : RecyclerView.Adapter<Rec
         var meizi: Meizi? = null
 
         init {
-            with(view) {
-                onClick { onMeiziItemClickListener?.invoke(meizi!!) }
-                onLongClick { onMeiziItemLongClickListener?.invoke(meizi!!) ?: false }
+            view.setOnClickListener {
+                meizi?.let {
+                    onMeiziItemClickListener?.invoke(it)
+                }
+            }
+
+            view.setOnLongClickListener {
+                meizi?.let {
+                    onMeiziItemLongClickListener?.invoke(it)
+                } ?: false
             }
         }
 

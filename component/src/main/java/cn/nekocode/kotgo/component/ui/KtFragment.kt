@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.view.View
 import cn.nekocode.kotgo.component.ui.stack.RequestData
+import java.util.*
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -21,6 +22,7 @@ abstract class KtFragment : WithLifecycleFragment() {
      */
 
     internal var requestData: RequestData? = null
+    private var presenterTags = ArrayList<String>()
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +50,15 @@ abstract class KtFragment : WithLifecycleFragment() {
         return false
     }
 
+    @CallSuper
     open fun onResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        for (tag in presenterTags) {
+            val frg = childFragmentManager.findFragmentByTag(tag)
+
+            if (frg != null && frg is KtPresenter<*>) {
+                frg.onResult(requestCode, resultCode, data)
+            }
+        }
     }
 
     fun setResult(resultCode: Int, data: Intent? = null) {
@@ -59,8 +69,14 @@ abstract class KtFragment : WithLifecycleFragment() {
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {
-        fun <T : KtPresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T =
-                addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, args)
+
+        fun <T : KtPresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T {
+            val tag = presenterClass.canonicalName
+            presenterTags.add(tag)
+
+            return addOrGetFragment(trans, 0, tag, presenterClass, args)
+        }
+
     }
 
     fun <T : Fragment> addOrGetFragment(
@@ -72,12 +88,12 @@ abstract class KtFragment : WithLifecycleFragment() {
 
         val className = fragmentClass.canonicalName
         var fragment = childFragmentManager.findFragmentByTag(tag) as T?
-        if (fragment?.isDetached ?: true) {
+        if (fragment == null || fragment.isDetached) {
             fragment = Fragment.instantiate(activity, className, _args) as T
 
             trans.add(containerId, fragment, tag)
         }
 
-        return fragment!!
+        return fragment
     }
 }

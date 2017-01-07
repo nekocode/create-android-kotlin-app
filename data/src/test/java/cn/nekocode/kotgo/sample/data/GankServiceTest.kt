@@ -16,7 +16,7 @@ import rx.observers.TestSubscriber
  * @author nekocode (nekocode.cn@gmail.com)
  */
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(23))
+@Config(constants = BuildConfig::class)
 class GankServiceTest {
 
     @Before
@@ -30,6 +30,6 @@ class GankServiceTest {
         MeiziRepo.getMeizis(10, 1).toBlocking().subscribe(testSubscriber)
 
         val meizis = testSubscriber.onNextEvents[0]
-        Assert.assertTrue(meizis.size > 0)
+        Assert.assertTrue(meizis.isNotEmpty())
     }
 }

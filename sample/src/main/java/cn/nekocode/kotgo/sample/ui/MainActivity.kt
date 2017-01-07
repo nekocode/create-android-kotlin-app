@@ -2,7 +2,7 @@ package cn.nekocode.kotgo.sample.ui
 
 import android.os.Bundle
 import cn.nekocode.kotgo.component.ui.KtFragmentActivity
-import cn.nekocode.kotgo.sample.ui.main.MainPresenter
+import cn.nekocode.kotgo.sample.ui.main.MainFragment
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -16,6 +16,6 @@ class MainActivity : KtFragmentActivity() {
         window.setBackgroundDrawable(null)
 
         if (savedInstanceState == null)
-            MainPresenter.push(this)
+            push(MainFragment::class.java.canonicalName, MainFragment::class.java)
     }
 }

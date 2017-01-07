@@ -1,10 +1,11 @@
 package cn.nekocode.kotgo.sample.ui.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import cn.nekocode.kotgo.component.rx.RxBus
 import cn.nekocode.kotgo.component.ui.KtPresenter
-import cn.nekocode.kotgo.component.ui.KtFragmentActivity
 import cn.nekocode.kotgo.sample.data.DO.Meizi
 import cn.nekocode.kotgo.sample.data.DO.MeiziParcel
 import cn.nekocode.kotgo.sample.data.repo.MeiziRepo
@@ -19,14 +20,10 @@ import java.util.*
 class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
     companion object {
         const val KEY_SAVED_MEIZIS = "KEY_SAVED_MEIZIS"
-
-        fun push(act: KtFragmentActivity,
-                 tag: String = MainFragment::class.java.canonicalName) {
-
-            act.push(tag, MainFragment::class.java)
-        }
+        const val REQUEST_CODE_PAGE2 = 1
     }
 
+    var view: Contract.View? = null
     val meiziList = ArrayList<Meizi>()
     val adapter = MeiziListAdapter(meiziList)
 
@@ -58,11 +55,13 @@ class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
     }
 
     override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
-        with(adapter) {
-            view?.setupAdapter(this)
+        this.view = view
 
-            onMeiziItemClickListener = {
-                Page2Presenter.push(activity as KtFragmentActivity, it)
+        adapter.let {
+            view?.setupAdapter(it)
+
+            it.onMeiziItemClickListener = { meizi ->
+                Page2Presenter.pushForResult(this, REQUEST_CODE_PAGE2, meizi)
             }
         }
     }
@@ -72,5 +71,16 @@ class MainPresenter() : KtPresenter<Contract.View>(), Contract.Presenter {
         outState?.putParcelableArrayList(
                 KEY_SAVED_MEIZIS,
                 meiziList.map(::MeiziParcel) as ArrayList<out Parcelable>)
+    }
+
+    override fun onResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_CODE_PAGE2 -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val rltMeizi = data.getParcelableExtra<MeiziParcel>(Page2Presenter.KEY_RLT_MEIZI).data
+                    view?.toast("You clicked the photo: ${rltMeizi.id}")
+                }
+            }
+        }
     }
 }
