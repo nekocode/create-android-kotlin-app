@@ -1,4 +1,4 @@
-package cn.nekocode.kotgo.component.ui
+package cn.nekocode.kotgo.component.rx
 
 import android.app.Fragment
 import android.content.Context
@@ -7,7 +7,6 @@ import android.support.annotation.CallSuper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.nekocode.kotgo.component.rx.RxLifecycle
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)

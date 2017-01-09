@@ -5,6 +5,7 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import cn.nekocode.kotgo.component.rx.WithLifecycleActivity
 import java.util.*
 
 /**
@@ -33,6 +34,8 @@ abstract class KtActivity : WithLifecycleActivity() {
                 frg.onResult(requestCode, resultCode, data)
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     inner class PresenterFactory(val trans: FragmentTransaction) {

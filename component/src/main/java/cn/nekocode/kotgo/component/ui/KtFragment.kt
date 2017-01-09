@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.view.View
+import cn.nekocode.kotgo.component.rx.WithLifecycleFragment
 import cn.nekocode.kotgo.component.ui.stack.RequestData
 import java.util.*
 

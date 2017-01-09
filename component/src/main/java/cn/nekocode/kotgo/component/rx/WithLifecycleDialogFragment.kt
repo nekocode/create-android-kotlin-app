@@ -1,15 +1,24 @@
-package cn.nekocode.kotgo.component.ui
+package cn.nekocode.kotgo.component.rx
 
+import android.app.DialogFragment
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.CallSuper
-import android.support.v7.app.AppCompatActivity
-import cn.nekocode.kotgo.component.rx.RxLifecycle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-open class WithLifecycleActivity() : AppCompatActivity(), RxLifecycle.Impl {
+open class WithLifecycleDialogFragment() : DialogFragment(), RxLifecycle.Impl {
     override val lifecycle = RxLifecycle()
+
+    @CallSuper
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        lifecycle.onAttach()
+    }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +27,9 @@ open class WithLifecycleActivity() : AppCompatActivity(), RxLifecycle.Impl {
     }
 
     @CallSuper
-    override fun onRestart() {
-        super.onRestart()
-        lifecycle.onRestart()
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        lifecycle.onCreateView()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     @CallSuper
@@ -48,8 +57,19 @@ open class WithLifecycleActivity() : AppCompatActivity(), RxLifecycle.Impl {
     }
 
     @CallSuper
+    override fun onDestroyView() {
+        lifecycle.onDestroyView()
+        super.onDestroyView()
+    }
+
+    @CallSuper
     override fun onDestroy() {
         lifecycle.onDestroy()
         super.onDestroy()
+    }
+
+    override fun onDetach() {
+        lifecycle.onDetach()
+        super.onDetach()
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import cn.nekocode.kotgo.component.rx.WithLifecycleFragment
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
