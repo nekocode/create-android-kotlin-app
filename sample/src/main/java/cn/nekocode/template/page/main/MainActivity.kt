@@ -18,7 +18,7 @@ class MainActivity : BaseActivity(), Contract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toolbar.title = "Meizi List"
+        title = "Meizi List"
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 

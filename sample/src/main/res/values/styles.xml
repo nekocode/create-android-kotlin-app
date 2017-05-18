@@ -1,18 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:screenOrientation">portrait</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-
-        <!-- Actionbar color -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <!--Status bar color-->
-        <item name="colorPrimaryDark">@color/color_primary</item>
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Launcher" parent="AppTheme">
-        <!--Window color-->
-        <item name="android:windowBackground">@drawable/bg_startingwindow</item>
-    </style>
 </resources>

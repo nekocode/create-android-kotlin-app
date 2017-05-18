@@ -28,8 +28,7 @@ class Page2Activity : BaseActivity(), Contract.View {
     }
 
     override fun setMeizi(vo: MeiziVO) {
-        toolbar.title = vo.title
+        title = vo.title
         Picasso.with(this).load(vo.url).centerCrop().fit().into(imageView)
-
     }
 }

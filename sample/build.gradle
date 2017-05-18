@@ -56,28 +56,28 @@ dependencies {
     compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Reactive library
-    compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
-    compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
-    compile "com.trello.rxlifecycle2:rxlifecycle:$RXLIFECYCLE_VERSION"
-    compile "com.trello.rxlifecycle2:rxlifecycle-android:$RXLIFECYCLE_VERSION"
-    compile "com.trello.rxlifecycle2:rxlifecycle-components:$RXLIFECYCLE_VERSION"
-    compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$RXLIFECYCLE_VERSION"
+    compile "io.reactivex.rxjava2:rxkotlin:2.0.2"
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    def rxLifecycleVersion = "2.0.1"
+    compile "com.trello.rxlifecycle2:rxlifecycle:$rxLifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$rxLifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxLifecycleVersion"
+    compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rxLifecycleVersion"
 
     // DSL
-    compile "org.jetbrains.anko:anko-sdk15:$ANKO_VERSION" // sdk19, sdk21, sdk23 are also available
-    compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION" // In case you need support-v4 bindings
-    compile "org.jetbrains.anko:anko-appcompat-v7:$ANKO_VERSION" // For appcompat-v7 bindings
-
-    // Artwork
-    compile "com.squareup.picasso:picasso:$PICASSO_VERSION"
+    def ankoVersion = "0.9.1"
+    compile "org.jetbrains.anko:anko-sdk15:$ankoVersion"
+    compile "org.jetbrains.anko:anko-support-v4:$ankoVersion"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
 
     // Persist Instance State
-    compile "com.evernote:android-state:$ANDROID_STATE_VERSION"
-    kapt "com.evernote:android-state-processor:$ANDROID_STATE_VERSION"
+    compile "com.evernote:android-state:1.0.6"
+    kapt "com.evernote:android-state-processor:1.0.6"
 
     // Tools
-    compile "com.github.nekocode:Meepo:$MEEPO_VERSION"
-    compile "com.github.nekocode:ItemPool:$ITEMPOOL_VERSION"
+    compile "com.squareup.picasso:picasso:2.5.2"
+    compile "com.github.nekocode:Meepo:0.1.2"
+    compile "com.github.nekocode:ItemPool:0.5.2"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

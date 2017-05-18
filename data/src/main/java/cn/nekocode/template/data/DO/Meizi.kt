@@ -10,8 +10,7 @@ import paperparcel.PaperParcel
  */
 @PaperParcel
 data class Meizi(
-        @SerializedName("_id")
-        override val id: String,
+        @SerializedName("_id") override val id: String,
         val type: String,
         val url: String,
         val who: String

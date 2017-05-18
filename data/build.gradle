@@ -17,23 +17,25 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+    testCompile "org.robolectric:robolectric:3.3.2"
 
     // Android support libraries
     compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Retrofit
-    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+    def retrofitVersion = "2.3.0"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     // Storage library
-    compile "io.paperdb:paperdb:$PAPERDB_VERSION"
+    compile "io.paperdb:paperdb:2.0"
 
     // Instance State
-    compile "nz.bradcampbell:paperparcel:$PAPERPARCEL_VERSION"
-    compile "nz.bradcampbell:paperparcel-kotlin:$PAPERPARCEL_VERSION"
-    kapt "nz.bradcampbell:paperparcel-compiler:$PAPERPARCEL_VERSION"
+    def paperparcelVersion = "2.0.1"
+    compile "nz.bradcampbell:paperparcel:$paperparcelVersion"
+    compile "nz.bradcampbell:paperparcel-kotlin:$paperparcelVersion"
+    kapt "nz.bradcampbell:paperparcel-compiler:$paperparcelVersion"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

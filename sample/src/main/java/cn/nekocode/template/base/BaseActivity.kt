@@ -28,7 +28,7 @@ abstract class BaseActivity : RxAppCompatActivity(), IContext {
             trans: FragmentTransaction, containerId: Int,
             tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
-        var fragment = supportFragmentManager.findFragmentByTag(tag) as T?
+        var fragment = fragmentManager.findFragmentByTag(tag) as T?
         if (fragment == null || fragment.isDetached) {
             fragment = Fragment.instantiate(this, fragmentClass.canonicalName, args) as T
 

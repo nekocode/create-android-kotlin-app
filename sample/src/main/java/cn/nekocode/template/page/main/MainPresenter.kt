@@ -12,6 +12,7 @@ import com.evernote.android.state.StateSaver
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 /**
@@ -39,23 +40,19 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
     }
 
     override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
-        view?.setItemPool(itemPool)
-
-        /*
-          Fetch data
-         */
         if (meizis == null) {
             GankService.getMeizis(50, 1)
         } else {
             Observable.just(meizis!!)
         }
+                .observeOn(Schedulers.io())
                 .map { list -> list.map { MeiziItem.VO.fromMeizi(it) } }
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     itemPool.clear()
                     itemPool.addAll(it)
-                    itemPool.notifyDataSetChanged()
+                    view?.setItemPool(itemPool)
                 }
     }
 
