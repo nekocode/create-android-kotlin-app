@@ -150,6 +150,7 @@ class ProjectGenerator:
 
         # rm unnessary files
         os.remove('README.md')
+        os.remove('.gitattributes')
         shutil.rmtree('art')
         if os.path.exists('project_generator.py'):
             os.remove('project_generator.py')
