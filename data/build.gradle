@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
+    buildToolsVersion(BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 25
+    }
+
+    publishNonDefault true
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+
+    // Android support libraries
+    compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
+
+    // Retrofit
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+
+    // Storage library
+    compile "io.paperdb:paperdb:$PAPERDB_VERSION"
+
+    // Instance State
+    compile "nz.bradcampbell:paperparcel:$PAPERPARCEL_VERSION"
+    compile "nz.bradcampbell:paperparcel-kotlin:$PAPERPARCEL_VERSION"
+    kapt "nz.bradcampbell:paperparcel-compiler:$PAPERPARCEL_VERSION"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+}

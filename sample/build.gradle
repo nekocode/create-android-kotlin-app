@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
+    buildToolsVersion(BUILD_TOOLS_VERSION)
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    if (project.hasProperty('storeFile') &&
+            project.hasProperty('storePassword') &&
+            project.hasProperty('keyAlias') &&
+            project.hasProperty('keyPassword')) {
+
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyAlias = keyAlias
+        android.signingConfigs.release.keyPassword = keyPassword
+    } else {
+
+        buildTypes.release.signingConfig = null
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning', 'UnusedResources' // Lint still does not detect usage of resources from Kotlin code.
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Data Layer
+    debugCompile project(path: ':data', configuration: "debug")
+    releaseCompile project(path: ':data', configuration: "release")
+
+    // Android support libraries
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBS_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBS_VERSION"
+    compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
+
+    // Reactive library
+    compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+    compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$RXLIFECYCLE_VERSION"
+
+    // DSL
+    compile "org.jetbrains.anko:anko-sdk15:$ANKO_VERSION" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:$ANKO_VERSION" // For appcompat-v7 bindings
+
+    // Artwork
+    compile "com.squareup.picasso:picasso:$PICASSO_VERSION"
+
+    // Persist Instance State
+    compile "com.evernote:android-state:$ANDROID_STATE_VERSION"
+    kapt "com.evernote:android-state-processor:$ANDROID_STATE_VERSION"
+
+    // Tools
+    compile "com.github.nekocode:Meepo:$MEEPO_VERSION"
+    compile "com.github.nekocode:ItemPool:$ITEMPOOL_VERSION"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$KOTLIN_VERSION"
+    }
+}
