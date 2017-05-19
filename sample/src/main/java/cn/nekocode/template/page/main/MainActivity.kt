@@ -29,9 +29,4 @@ class MainActivity : BaseActivity(), Contract.View {
     override fun setItemPool(itemPool: ItemPool) {
         itemPool.attachTo(recyclerView)
     }
-
-    override fun onBackPressed() {
-        toast("Finished")
-        super.onBackPressed()
-    }
 }

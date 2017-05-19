@@ -5,7 +5,7 @@ import android.content.Context
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-interface IContext {
+interface IContextProvider {
 
-    fun getContext(): Context
+    fun context(): Context?
 }

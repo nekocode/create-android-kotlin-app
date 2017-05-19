@@ -9,9 +9,9 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-abstract class BaseActivity : RxAppCompatActivity(), IContext {
+abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
 
-    override fun getContext() = this
+    override fun context() = this
 
     abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
 

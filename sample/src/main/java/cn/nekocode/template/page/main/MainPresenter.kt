@@ -33,7 +33,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
             val meizi = (event.data as MeiziItem.VO).DO as Meizi
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    gotoPage2(context, meizi)
+                    gotoPage2(context(), meizi)
                 }
             }
         }
@@ -45,15 +45,16 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
         } else {
             Observable.just(meizis!!)
         }
+                .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map { list -> list.map { MeiziItem.VO.fromMeizi(it) } }
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     itemPool.clear()
                     itemPool.addAll(it)
                     view?.setItemPool(itemPool)
-                }
+                }, this::onError)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
