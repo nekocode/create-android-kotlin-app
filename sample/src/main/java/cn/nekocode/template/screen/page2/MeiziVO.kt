@@ -1,4 +1,4 @@
-package cn.nekocode.template.page.page2
+package cn.nekocode.template.screen.page2
 
 import cn.nekocode.template.data.DO.Meizi
 

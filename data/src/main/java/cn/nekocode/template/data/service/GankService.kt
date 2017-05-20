@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
  */
 object GankService {
 
-    fun getMeizis(count: Int, pageNum: Int): Observable<List<Meizi>> =
+    fun getMeizis(count: Int, pageNum: Int): Observable<ArrayList<Meizi>> =
             GankApi.IMPL.getMeizis(count, pageNum)
                     .subscribeOn(Schedulers.io())
                     .map {
@@ -20,9 +20,9 @@ object GankService {
                         it.results
                     }
                     .onErrorResumeNext { err: Throwable ->
-                        val meiziList: List<Meizi> = Paper.book().read("meizis-$pageNum")
+                        val list: ArrayList<Meizi> = Paper.book().read("meizis-$pageNum")
                                 ?: throw GankServiceException(err.message)
-                        Observable.just(meiziList)
+                        Observable.just(list)
                     }
 
 }

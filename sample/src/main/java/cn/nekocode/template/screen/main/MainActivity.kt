@@ -1,4 +1,4 @@
-package cn.nekocode.template.page.main
+package cn.nekocode.template.screen.main
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager

@@ -1,5 +1,6 @@
-package cn.nekocode.template.page.page2
+package cn.nekocode.template.screen.main
 
+import cn.nekocode.itempool.ItemPool
 import cn.nekocode.template.base.IPresenter
 import cn.nekocode.template.base.IView
 
@@ -9,10 +10,9 @@ import cn.nekocode.template.base.IView
 interface Contract {
 
     interface View : IView {
-        fun setMeizi(vo: MeiziVO)
+        fun setItemPool(itemPool: ItemPool)
     }
 
     interface Presenter: IPresenter {
-        fun onImageClick()
     }
 }

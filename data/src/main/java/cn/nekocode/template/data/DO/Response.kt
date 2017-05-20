@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-internal class Response<out T>(
+internal class Response<T>(
         @SerializedName("error") val isError: Boolean,
-        val results: List<T>
+        val results: ArrayList<T>
 )

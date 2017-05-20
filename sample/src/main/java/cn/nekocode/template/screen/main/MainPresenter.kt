@@ -1,4 +1,4 @@
-package cn.nekocode.template.page.main
+package cn.nekocode.template.screen.main
 
 import android.os.Bundle
 import cn.nekocode.itempool.Item
@@ -20,7 +20,7 @@ import java.util.*
  */
 class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
     @State
-    var meizis: ArrayList<Meizi>? = null
+    var list: ArrayList<Meizi>? = null
     var itemPool = ItemPool()
 
 
@@ -40,14 +40,17 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
     }
 
     override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
-        if (meizis == null) {
+        if (list == null) {
             GankService.getMeizis(50, 1)
         } else {
-            Observable.just(meizis!!)
+            Observable.just(list!!)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map { list -> list.map { MeiziItem.VO.fromMeizi(it) } }
+                .map { meizis ->
+                    list = meizis
+                    meizis.map { MeiziItem.VO.fromMeizi(it) }
+                }
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

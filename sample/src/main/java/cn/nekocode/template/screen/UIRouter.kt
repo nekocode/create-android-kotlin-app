@@ -1,12 +1,12 @@
-package cn.nekocode.template.page
+package cn.nekocode.template.screen
 
 import android.content.Context
 import cn.nekocode.meepo.annotation.Bundle
 import cn.nekocode.meepo.annotation.TargetClass
 import cn.nekocode.meepo.Meepo
 import cn.nekocode.template.data.DO.Meizi
-import cn.nekocode.template.page.page2.Page2Activity
-import cn.nekocode.template.page.page2.Page2Presenter
+import cn.nekocode.template.screen.page2.Page2Activity
+import cn.nekocode.template.screen.page2.Page2Presenter
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)

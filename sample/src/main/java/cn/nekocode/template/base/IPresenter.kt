@@ -1,6 +1,6 @@
 package cn.nekocode.template.base
 
-import cn.nekocode.template.page.UIRouter
+import cn.nekocode.template.screen.UIRouter
 import org.jetbrains.anko.toast
 
 /**

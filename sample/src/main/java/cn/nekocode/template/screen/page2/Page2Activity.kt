@@ -1,4 +1,4 @@
-package cn.nekocode.template.page.page2
+package cn.nekocode.template.screen.page2
 
 import android.os.Bundle
 import cn.nekocode.template.R
