@@ -1,6 +1,6 @@
 package cn.nekocode.template.screen.main
 
-import cn.nekocode.itempool.ItemPool
+import android.support.v7.widget.RecyclerView
 import cn.nekocode.template.base.IPresenter
 import cn.nekocode.template.base.IView
 
@@ -10,7 +10,7 @@ import cn.nekocode.template.base.IView
 interface Contract {
 
     interface View : IView {
-        fun setItemPool(itemPool: ItemPool)
+        fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>)
     }
 
     interface Presenter: IPresenter {

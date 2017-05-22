@@ -2,7 +2,7 @@ package cn.nekocode.template.screen.main
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import cn.nekocode.itempool.ItemPool
+import android.support.v7.widget.RecyclerView
 import cn.nekocode.template.R
 import cn.nekocode.template.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +26,7 @@ class MainActivity : BaseActivity(), Contract.View {
         presenter = presenterFactory.createOrGet(MainPresenter::class.java)
     }
 
-    override fun setItemPool(itemPool: ItemPool) {
-        itemPool.attachTo(recyclerView)
+    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+        recyclerView.adapter = adapter
     }
 }

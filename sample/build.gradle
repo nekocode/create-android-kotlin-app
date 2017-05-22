@@ -77,7 +77,7 @@ dependencies {
     // Tools
     compile "com.squareup.picasso:picasso:2.5.2"
     compile "com.github.nekocode:Meepo:0.1.5"
-    compile "com.github.nekocode:ItemPool:0.5.2"
+    compile "com.github.nekocode:ItemPool:0.5.4"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

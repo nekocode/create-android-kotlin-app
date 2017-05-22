@@ -56,7 +56,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
                 .subscribe({
                     itemPool.clear()
                     itemPool.addAll(it)
-                    view?.setItemPool(itemPool)
+                    view?.setAdapter(itemPool.adapter)
                 }, this::onError)
     }
 

@@ -16,7 +16,7 @@ class MeiziItem : Item<MeiziItem.VO>() {
     override fun onCreateItemView(inflater: LayoutInflater, parent: ViewGroup) =
             inflater.inflate(R.layout.item_meizi, parent, false)!!
 
-    override fun onBindItem(vo: MeiziItem.VO) {
+    override fun onBindData(vo: MeiziItem.VO) {
         with (viewHolder.itemView) {
             Picasso.with(context).load(vo.url).centerCrop().fit().into(imageView)
             textView.text = vo.title
