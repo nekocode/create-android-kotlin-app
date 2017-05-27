@@ -11,8 +11,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
  */
 abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
 
-    override fun context() = this
-
     abstract fun onCreatePresenter(presenterFactory: PresenterFactory)
 
     @CallSuper
@@ -23,6 +21,8 @@ abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
         onCreatePresenter(PresenterFactory(trans))
         trans.commit()
     }
+
+    override fun getContext() = this
 
     fun <T : Fragment> addOrGetFragment(
             trans: FragmentTransaction, containerId: Int,
@@ -43,7 +43,10 @@ abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
         fun <T : BasePresenter<*>> createOrGet(presenterClass: Class<T>, args: Bundle? = null): T {
             val _args = if (intent.extras != null) Bundle(intent.extras) else Bundle()
             if (args != null) _args.putAll(args)
-            return addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, _args)
+            val presenter = addOrGetFragment(trans, 0, presenterClass.canonicalName, presenterClass, _args)
+            presenter.setView(this@BaseActivity)
+
+            return presenter
         }
     }
 }

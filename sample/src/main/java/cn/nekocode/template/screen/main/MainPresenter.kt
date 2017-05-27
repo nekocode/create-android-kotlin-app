@@ -33,7 +33,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
             val meizi = (event.data as MeiziItem.VO).DO as Meizi
             when (event.action) {
                 Item.EVENT_ITEM_CLICK -> {
-                    gotoPage2(context(), meizi)
+                    gotoPage2(context, meizi)
                 }
             }
         }

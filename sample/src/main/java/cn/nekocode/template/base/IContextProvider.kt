@@ -7,5 +7,5 @@ import android.content.Context
  */
 interface IContextProvider {
 
-    fun context(): Context?
+    fun getContext(): Context?
 }

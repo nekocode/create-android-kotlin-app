@@ -9,6 +9,6 @@ import org.jetbrains.anko.toast
 interface IPresenter : IContextProvider, UIRouter {
 
     fun onError(err: Throwable) {
-        context()?.toast(err.message ?: "Unknown Error")
+        getContext()?.toast(err.message ?: "Unknown Error")
     }
 }

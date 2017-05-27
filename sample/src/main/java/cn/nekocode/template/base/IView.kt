@@ -8,6 +8,6 @@ import org.jetbrains.anko.toast
 interface IView : IContextProvider {
 
     fun toast(msg: String) {
-        context()?.toast(msg)
+        getContext()?.toast(msg)
     }
 }
