@@ -39,7 +39,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
         }
     }
 
-    override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         if (list == null) {
             GankService.getMeizis(50, 1)
         } else {
@@ -56,7 +56,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
                 .subscribe({
                     itemPool.clear()
                     itemPool.addAll(it)
-                    view?.setAdapter(itemPool.adapter)
+                    view.setAdapter(itemPool.adapter)
                 }, this::onError)
     }
 

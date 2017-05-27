@@ -15,12 +15,12 @@ abstract class BasePresenter<V> : RxFragment(), IContextProvider {
     private var view: V? = null
 
 
-    abstract fun onViewCreated(view: V?, savedInstanceState: Bundle?)
+    abstract fun onViewCreated(view: V, savedInstanceState: Bundle?)
 
     final override fun onCreateView(
             inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        onViewCreated(view, savedInstanceState)
+        onViewCreated(view ?: return null, savedInstanceState)
         return null
     }
 

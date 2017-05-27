@@ -12,9 +12,9 @@ class Page2Presenter : BasePresenter<Contract.View>(), Contract.Presenter {
         const val ARG_MEIZI = "ARG_MEIZI"
     }
 
-    override fun onViewCreated(view: Contract.View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         val meizi = arguments.getParcelable<Meizi>(ARG_MEIZI)
-        view?.setMeizi(MeiziVO.fromMeizi(meizi))
+        view.setMeizi(MeiziVO.fromMeizi(meizi))
     }
 
     override fun onImageClick() {
