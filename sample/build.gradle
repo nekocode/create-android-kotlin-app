@@ -71,8 +71,7 @@ dependencies {
     compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
 
     // Persist Instance State
-    compile "com.evernote:android-state:1.0.6"
-    kapt "com.evernote:android-state-processor:1.0.6"
+    compile 'com.github.yamamotoj:pikkel:0.3.3'
 
     // Tools
     compile "com.squareup.picasso:picasso:2.5.2"

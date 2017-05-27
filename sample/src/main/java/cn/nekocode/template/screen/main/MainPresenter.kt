@@ -7,26 +7,28 @@ import cn.nekocode.template.base.BasePresenter
 import cn.nekocode.template.data.DO.Meizi
 import cn.nekocode.template.data.service.GankService
 import cn.nekocode.template.item.MeiziItem
-import com.evernote.android.state.State
-import com.evernote.android.state.StateSaver
+import com.github.yamamotoj.pikkel.Pikkel
+import com.github.yamamotoj.pikkel.PikkelDelegate
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.processors.BehaviorProcessor
+import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
-    @State
-    var list: ArrayList<Meizi>? = null
+class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
+    var list by state<ArrayList<Meizi>?>(null)
     var itemPool = ItemPool()
+    var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
+        restoreInstanceState(savedInstanceState)
 
         itemPool.addType(MeiziItem::class.java)
         itemPool.onEvent(MeiziItem::class.java) { event ->
@@ -37,13 +39,11 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
                 }
             }
         }
-    }
 
-    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
         if (list == null) {
             GankService.getMeizis(50, 1)
         } else {
-            Observable.just(list!!)
+            Observable.just(list ?: return)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -51,17 +51,24 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
                     list = meizis
                     meizis.map { MeiziItem.VO.fromMeizi(it) }
                 }
+                .zipWith(viewBehavior.toObservable()) { voList: List<MeiziItem.VO>, view: Contract.View ->
+                    Pair(voList, view)
+                }
                 .bindToLifecycle(this)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+                .subscribe({ (voList, view) ->
                     itemPool.clear()
-                    itemPool.addAll(it)
+                    itemPool.addAll(voList)
                     view.setAdapter(itemPool.adapter)
                 }, this::onError)
     }
 
+    override fun onViewCreated(view: Contract.View, savedInstanceState: Bundle?) {
+        viewBehavior.onNext(view)
+    }
+
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        StateSaver.saveInstanceState(this, outState ?: return)
+        saveInstanceState(outState ?: return)
     }
 }

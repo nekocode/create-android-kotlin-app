@@ -20,7 +20,8 @@ abstract class BasePresenter<V> : RxFragment(), IContextProvider {
     final override fun onCreateView(
             inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        onViewCreated(view ?: return null, savedInstanceState)
+        val view = view ?: return null
+        onViewCreated(view, savedInstanceState)
         return null
     }
 
@@ -31,6 +32,11 @@ abstract class BasePresenter<V> : RxFragment(), IContextProvider {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onDestroyView() {
+        view = null
+        super.onDestroyView()
+    }
+
     override fun getContext(): Context =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) super.getContext() else activity
 
@@ -38,5 +44,5 @@ abstract class BasePresenter<V> : RxFragment(), IContextProvider {
         this.view = view as V
     }
 
-    fun view(): V = view!!
+    fun view(): V? = view
 }
