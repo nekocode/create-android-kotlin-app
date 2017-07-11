@@ -1,7 +1,7 @@
 package cn.nekocode.template.base
 
+import android.widget.Toast
 import cn.nekocode.template.screen.UIRouter
-import org.jetbrains.anko.toast
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -9,6 +9,6 @@ import org.jetbrains.anko.toast
 interface IPresenter : IContextProvider, UIRouter {
 
     fun onError(err: Throwable) {
-        getContext()?.toast(err.message ?: "Unknown Error")
+        Toast.makeText(getContext() ?: return, err.message ?: "Unknown Error", Toast.LENGTH_SHORT).show()
     }
 }

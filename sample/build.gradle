@@ -62,14 +62,9 @@ dependencies {
     compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxLifecycleVersion"
     compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rxLifecycleVersion"
 
-    // DSL
-    def ankoVersion = "0.10.1"
-    compile "org.jetbrains.anko:anko-sdk25:$ankoVersion"
-    compile "org.jetbrains.anko:anko-support-v4:$ankoVersion"
-    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
-
     // Persist Instance State
-    compile 'com.github.yamamotoj:pikkel:0.3.3'
+    compile 'com.evernote:android-state:1.1.1'
+    kapt 'com.evernote:android-state-processor:1.1.1'
 
     // Tools
     compile "com.squareup.picasso:picasso:2.5.2"

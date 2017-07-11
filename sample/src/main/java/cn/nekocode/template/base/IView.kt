@@ -1,6 +1,6 @@
 package cn.nekocode.template.base
 
-import org.jetbrains.anko.toast
+import android.widget.Toast
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -8,6 +8,6 @@ import org.jetbrains.anko.toast
 interface IView : IContextProvider {
 
     fun toast(msg: String) {
-        getContext()?.toast(msg)
+        Toast.makeText(getContext() ?: return, msg, Toast.LENGTH_SHORT).show()
     }
 }

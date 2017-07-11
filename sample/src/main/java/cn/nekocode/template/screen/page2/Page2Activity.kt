@@ -5,7 +5,6 @@ import cn.nekocode.template.R
 import cn.nekocode.template.base.BaseActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_page2.*
-import org.jetbrains.anko.onClick
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -22,7 +21,7 @@ class Page2Activity : BaseActivity(), Contract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page2)
 
-        imageView.onClick {
+        imageView.setOnClickListener {
             presenter?.onImageClick()
         }
     }

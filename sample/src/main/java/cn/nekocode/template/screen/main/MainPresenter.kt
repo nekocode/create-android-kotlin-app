@@ -7,8 +7,8 @@ import cn.nekocode.template.base.BasePresenter
 import cn.nekocode.template.data.DO.Meizi
 import cn.nekocode.template.data.service.GankService
 import cn.nekocode.template.item.MeiziItem
-import com.github.yamamotoj.pikkel.Pikkel
-import com.github.yamamotoj.pikkel.PikkelDelegate
+import com.evernote.android.state.State
+import com.evernote.android.state.StateSaver
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,15 +20,16 @@ import kotlin.collections.ArrayList
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel by PikkelDelegate() {
-    var list by state<ArrayList<Meizi>?>(null)
+class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
+    @State
+    var list: ArrayList<Meizi>? = null
     var itemPool = ItemPool()
     var viewBehavior = BehaviorProcessor.create<Contract.View>()!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        restoreInstanceState(savedInstanceState)
+        StateSaver.restoreInstanceState(this, savedInstanceState)
 
         itemPool.addType(MeiziItem::class.java)
         itemPool.onEvent(MeiziItem::class.java) { event ->
@@ -69,6 +70,6 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter, Pikkel
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        saveInstanceState(outState ?: return)
+        StateSaver.saveInstanceState(this, outState ?: return)
     }
 }
