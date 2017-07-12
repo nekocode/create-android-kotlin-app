@@ -29,10 +29,12 @@ abstract class BaseActivity : RxAppCompatActivity(), IContextProvider {
             tag: String, fragmentClass: Class<T>, args: Bundle? = null): T {
 
         var fragment = fragmentManager.findFragmentByTag(tag) as T?
-        if (fragment == null || fragment.isDetached) {
+        if (fragment == null) {
             fragment = Fragment.instantiate(this, fragmentClass.canonicalName, args) as T
-
             trans.add(containerId, fragment, tag)
+
+        } else if (fragment.isDetached) {
+            trans.attach(fragment)
         }
 
         return fragment
