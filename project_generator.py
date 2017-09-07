@@ -136,7 +136,7 @@ class ProjectGenerator:
 
         print 'Creating project [%s]...' % project_name
         self.process(project_name, package_name)
-        print 'Creat finished.'
+        print 'Create finished.'
 
     def process(self, project_name, package_name):
         # =================
