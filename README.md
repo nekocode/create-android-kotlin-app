@@ -8,6 +8,12 @@ This project template makes it easy to get started with [**Kotlin**](https://kot
 python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/Kotlin-Android-Template/master/project_generator.py)"
 ```
 
+If you're using python 3:
+
+```bash
+python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/Kotlin-Android-Template/master/project_generator_python3.py)"
+```
+
 ### Project Structure
 
 This project demonstrates a basic [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (MVP) architecture. It uses headless Fragment to implement Presenter because the Fragment provides lifecycle callbacks and can be recreated automatically by the FragmentManager. And the project entirely separates the business logic code into a submodule so you can maintain and test them separately.
