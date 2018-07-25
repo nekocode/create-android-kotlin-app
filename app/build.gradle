@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+
+    defaultConfig {
+        applicationId "cn.nekocode.gank"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        def SCHEME = "gank"
+
+        buildConfigField "String", "SCHEME", "\"$SCHEME\""
+
+        manifestPlaceholders = [
+                APPLICATION_ID: applicationId,
+                SCHEME: SCHEME,
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':backend')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
+
+    // Android support libraries
+    implementation "com.android.support:appcompat-v7:${SUPPORT_LIBS_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${SUPPORT_LIBS_VERSION}"
+    implementation "com.android.support:support-annotations:${SUPPORT_LIBS_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_LIBS_VERSION}"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // ReactiveX
+    implementation "io.reactivex.rxjava2:rxjava:2.1.8"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    def AUTO_DISPOSE_VERSION = "0.4.0"
+    implementation "com.uber.autodispose:autodispose:${AUTO_DISPOSE_VERSION}"
+    implementation "com.uber.autodispose:autodispose-android:${AUTO_DISPOSE_VERSION}"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents:${AUTO_DISPOSE_VERSION}"
+
+    // Others
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "com.github.nekocode:Meepo:0.3"
+    def ITEMS_VERSION = '0.8'
+    implementation "com.github.nekocode.Items:items:${ITEMS_VERSION}"
+    kapt "com.github.nekocode.Items:items-processor:${ITEMS_VERSION}"
+    def STATE_VERSION = '1.3.1'
+    implementation "com.evernote:android-state:${STATE_VERSION}"
+    kapt "com.evernote:android-state-processor:${STATE_VERSION}"
+    implementation 'pub.devrel:easypermissions:1.2.0'
+}

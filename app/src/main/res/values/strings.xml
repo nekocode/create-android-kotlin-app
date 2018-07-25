@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GankIo</string>
+    <string name="fetch_pic"><![CDATA[Fetch a picture from <i>gank.io</i>]]></string>
+    <string name="fetching_data">Fetching data…</string>
+    <string name="sth_went_wrong">Something went wrong</string>
+    <string name="fetch_suc">Fetched successfully</string>
+</resources>
