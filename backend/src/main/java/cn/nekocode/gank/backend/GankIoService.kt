@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class GankIoService(client: OkHttpClient, gson: Gson) {
+class GankIoService(val client: OkHttpClient, val gson: Gson) {
     private val retrofit: Retrofit =
             Retrofit.Builder()
                     .baseUrl("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/")
