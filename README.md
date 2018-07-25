@@ -1,6 +1,6 @@
 # README
 
-This project shows how to build an android application with kotlin and some useful libraries. It intergates the [Meepo](https://github.com/nekocode/Meepo) library to create activity & broadcast routers. And use kotlin language sugars to make their usages simpler. For example:
+This project shows how to build an android application with kotlin and some useful libraries. It imports the [Meepo](https://github.com/nekocode/Meepo) library to create activity & broadcast routers. And use kotlin language sugars to make their usages simpler. For example:
 
 ```kotlin
 // Goto a new activity
@@ -21,14 +21,14 @@ registerLocalReceiver({ _, intent ->
 }, "ACTION_XXX", "ACTION_XXX2")
 ```
 
-It intergates the [Retrofit](https://github.com/square/retrofit) library to help making http requests:
+It also imports the [Retrofit](https://github.com/square/retrofit) library to make network requests:
 
 ```kotlin
 gankIoService().picApi.getMeiziPics(1, 0)
     // ...
 ```
 
-And it splits the backend logic (file and network operations that not relate to ui) into a submodule. And make them easier to test:
+And it splits models' definition, file and network operations and other classes unrelated to ui into a submodule. And make them easier to test. Such as:
 
 ```kotlin
 class GankIoServiceTest {
@@ -46,4 +46,12 @@ class GankIoServiceTest {
 }
 ```
 
-Please reference the code to see more details.
+It also use language sugars to make [AutoDispose](https://github.com/uber/AutoDispose)'s usage more convenient:
+
+```kotlin
+// ... Rx stream
+        .autoDispose()
+        .subscribe()
+```
+
+For more details, you can look at the code directly.
