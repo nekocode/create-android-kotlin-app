@@ -26,8 +26,6 @@ import cn.nekocode.gank.gankIoService
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import com.squareup.picasso.Picasso
-import com.uber.autodispose.AutoDispose
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -63,7 +61,7 @@ class PicActivity : BaseActivity() {
                     }
         }
                 .observeOn(AndroidSchedulers.mainThread())
-                .to(AutoDispose.with(AndroidLifecycleScopeProvider.from(this)).forSingle())
+                .autoDisposable()
                 .subscribe({ pic ->
                     title = pic.id
                     Picasso.with(this).load(pic.url).centerCrop().fit().into(imageView)

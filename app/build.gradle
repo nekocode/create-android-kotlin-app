@@ -47,7 +47,7 @@ dependencies {
     // ReactiveX
     implementation "io.reactivex.rxjava2:rxjava:2.1.8"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-    def AUTO_DISPOSE_VERSION = "0.4.0"
+    def AUTO_DISPOSE_VERSION = "0.8.0"
     implementation "com.uber.autodispose:autodispose:${AUTO_DISPOSE_VERSION}"
     implementation "com.uber.autodispose:autodispose-android:${AUTO_DISPOSE_VERSION}"
     implementation "com.uber.autodispose:autodispose-android-archcomponents:${AUTO_DISPOSE_VERSION}"
