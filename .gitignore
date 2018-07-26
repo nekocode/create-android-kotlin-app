@@ -1,11 +1,9 @@
 .gradle
-.idea
+/.idea
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
 /build
 /captures
+.DS_Store
 *.iml
 *.apk
 *.jobf
