@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION.toInteger()
@@ -7,21 +7,21 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        consumerProguardFiles'proguard-rules.pro'
+        consumerProguardFiles "proguard-rules.pro"
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation "junit:junit:4.12"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KOTLIN_VERSION}"
 
     // Network
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
-    api 'com.google.code.gson:gson:2.8.4'
-    def RETROFIT_VERSION = '2.4.0'
+    api "com.squareup.okhttp3:okhttp:3.10.0"
+    api "com.google.code.gson:gson:2.8.4"
+    def RETROFIT_VERSION = "2.4.0"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
