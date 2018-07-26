@@ -1,6 +1,8 @@
 # README
 
-This project shows how to build an android application with kotlin and some other useful libraries. It imports the [Meepo](https://github.com/nekocode/Meepo) library to create activity & broadcast routers. And use kotlin language sugars to make their usages simpler. For example:
+Create android kotlin app from template.
+
+This template project imports the [Meepo](https://github.com/nekocode/Meepo) library to create activity & broadcast routers. And use kotlin language sugars to make their usages simpler. For example:
 
 ```kotlin
 // Goto a new activity
@@ -21,14 +23,14 @@ registerLocalReceiver({ _, intent ->
 }, "ACTION_XXX", "ACTION_XXX2")
 ```
 
-Sending a network request is also simple:
+Sending a network request in this project is also simple:
 
 ```kotlin
 gankIoService().picApi.getMeiziPics(1, 0)
     // ...
 ```
 
-And it splits network operations into a submodule. And make tests for them. Such as:
+And the network operations are separated into a submodule. Some tests are created for them:
 
 ```kotlin
 class GankIoServiceTest {
@@ -54,4 +56,12 @@ In addition, it creates some extention methods for [AutoDispose](https://github.
         .subscribe()
 ```
 
-For more details, you can look at the code directly.
+For more details, you can look at the code of template directly.
+
+## Creating
+
+Make sure you have installed Python 3 and [requests](https://pypi.org/project/requests/) library before proceeding. And then pate the following command at a terminal, replace the `PROJECT_NAME` and `APP_PACKAGE_NAME` and execute it:
+
+```
+python3 -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/create-android-kotlin-app/master/create-android-kotlin-app.py)" PROJECT_NAME APP_PACKAGE_NAME
+```
