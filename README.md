@@ -46,7 +46,7 @@ class GankIoServiceTest {
 }
 ```
 
-In addition, it creates some extention methods for [AutoDispose](https://github.com/uber/AutoDispose) so that you can auto dispose your rx stream more conveniently:
+In addition, it creates some extention methods for [AutoDispose](https://github.com/uber/AutoDispose) so that you can automatically dispose your rx stream more conveniently:
 
 ```kotlin
 // ... Rx stream
