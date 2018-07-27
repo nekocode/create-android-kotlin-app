@@ -127,27 +127,35 @@ def fetch_lastest_archive() -> bytes:
 
 
 def main():
+    def green(txt: str) -> str:
+        return '\33[32m' + txt + '\33[0m'
+
+    def red(txt: str) -> str:
+        return '\33[31m' + txt + '\33[0m'
+
     if not (len(sys.argv) == 3):
-        print("Usage: python3 create-android-kotlin-app.py PROJECT_NAME APP_PACKAGE_NAME")
+        print('Usage: python3 create-android-kotlin-app.py ' +
+              green('<PROJECT_NAME> <APP_PACKAGE_NAME>'))
         return
 
     project_name = sys.argv[1]
     if os.path.exists(project_name):
-        print('Can not create project. There is already a directory named "%s" in the current path.' % project_name)
+        print(red('Error: ') + 'Can not create project. ' +
+              'There is already a directory named %s in the current path.' % green(project_name))
         return
     try:
         os.mkdir(project_name)
     except:
-        print('Can not create directory "%s".' % project_name)
+        print(red('Error: ') + 'Can not create directory %s' % green(project_name))
         return
 
     package_name = sys.argv[2]
     if not re.match('^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$', package_name):
-        print('Invaild java package name "%s".' % package_name)
+        print(red('Error: ') + 'Invaild java package name %s' % green(package_name))
         return
 
-    print('Creating a new android kotlin app in "%s".\n' % project_name)
-    print('Fetching the lastest source code archive from %s\nThis might take a couple minutes.' % REPO_URL)
+    print('Creating a new android kotlin app in %s\n' % green("./" + project_name))
+    print('Fetching the lastest source code archive from %s\nThis might take a couple minutes.' % green(REPO_URL))
     archive_data = fetch_lastest_archive()
 
     print('Unziping template files...\n')
