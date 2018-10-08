@@ -4,7 +4,7 @@ This is an android application template project built with kotlin language and s
 
 ## Creating project
 
-Make sure you have installed Python 3 and [requests](https://pypi.org/project/requests/) library before proceeding. And then pate the following command at a terminal, replace the `PROJECT_NAME` and `APP_PACKAGE_NAME` and execute it:
+Make sure you have installed Python 3 and [requests](https://pypi.org/project/requests/) library before proceeding. And then paste the following command at a terminal, replace the `PROJECT_NAME` and `APP_PACKAGE_NAME` and execute it:
 
 ```sh
 python3 -c \
