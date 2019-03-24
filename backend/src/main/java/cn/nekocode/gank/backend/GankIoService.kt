@@ -28,12 +28,12 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class GankIoService(val client: OkHttpClient, val gson: Gson) {
     private val retrofit: Retrofit =
-            Retrofit.Builder()
-                    .baseUrl("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/")
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build()
+        Retrofit.Builder()
+            .baseUrl("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
 
     val picApi: PicApi = retrofit.create(PicApi::class.java)
 }

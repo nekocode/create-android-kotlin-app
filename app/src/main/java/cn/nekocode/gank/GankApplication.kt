@@ -34,7 +34,7 @@ import okhttp3.OkHttpClient
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class GankApplication: Application() {
+class GankApplication : Application() {
     lateinit var activityRouter: ActivityRouter
     lateinit var broadcastRouter: BroadcastRouter
     lateinit var gankIoService: GankIoService
@@ -43,11 +43,11 @@ class GankApplication: Application() {
         super.onCreate()
 
         activityRouter = Meepo.Builder()
-                .config(UriConfig().scheme(BuildConfig.SCHEME).host(BuildConfig.APPLICATION_ID))
-                .build().create(ActivityRouter::class.java)
+            .config(UriConfig().scheme(BuildConfig.SCHEME).host(BuildConfig.APPLICATION_ID))
+            .build().create(ActivityRouter::class.java)
         broadcastRouter = Meepo.Builder()
-                .config(BroadcastConfig()).adapter(BroadcastCallAdapter())
-                .build().create(BroadcastRouter::class.java)
+            .config(BroadcastConfig()).adapter(BroadcastCallAdapter())
+            .build().create(BroadcastRouter::class.java)
         gankIoService = GankIoService(OkHttpClient(), Gson())
     }
 }
@@ -57,15 +57,16 @@ fun Context.broadcastRouter() = (this.applicationContext as GankApplication).bro
 fun Context.gankIoService() = (this.applicationContext as GankApplication).gankIoService
 
 fun Context.registerLocalReceiver(
-        receiver: (Context?, Intent?) -> Unit, intentFilter: IntentFilter) {
+    receiver: (Context?, Intent?) -> Unit, intentFilter: IntentFilter) {
 
     LocalBroadcastManager.getInstance(this)
-            .registerReceiver(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    receiver.invoke(context, intent)
-                }
-            }, intentFilter)
+        .registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                receiver.invoke(context, intent)
+            }
+        }, intentFilter)
 }
+
 fun Context.registerLocalReceiver(receiver: (Context?, Intent?) -> Unit, vararg actions: String) {
     val intentFilter = IntentFilter()
     actions.forEach {

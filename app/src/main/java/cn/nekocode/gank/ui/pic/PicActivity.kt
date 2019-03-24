@@ -53,23 +53,23 @@ class PicActivity : BaseActivity() {
             Single.just(pic!!)
         } else {
             gankIoService().picApi.getMeiziPics(1, 0)
-                    .subscribeOn(Schedulers.io())
-                    .firstOrError()
-                    .map { response ->
-                        pic = response.results[0]
-                        pic
-                    }
+                .subscribeOn(Schedulers.io())
+                .firstOrError()
+                .map { response ->
+                    pic = response.results[0]
+                    pic
+                }
         }
-                .observeOn(AndroidSchedulers.mainThread())
-                .autoDisposable()
-                .subscribe({ pic ->
-                    title = pic.id
-                    Picasso.with(this).load(pic.url).centerCrop().fit().into(imageView)
-                    broadcastRouter().tellFetchSuc(this)
+            .observeOn(AndroidSchedulers.mainThread())
+            .autoDisposable()
+            .subscribe({ pic ->
+                title = pic.id
+                Picasso.with(this).load(pic.url).centerCrop().fit().into(imageView)
+                broadcastRouter().tellFetchSuc(this)
 
-                }, { _ ->
-                    Toast.makeText(this, R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()
-                })
+            }, { _ ->
+                Toast.makeText(this, R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()
+            })
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
