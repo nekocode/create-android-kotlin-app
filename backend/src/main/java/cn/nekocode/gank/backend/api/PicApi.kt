@@ -29,7 +29,7 @@ interface PicApi {
 
     @GET("{count}/{pageNum}")
     fun getMeiziPics(
-            @Path("count") count: Int,
-            @Path("pageNum") pageNum: Int
-    ):Observable<GankIoResponse<MeiziPic>>
+        @Path("count") count: Int,
+        @Path("pageNum") pageNum: Int
+    ): Observable<GankIoResponse<MeiziPic>>
 }

@@ -24,16 +24,16 @@ import com.google.gson.annotations.SerializedName
  * @author nekocode (nekocode.cn@gmail.com)
  */
 data class MeiziPic(
-        @SerializedName("_id") override val id: String,
-        @SerializedName("type") val type: String,
-        @SerializedName("url") val url: String,
-        @SerializedName("who") val who: String
+    @SerializedName("_id") override val id: String,
+    @SerializedName("type") val type: String,
+    @SerializedName("url") val url: String,
+    @SerializedName("who") val who: String
 ) : WithId, Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString()) {
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

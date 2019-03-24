@@ -22,6 +22,6 @@ import com.google.gson.annotations.SerializedName
  * @author nekocode (nekocode.cn@gmail.com)
  */
 data class GankIoResponse<T>(
-        @SerializedName("error") val error: Boolean,
-        @SerializedName("results") val results: List<T>
+    @SerializedName("error") val error: Boolean,
+    @SerializedName("results") val results: List<T>
 )

@@ -29,10 +29,10 @@ class GankIoServiceTest {
     @Test
     fun getMeiziPics() {
         gankIoService.picApi.getMeiziPics(10, 0)
-                .test()
-                .assertNoErrors()
-                .assertValue { response ->
-                    !response.error && response.results.size == 10
-                }
+            .test()
+            .assertNoErrors()
+            .assertValue { response ->
+                !response.error && response.results.size == 10
+            }
     }
 }
