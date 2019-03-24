@@ -43,7 +43,7 @@ class MainActivity : BaseActivity() {
         // Register local broadcast receiver
         registerLocalReceiver({ _, intent ->
             val action = (intent ?: return@registerLocalReceiver).action
-                    ?: return@registerLocalReceiver
+                ?: return@registerLocalReceiver
             when (action) {
                 BroadcastRouter.FETCH_SUC -> {
                     fetchBtn.text = getString(R.string.fetch_suc)
