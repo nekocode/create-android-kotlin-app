@@ -33,7 +33,7 @@ class ProjectCreator:
             if last_semgnet.endswith('.kt'):
                 self.kt_file(entry_name)
 
-            elif last_semgnet.endswith('.gradle'):
+            elif last_semgnet.endswith('.gradle.kts'):
                 self.gradle_file(entry_name)
 
             elif last_semgnet == 'AndroidManifest.xml':
