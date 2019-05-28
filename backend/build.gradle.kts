@@ -8,8 +8,8 @@ plugins {
 android {
     compileSdkVersion(28)
     defaultConfig {
-        minSdkVersion(16)
         targetSdkVersion(28)
+        minSdkVersion(16)
         consumerProguardFiles("proguard-rules.pro")
     }
 }
@@ -22,12 +22,11 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
 
     // Network
-    api("com.squareup.okhttp3:okhttp:3.11.0")
+    api("com.squareup.okhttp3:okhttp:3.14.1")
     api("com.google.code.gson:gson:2.8.4")
-    val RETROFIT_VERSION = "2.4.0"
-    implementation("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION")
-    implementation("com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION")
+    implementation("com.squareup.retrofit2:retrofit:2.5.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
 
     // ReactiveX
     api("io.reactivex.rxjava2:rxjava:2.2.2")

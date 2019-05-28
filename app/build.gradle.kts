@@ -10,19 +10,19 @@ plugins {
 android {
     compileSdkVersion(28)
     defaultConfig {
-        applicationId = "cn.nekocode.gank"
-        minSdkVersion(16)
         targetSdkVersion(28)
+        minSdkVersion(16)
+        applicationId = "cn.nekocode.gank"
         versionCode = 1
         versionName = "1.0"
 
-        val SCHEME = "gank"
+        val scheme = "gank"
 
-        buildConfigField("String", "SCHEME", "\"${SCHEME}\"")
+        buildConfigField("String", "SCHEME", "\"$scheme\"")
 
         manifestPlaceholders = mapOf(
             "APPLICATION_ID" to applicationId,
-            "SCHEME" to SCHEME
+            "SCHEME" to scheme
         )
     }
     buildTypes {
@@ -41,24 +41,21 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
 
     // Android support libraries
-    val SUPPORT_VERSION = "28.0.0"
-    implementation("com.android.support:appcompat-v7:$SUPPORT_VERSION")
-    implementation("com.android.support:recyclerview-v7:$SUPPORT_VERSION")
-    implementation("com.android.support:support-annotations:$SUPPORT_VERSION")
+    implementation("com.android.support:appcompat-v7:28.0.0")
+    implementation("com.android.support:recyclerview-v7:28.0.0")
+    implementation("com.android.support:support-annotations:28.0.0")
     implementation("com.android.support.constraint:constraint-layout:1.1.3")
 
     // ReactiveX
     implementation("io.reactivex.rxjava2:rxjava:2.2.2")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
-    val AUTO_DISPOSE_VERSION = "0.8.0"
-    implementation("com.uber.autodispose:autodispose:$AUTO_DISPOSE_VERSION")
-    implementation("com.uber.autodispose:autodispose-android:$AUTO_DISPOSE_VERSION")
-    implementation("com.uber.autodispose:autodispose-android-archcomponents:$AUTO_DISPOSE_VERSION")
+    implementation("com.uber.autodispose:autodispose:0.8.0")
+    implementation("com.uber.autodispose:autodispose-android:0.8.0")
+    implementation("com.uber.autodispose:autodispose-android-archcomponents:0.8.0")
 
     // Others
     implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("com.github.nekocode:Meepo:0.3")
-    val STATE_VERSION = "1.3.1"
-    implementation("com.evernote:android-state:$STATE_VERSION")
-    kapt("com.evernote:android-state-processor:$STATE_VERSION")
+    implementation("com.evernote:android-state:1.3.1")
+    kapt("com.evernote:android-state-processor:1.3.1")
 }
