@@ -1,4 +1,5 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
+import dependencies.Dep
+import dependencies.Versions
 
 plugins {
     id("com.android.library")
@@ -6,30 +7,29 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(Versions.compileSdk)
     defaultConfig {
-        minSdkVersion(16)
-        targetSdkVersion(28)
+        targetSdkVersion(Versions.targetSdk)
+        minSdkVersion(Versions.minSdk)
         consumerProguardFiles("proguard-rules.pro")
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    testImplementation("junit:junit:4.12")
-
-    // Kotlin
-    implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
+    implementation(Dep.Kotlin.stdlib)
 
     // Network
-    api("com.squareup.okhttp3:okhttp:3.11.0")
-    api("com.google.code.gson:gson:2.8.4")
-    val RETROFIT_VERSION = "2.4.0"
-    implementation("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION")
-    implementation("com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION")
+    api(Dep.OkHttp.okhttp)
+    api(Dep.Retrofit.retrofit)
+    api(Dep.Retrofit.gsonConverter)
+    api(Dep.Retrofit.rxAdapter)
+    api(Dep.Gson.gson)
 
     // ReactiveX
-    api("io.reactivex.rxjava2:rxjava:2.2.2")
-    api("io.reactivex.rxjava2:rxandroid:2.1.0")
+    implementation(Dep.Rx.java)
+    implementation(Dep.Rx.android)
+
+    // Test
+    testImplementation(Dep.Test.junit)
 }
