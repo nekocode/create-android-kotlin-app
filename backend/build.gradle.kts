@@ -3,6 +3,12 @@ import org.jetbrains.kotlin.config.KotlinCompilerVersion
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("android.extensions")
+}
+
+androidExtensions {
+    isExperimental = true
+    features = setOf("parcelize")
 }
 
 android {

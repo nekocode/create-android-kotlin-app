@@ -52,22 +52,26 @@ class GankApplication : Application() {
     }
 }
 
-fun Context.activityRouter() = (this.applicationContext as GankApplication).activityRouter
-fun Context.broadcastRouter() = (this.applicationContext as GankApplication).broadcastRouter
-fun Context.gankIoService() = (this.applicationContext as GankApplication).gankIoService
+val Context.activityRouter get() = (this.applicationContext as GankApplication).activityRouter
+val Context.broadcastRouter get() = (this.applicationContext as GankApplication).broadcastRouter
+val Context.gankIoService get() = (this.applicationContext as GankApplication).gankIoService
 
 fun Context.registerLocalReceiver(
-    receiver: (Context?, Intent?) -> Unit, intentFilter: IntentFilter) {
-
+    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit,
+    intentFilter: IntentFilter
+) {
     LocalBroadcastManager.getInstance(this)
         .registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                receiver.invoke(context, intent)
+                receiver.invoke(this, context, intent)
             }
         }, intentFilter)
 }
 
-fun Context.registerLocalReceiver(receiver: (Context?, Intent?) -> Unit, vararg actions: String) {
+fun Context.registerLocalReceiver(
+    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit,
+    vararg actions: String
+) {
     val intentFilter = IntentFilter()
     actions.forEach {
         intentFilter.addAction(it)

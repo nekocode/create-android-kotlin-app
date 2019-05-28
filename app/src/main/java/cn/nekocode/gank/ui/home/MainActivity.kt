@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         fetchBtn.text = Html.fromHtml(getString(R.string.fetch_pic))
         fetchBtn.setOnClickListener {
-            activityRouter().gotoPic(this)
+            activityRouter.gotoPic(this)
         }
 
         // Register local broadcast receiver

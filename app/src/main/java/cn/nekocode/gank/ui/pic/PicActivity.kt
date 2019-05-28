@@ -52,7 +52,7 @@ class PicActivity : BaseActivity() {
         if (pic != null) {
             Single.just(pic!!)
         } else {
-            gankIoService().picApi.getMeiziPics(1, 0)
+            gankIoService.picApi.getMeiziPics(1, 0)
                 .subscribeOn(Schedulers.io())
                 .firstOrError()
                 .map { response ->
@@ -65,7 +65,7 @@ class PicActivity : BaseActivity() {
             .subscribe({ pic ->
                 title = pic.id
                 Picasso.with(this).load(pic.url).centerCrop().fit().into(imageView)
-                broadcastRouter().tellFetchSuc(this)
+                broadcastRouter.tellFetchSuc(this)
 
             }, { _ ->
                 Toast.makeText(this, R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()

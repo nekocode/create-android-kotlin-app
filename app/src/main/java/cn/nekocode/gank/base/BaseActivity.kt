@@ -16,6 +16,7 @@
 
 package cn.nekocode.gank.base
 
+import android.annotation.SuppressLint
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -28,6 +29,7 @@ import io.reactivex.parallel.ParallelFlowable
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
+@SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

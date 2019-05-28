@@ -7,6 +7,11 @@ plugins {
     kotlin("kapt")
 }
 
+androidExtensions {
+    isExperimental = true
+    features = setOf("views", "parcelize")
+}
+
 android {
     compileSdkVersion(28)
     defaultConfig {
