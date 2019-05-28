@@ -9,7 +9,7 @@ android {
     compileSdkVersion(28)
     defaultConfig {
         targetSdkVersion(28)
-        minSdkVersion(16)
+        minSdkVersion(21)
         consumerProguardFiles("proguard-rules.pro")
     }
 }
@@ -22,7 +22,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
 
     // Network
-    api("com.squareup.okhttp3:okhttp:3.14.1")
+    api("com.squareup.okhttp3:okhttp:3.12.3")
     api("com.google.code.gson:gson:2.8.4")
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")

@@ -11,7 +11,7 @@ android {
     compileSdkVersion(28)
     defaultConfig {
         targetSdkVersion(28)
-        minSdkVersion(16)
+        minSdkVersion(21)
         applicationId = "cn.nekocode.gank"
         versionCode = 1
         versionName = "1.0"
