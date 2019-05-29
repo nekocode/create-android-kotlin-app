@@ -72,8 +72,8 @@ class PicActivity : BaseActivity() {
             })
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.let { StateSaver.saveInstanceState(this, it) }
+        StateSaver.saveInstanceState(this, outState)
     }
 }

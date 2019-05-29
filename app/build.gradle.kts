@@ -46,10 +46,11 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
 
     // Android support libraries
-    implementation("com.android.support:appcompat-v7:28.0.0")
-    implementation("com.android.support:recyclerview-v7:28.0.0")
-    implementation("com.android.support:support-annotations:28.0.0")
-    implementation("com.android.support.constraint:constraint-layout:1.1.3")
+    implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
+    implementation("androidx.core:core-ktx:1.0.2")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0-alpha01")
+    implementation("androidx.recyclerview:recyclerview:1.1.0-alpha05")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
 
     // ReactiveX
     implementation("io.reactivex.rxjava2:rxjava:2.2.2")

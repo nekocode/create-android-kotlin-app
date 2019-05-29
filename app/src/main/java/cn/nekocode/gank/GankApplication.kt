@@ -21,7 +21,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.support.v4.content.LocalBroadcastManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cn.nekocode.gank.backend.GankIoService
 import cn.nekocode.gank.broadcast.BroadcastCallAdapter
 import cn.nekocode.gank.broadcast.BroadcastConfig
