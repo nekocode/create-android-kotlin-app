@@ -21,11 +21,11 @@ The template project imports the [Meepo](https://github.com/nekocode/Meepo) libr
 // Navigate to a new activity
 activityRouter.gotoXxxActivity(this)
 
-// Broadcast something
+// Broadcast action
 broadcastRouter.tellSomeSth(this)
 
 // Register broadcast receiver
-registerLocalReceiver({ _, intent ->
+registerLocalReceiver(BroadcastRouter.Action1, BroadcastRouter.Action2) { _, intent ->
     val action = (intent ?: return@registerLocalReceiver).action
             ?: return@registerLocalReceiver
     when (action) {
@@ -33,7 +33,7 @@ registerLocalReceiver({ _, intent ->
             // Do sth
         }
     }
-}, BroadcastRouter.Action1, BroadcastRouter.Action2)
+}
 ```
 
 Sending a network request in this project is also simple:

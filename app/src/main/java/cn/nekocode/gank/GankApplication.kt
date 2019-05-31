@@ -57,8 +57,8 @@ val Context.broadcastRouter get() = (this.applicationContext as GankApplication)
 val Context.gankIoService get() = (this.applicationContext as GankApplication).gankIoService
 
 fun Context.registerLocalReceiver(
-    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit,
-    intentFilter: IntentFilter
+    intentFilter: IntentFilter,
+    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit
 ) {
     LocalBroadcastManager.getInstance(this)
         .registerReceiver(object : BroadcastReceiver() {
@@ -69,12 +69,12 @@ fun Context.registerLocalReceiver(
 }
 
 fun Context.registerLocalReceiver(
-    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit,
-    vararg actions: String
+    vararg actions: String,
+    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit
 ) {
     val intentFilter = IntentFilter()
     actions.forEach {
         intentFilter.addAction(it)
     }
-    registerLocalReceiver(receiver, intentFilter)
+    registerLocalReceiver(intentFilter, receiver)
 }

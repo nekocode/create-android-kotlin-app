@@ -41,7 +41,7 @@ class MainActivity : BaseActivity() {
         }
 
         // Register local broadcast receiver
-        registerLocalReceiver({ _, intent ->
+        registerLocalReceiver(BroadcastRouter.FETCH_SUC) { _, intent ->
             val action = (intent ?: return@registerLocalReceiver).action
                 ?: return@registerLocalReceiver
             when (action) {
@@ -50,8 +50,7 @@ class MainActivity : BaseActivity() {
                     fetchBtn.isEnabled = false
                 }
             }
-
-        }, BroadcastRouter.FETCH_SUC)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
