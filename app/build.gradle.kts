@@ -36,6 +36,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -64,4 +68,9 @@ dependencies {
     implementation("com.github.nekocode:Meepo:0.3")
     implementation("com.evernote:android-state:1.3.1")
     kapt("com.evernote:android-state-processor:1.3.1")
+
+    // For debugging
+    debugImplementation("com.facebook.flipper:flipper:0.21.1")
+    debugImplementation("com.facebook.soloader:soloader:0.6.0")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.21.1")
 }

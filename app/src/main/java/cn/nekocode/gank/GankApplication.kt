@@ -23,6 +23,13 @@ import cn.nekocode.gank.broadcast.BroadcastConfig
 import cn.nekocode.gank.broadcast.BroadcastRouter
 import cn.nekocode.meepo.Meepo
 import cn.nekocode.meepo.config.UriConfig
+import com.facebook.flipper.android.AndroidFlipperClient
+import com.facebook.flipper.android.utils.FlipperUtils
+import com.facebook.flipper.plugins.inspector.DescriptorMapping
+import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
+import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+import com.facebook.soloader.SoLoader
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 
@@ -37,12 +44,33 @@ class GankApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        val httpClientBuilder = OkHttpClient.Builder()
+
+        // Flipper https://fbflipper.com/docs/getting-started.html
+        SoLoader.init(this, false)
+        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
+            AndroidFlipperClient.getInstance(this).apply {
+                // Layout inspecting
+                addPlugin(
+                    InspectorFlipperPlugin(
+                    this@GankApplication, DescriptorMapping.withDefaults())
+                )
+
+                // Network inspecting
+                NetworkFlipperPlugin().let {
+                    addPlugin(it)
+                    httpClientBuilder.addNetworkInterceptor(FlipperOkhttpInterceptor(it))
+                }
+            }.start()
+        }
+
+        // Components
         activityRouter = Meepo.Builder()
             .config(UriConfig().scheme(BuildConfig.SCHEME).host(BuildConfig.APPLICATION_ID))
             .build().create(ActivityRouter::class.java)
         broadcastRouter = Meepo.Builder()
             .config(BroadcastConfig()).adapter(BroadcastCallAdapter())
             .build().create(BroadcastRouter::class.java)
-        apis = Apis(OkHttpClient.Builder(), GsonBuilder())
+        apis = Apis(httpClientBuilder, GsonBuilder())
     }
 }
