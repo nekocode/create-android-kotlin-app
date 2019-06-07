@@ -28,13 +28,13 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
 
     // Network
-    api("com.squareup.okhttp3:okhttp:3.12.3")
+    api("com.squareup.okhttp3:okhttp:3.14.1")
     api("com.google.code.gson:gson:2.8.4")
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
 
     // ReactiveX
-    api("io.reactivex.rxjava2:rxjava:2.2.2")
-    api("io.reactivex.rxjava2:rxandroid:2.1.0")
+    api("io.reactivex.rxjava2:rxjava:2.2.6")
+    api("io.reactivex.rxjava2:rxandroid:2.1.1")
 }

@@ -53,8 +53,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
 
     // ReactiveX
-    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.6")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("com.uber.autodispose:autodispose:0.8.0")
     implementation("com.uber.autodispose:autodispose-android:0.8.0")
     implementation("com.uber.autodispose:autodispose-android-archcomponents:0.8.0")
