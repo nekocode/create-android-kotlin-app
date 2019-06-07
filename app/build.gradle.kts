@@ -53,7 +53,6 @@ dependencies {
     // Androidx
     implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0-alpha01")
     implementation("androidx.recyclerview:recyclerview:1.1.0-alpha05")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
 
