@@ -17,11 +17,6 @@
 package cn.nekocode.gank
 
 import android.app.Application
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import cn.nekocode.gank.backend.Apis
 import cn.nekocode.gank.broadcast.BroadcastCallAdapter
 import cn.nekocode.gank.broadcast.BroadcastConfig
@@ -50,31 +45,4 @@ class GankApplication : Application() {
             .build().create(BroadcastRouter::class.java)
         apis = Apis(OkHttpClient.Builder(), GsonBuilder())
     }
-}
-
-val Context.activityRouter get() = (this.applicationContext as GankApplication).activityRouter
-val Context.broadcastRouter get() = (this.applicationContext as GankApplication).broadcastRouter
-val Context.apis get() = (this.applicationContext as GankApplication).apis
-
-fun Context.registerLocalReceiver(
-    intentFilter: IntentFilter,
-    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit
-) {
-    LocalBroadcastManager.getInstance(this)
-        .registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                receiver.invoke(this, context, intent)
-            }
-        }, intentFilter)
-}
-
-fun Context.registerLocalReceiver(
-    vararg actions: String,
-    receiver: BroadcastReceiver.(Context?, Intent?) -> Unit
-) {
-    val intentFilter = IntentFilter()
-    actions.forEach {
-        intentFilter.addAction(it)
-    }
-    registerLocalReceiver(intentFilter, receiver)
 }
