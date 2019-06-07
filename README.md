@@ -19,6 +19,7 @@ This template project includes some of the latest features in Android developmen
 
 - Used kotlin completely (includes the gradle build scripts)
 - Used AndroidX & Navigation
+- Functional programming style
 - Some simple but useful extensions
 
 For more details, you can check the code directly.
