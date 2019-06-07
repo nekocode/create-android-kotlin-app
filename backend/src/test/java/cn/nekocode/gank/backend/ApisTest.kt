@@ -16,21 +16,21 @@
 
 package cn.nekocode.gank.backend
 
-import com.google.gson.Gson
-import okhttp3.OkHttpClient
 import org.junit.Ignore
 import org.junit.Test
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class GankIoServiceTest {
-    private val gankIoService = GankIoService(OkHttpClient(), Gson())
+class ApisTest {
+    private val apis = Apis()
+    private val client = apis.client
+    private val gson = apis.gson
 
     @Test
     @Ignore("Please run this method manually.")
     fun getMeiziPics() {
-        gankIoService.picApi.getMeiziPics(10, 0)
+        apis.pic.getMeiziPics(10, 0)
             .test()
             .assertNoErrors()
             .assertValue { response ->

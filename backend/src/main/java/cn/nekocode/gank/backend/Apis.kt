@@ -18,6 +18,7 @@ package cn.nekocode.gank.backend
 
 import cn.nekocode.gank.backend.api.PicApi
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -26,14 +27,46 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class GankIoService(val client: OkHttpClient, val gson: Gson) {
+class Apis(
+    clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
+    gsonBuilder: GsonBuilder = GsonBuilder(),
+    apiEnv: ApiEnv = ApiEnv.PRODUCT
+) {
+
+    enum class ApiEnv(val baseUrl: String) {
+        PRODUCT("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"),
+    }
+
+    /**
+     * OkHttp Client
+     */
+    val client: OkHttpClient = clientBuilder
+        .addInterceptor { chain ->
+            val oldReq = chain.request()
+            val newReqBuilder = oldReq.newBuilder()
+
+            // Add headers
+            newReqBuilder.addHeader("x-device-platform", "android")
+
+            chain.proceed(newReqBuilder.build())
+        }
+        .build()
+
+    /**
+     * Gson
+     */
+    val gson: Gson = gsonBuilder.create()
+
     private val retrofit: Retrofit =
         Retrofit.Builder()
-            .baseUrl("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/")
+            .baseUrl(apiEnv.baseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-    val picApi: PicApi = retrofit.create(PicApi::class.java)
+    /**
+     * All apis
+     */
+    val pic: PicApi = retrofit.create(PicApi::class.java)
 }

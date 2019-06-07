@@ -22,13 +22,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import cn.nekocode.gank.backend.GankIoService
+import cn.nekocode.gank.backend.Apis
 import cn.nekocode.gank.broadcast.BroadcastCallAdapter
 import cn.nekocode.gank.broadcast.BroadcastConfig
 import cn.nekocode.gank.broadcast.BroadcastRouter
 import cn.nekocode.meepo.Meepo
 import cn.nekocode.meepo.config.UriConfig
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 
 /**
@@ -37,7 +37,7 @@ import okhttp3.OkHttpClient
 class GankApplication : Application() {
     lateinit var activityRouter: ActivityRouter
     lateinit var broadcastRouter: BroadcastRouter
-    lateinit var gankIoService: GankIoService
+    lateinit var apis: Apis
 
     override fun onCreate() {
         super.onCreate()
@@ -48,13 +48,13 @@ class GankApplication : Application() {
         broadcastRouter = Meepo.Builder()
             .config(BroadcastConfig()).adapter(BroadcastCallAdapter())
             .build().create(BroadcastRouter::class.java)
-        gankIoService = GankIoService(OkHttpClient(), Gson())
+        apis = Apis(OkHttpClient.Builder(), GsonBuilder())
     }
 }
 
 val Context.activityRouter get() = (this.applicationContext as GankApplication).activityRouter
 val Context.broadcastRouter get() = (this.applicationContext as GankApplication).broadcastRouter
-val Context.gankIoService get() = (this.applicationContext as GankApplication).gankIoService
+val Context.apis get() = (this.applicationContext as GankApplication).apis
 
 fun Context.registerLocalReceiver(
     intentFilter: IntentFilter,

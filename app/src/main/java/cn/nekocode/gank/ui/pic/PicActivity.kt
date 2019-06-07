@@ -22,7 +22,7 @@ import cn.nekocode.gank.R
 import cn.nekocode.gank.backend.model.MeiziPic
 import cn.nekocode.gank.base.BaseActivity
 import cn.nekocode.gank.broadcastRouter
-import cn.nekocode.gank.gankIoService
+import cn.nekocode.gank.apis
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import com.squareup.picasso.Picasso
@@ -52,7 +52,7 @@ class PicActivity : BaseActivity() {
         if (pic != null) {
             Single.just(pic!!)
         } else {
-            gankIoService.picApi.getMeiziPics(1, 0)
+            apis.pic.getMeiziPics(1, 0)
                 .subscribeOn(Schedulers.io())
                 .firstOrError()
                 .map { response ->
