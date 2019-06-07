@@ -22,11 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import cn.nekocode.gank.R
-import cn.nekocode.gank.backend.model.MeiziPic
 import cn.nekocode.gank.apis
+import cn.nekocode.gank.backend.model.MeiziPic
 import cn.nekocode.gank.base.BaseFragment
 import com.evernote.android.state.State
-import com.evernote.android.state.StateSaver
 import com.squareup.picasso.Picasso
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,13 +39,10 @@ class PicFragment : BaseFragment() {
     @State
     var pic: MeiziPic? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_pic, container, false)
     }
 
@@ -75,10 +71,5 @@ class PicFragment : BaseFragment() {
             }, {
                 Toast.makeText(requireActivity(), R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()
             })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        StateSaver.saveInstanceState(this, outState)
     }
 }

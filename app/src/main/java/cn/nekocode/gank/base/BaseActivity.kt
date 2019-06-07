@@ -17,7 +17,9 @@
 package cn.nekocode.gank.base
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.evernote.android.state.StateSaver
 import com.uber.autodispose.*
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import io.reactivex.*
@@ -30,6 +32,16 @@ import io.reactivex.parallel.ParallelFlowable
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
     private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        StateSaver.restoreInstanceState(this, savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        StateSaver.saveInstanceState(this, outState)
+    }
 
     /**
      * Modified from https://github.com/uber/AutoDispose

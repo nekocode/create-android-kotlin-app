@@ -24,20 +24,16 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import cn.nekocode.gank.R
 import cn.nekocode.gank.base.BaseFragment
-import com.evernote.android.state.StateSaver
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class HomeFragment : BaseFragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -48,10 +44,5 @@ class HomeFragment : BaseFragment() {
         fetchBtn.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToPic())
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        StateSaver.saveInstanceState(this, outState)
     }
 }

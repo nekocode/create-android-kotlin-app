@@ -21,7 +21,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import cn.nekocode.gank.R
 import cn.nekocode.gank.base.BaseActivity
-import com.evernote.android.state.StateSaver
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -29,17 +28,10 @@ import com.evernote.android.state.StateSaver
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        StateSaver.restoreInstanceState(this, savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
         val navController = findNavController(R.id.frag_nav_host)
         setupActionBarWithNavController(navController)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        StateSaver.saveInstanceState(this, outState)
     }
 
     override fun onSupportNavigateUp() =
