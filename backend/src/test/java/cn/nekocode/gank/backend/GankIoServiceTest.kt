@@ -18,6 +18,7 @@ package cn.nekocode.gank.backend
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
+import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -27,6 +28,7 @@ class GankIoServiceTest {
     private val gankIoService = GankIoService(OkHttpClient(), Gson())
 
     @Test
+    @Ignore("Please run this method manually.")
     fun getMeiziPics() {
         gankIoService.picApi.getMeiziPics(10, 0)
             .test()
