@@ -16,15 +16,9 @@
 
 package cn.nekocode.gank
 
-import android.content.Context
-import cn.nekocode.gank.ui.pic.PicActivity
-import cn.nekocode.meepo.annotation.Clazz
-
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 interface ActivityRouter {
 
-    @Clazz(PicActivity::class)
-    fun gotoPic(context: Context)
 }

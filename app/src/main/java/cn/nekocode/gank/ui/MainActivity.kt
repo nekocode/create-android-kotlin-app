@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package cn.nekocode.gank.ui.home
+package cn.nekocode.gank.ui
 
 import android.os.Bundle
-import android.text.Html
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import cn.nekocode.gank.R
-import cn.nekocode.gank.activityRouter
 import cn.nekocode.gank.base.BaseActivity
-import cn.nekocode.gank.broadcast.BroadcastRouter
-import cn.nekocode.gank.registerLocalReceiver
 import com.evernote.android.state.StateSaver
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
@@ -35,26 +32,16 @@ class MainActivity : BaseActivity() {
         StateSaver.restoreInstanceState(this, savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        fetchBtn.text = Html.fromHtml(getString(R.string.fetch_pic))
-        fetchBtn.setOnClickListener {
-            activityRouter.gotoPic(this)
-        }
 
-        // Register local broadcast receiver
-        registerLocalReceiver(BroadcastRouter.FETCH_SUC) { _, intent ->
-            val action = (intent ?: return@registerLocalReceiver).action
-                ?: return@registerLocalReceiver
-            when (action) {
-                BroadcastRouter.FETCH_SUC -> {
-                    fetchBtn.text = getString(R.string.fetch_suc)
-                    fetchBtn.isEnabled = false
-                }
-            }
-        }
+        val navController = findNavController(R.id.frag_nav_host)
+        setupActionBarWithNavController(navController)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         StateSaver.saveInstanceState(this, outState)
     }
+
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.frag_nav_host).navigateUp()
 }

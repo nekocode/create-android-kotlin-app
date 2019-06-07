@@ -21,14 +21,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
+import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 val Context.activityRouter get() = (this.applicationContext as GankApplication).activityRouter
+val Fragment.activityRouter get() = this.requireActivity().activityRouter
 val Context.broadcastRouter get() = (this.applicationContext as GankApplication).broadcastRouter
+val Fragment.broadcastRouter get() = this.requireActivity().broadcastRouter
 val Context.apis get() = (this.applicationContext as GankApplication).apis
+val Fragment.apis get() = this.requireActivity().apis
 
 fun Context.registerLocalReceiver(
     intentFilter: IntentFilter,
