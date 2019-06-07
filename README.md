@@ -15,40 +15,10 @@ APP_PACKAGE_NAME
 
 ## What is included
 
-The template project imports the [Meepo](https://github.com/nekocode/Meepo) library to create activity & broadcast routers. And use kotlin language sugars to make their usages simpler. For example:
+This template project includes some of the latest features in Android development:
 
-```kotlin
-// Navigate to a new activity
-activityRouter.gotoXxxActivity(this)
+- Used kotlin completely (includes the gradle build scripts)
+- Used AndroidX & Navigation
+- Some simple but useful extensions
 
-// Broadcast action
-broadcastRouter.tellSomeSth(this)
-
-// Register broadcast receiver
-registerLocalReceiver(BroadcastRouter.Action1, BroadcastRouter.Action2) { _, intent ->
-    val action = (intent ?: return@registerLocalReceiver).action
-            ?: return@registerLocalReceiver
-    when (action) {
-        BroadcastRouter.Action1 -> {
-            // Do sth
-        }
-    }
-}
-```
-
-Sending a network request in this project is also simple:
-
-```kotlin
-gankIoService.picApi.getMeiziPics(1, 0)
-    // ...
-```
-
-In addition, it creates some extention methods for [AutoDispose](https://github.com/uber/AutoDispose) so that you can automatically dispose your rx stream more conveniently:
-
-```kotlin
-// ... Rx stream
-        .autoDispose()
-        .subscribe()
-```
-
-For more details, you can look at the code of template directly.
+For more details, you can check the code directly.
