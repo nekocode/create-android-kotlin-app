@@ -6,6 +6,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs")
+    id("com.akaita.android.easylauncher")
 }
 
 androidExtensions {
