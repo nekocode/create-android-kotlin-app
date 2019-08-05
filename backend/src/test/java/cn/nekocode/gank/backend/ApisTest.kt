@@ -16,6 +16,8 @@
 
 package cn.nekocode.gank.backend
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Ignore
 import org.junit.Test
 
@@ -23,7 +25,17 @@ import org.junit.Test
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class ApisTest {
-    private val apis = Apis()
+    private val apis = Apis(
+        OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor(
+            logger = object : HttpLoggingInterceptor.Logger {
+                override fun log(message: String) {
+                    println(message)
+                }
+            }
+        ).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+    )
     private val client = apis.client
     private val gson = apis.gson
 

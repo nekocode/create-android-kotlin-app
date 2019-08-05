@@ -18,8 +18,6 @@ package cn.nekocode.gank
 
 import android.app.Application
 import cn.nekocode.gank.backend.Apis
-import cn.nekocode.meepo.Meepo
-import cn.nekocode.meepo.config.UriConfig
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
@@ -34,7 +32,6 @@ import okhttp3.OkHttpClient
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class GankApplication : Application() {
-    lateinit var activityRouter: ActivityRouter
     lateinit var apis: Apis
 
     override fun onCreate() {
@@ -61,9 +58,6 @@ class GankApplication : Application() {
         }
 
         // Components
-        activityRouter = Meepo.Builder()
-            .config(UriConfig().scheme(BuildConfig.SCHEME).host(BuildConfig.APPLICATION_ID))
-            .build().create(ActivityRouter::class.java)
         apis = Apis(httpClientBuilder, GsonBuilder())
     }
 }

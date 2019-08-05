@@ -23,8 +23,6 @@ import androidx.fragment.app.Fragment
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-val Context.activityRouter get() = (this.applicationContext as GankApplication).activityRouter
-val Fragment.activityRouter get() = this.requireActivity().activityRouter
 val Context.apis get() = (this.applicationContext as GankApplication).apis
 val Fragment.apis get() = this.requireActivity().apis
 

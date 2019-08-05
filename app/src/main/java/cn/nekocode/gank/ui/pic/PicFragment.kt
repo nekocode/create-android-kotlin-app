@@ -66,7 +66,7 @@ class PicFragment : BaseFragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .autoDisposable()
             .subscribe({ pic ->
-                Picasso.with(requireActivity()).load(pic.url).centerCrop().fit().into(imageView)
+                Picasso.get().load(pic.url).centerCrop().fit().into(imageView)
 
             }, {
                 Toast.makeText(requireActivity(), R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()

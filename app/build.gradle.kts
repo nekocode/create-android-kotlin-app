@@ -49,33 +49,46 @@ dependencies {
     implementation(project(":backend"))
 
     // Kotlin
-    implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
+    implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
 
     // Androidx
-    implementation("androidx.appcompat:appcompat:1.1.0-alpha05")
+    implementation("androidx.appcompat:appcompat:1.1.0-rc01")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("androidx.recyclerview:recyclerview:1.1.0-alpha05")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
+    implementation("androidx.recyclerview:recyclerview:1.1.0-beta01")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
 
     // Navigation
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
     implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
 
     // ReactiveX
-    implementation("io.reactivex.rxjava2:rxjava:2.2.6")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation("com.uber.autodispose:autodispose:0.8.0")
-    implementation("com.uber.autodispose:autodispose-android:0.8.0")
-    implementation("com.uber.autodispose:autodispose-android-archcomponents:0.8.0")
+    implementation("com.uber.autodispose:autodispose:1.3.0")
+    implementation("com.uber.autodispose:autodispose-android:1.3.0")
+    implementation("com.uber.autodispose:autodispose-android-archcomponents:1.3.0")
 
     // Others
-    implementation("com.squareup.picasso:picasso:2.5.2")
-    implementation("com.github.nekocode:Meepo:0.3")
-    implementation("com.evernote:android-state:1.3.1")
-    kapt("com.evernote:android-state-processor:1.3.1")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.evernote:android-state:1.4.1")
+    kapt("com.evernote:android-state-processor:1.4.1")
 
     // For debugging
-    debugImplementation("com.facebook.flipper:flipper:0.21.1")
-    debugImplementation("com.facebook.soloader:soloader:0.6.0")
-    releaseImplementation("com.facebook.flipper:flipper-noop:0.21.1")
+    debugImplementation("com.facebook.flipper:flipper:0.23.2")
+    debugImplementation("com.facebook.soloader:soloader:0.6.1")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.23.2")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-core:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-attr:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-build-config:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-crash:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-disk:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-geiger-counter:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-measurement:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-phoenix:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-recorder:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.27")
+    debugImplementation("com.willowtreeapps.hyperion:hyperion-timber:0.9.27")
+    releaseImplementation("com.willowtreeapps.hyperion:hyperion-core-no-op:0.9.27")
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+    kotlinOptions.jvmTarget = "1.8"
 }

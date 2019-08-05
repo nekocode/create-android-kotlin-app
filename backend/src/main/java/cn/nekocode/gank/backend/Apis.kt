@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class Apis(
-    clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
+    httpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
     gsonBuilder: GsonBuilder = GsonBuilder(),
     apiEnv: ApiEnv = ApiEnv.PRODUCT
 ) {
@@ -40,7 +40,7 @@ class Apis(
     /**
      * OkHttp Client
      */
-    val client: OkHttpClient = clientBuilder
+    val client: OkHttpClient = httpClientBuilder
         .addInterceptor { chain ->
             val oldReq = chain.request()
             val newReqBuilder = oldReq.newBuilder()
