@@ -41,7 +41,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
 
     // ReactiveX
-    api("io.reactivex.rxjava2:rxjava:2.2.8")
+    api("io.reactivex.rxjava2:rxkotlin:2.3.0")
     api("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     // Dependency injection
