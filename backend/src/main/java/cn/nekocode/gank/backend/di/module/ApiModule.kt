@@ -1,5 +1,5 @@
 /*
- * Copyright 2018. nekocode (nekocode.cn@gmail.com)
+ * Copyright 2019. nekocode (nekocode.cn@gmail.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,33 +14,36 @@
  * limitations under the License.
  */
 
-package cn.nekocode.gank.backend
+package cn.nekocode.gank.backend.di.module
 
 import cn.nekocode.gank.backend.api.PicApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class Apis(
-    httpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
-    gsonBuilder: GsonBuilder = GsonBuilder(),
-    apiEnv: ApiEnv = ApiEnv.PRODUCT
+@Module
+class ApiModule(
+    private val httpClientBuilder: OkHttpClient.Builder,
+    private val gsonBuilder: GsonBuilder,
+    private val env: Env = Env.PRODUCT
 ) {
 
-    enum class ApiEnv(val baseUrl: String) {
+    enum class Env(val baseUrl: String) {
         PRODUCT("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"),
     }
 
-    /**
-     * OkHttp Client
-     */
-    val client: OkHttpClient = httpClientBuilder
+    @Provides
+    @Singleton
+    fun provideHttpClient(): OkHttpClient = httpClientBuilder
         .addInterceptor { chain ->
             val oldReq = chain.request()
             val newReqBuilder = oldReq.newBuilder()
@@ -52,21 +55,20 @@ class Apis(
         }
         .build()
 
-    /**
-     * Gson
-     */
-    val gson: Gson = gsonBuilder.create()
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = gsonBuilder.create()
 
-    private val retrofit: Retrofit =
-        Retrofit.Builder()
-            .baseUrl(apiEnv.baseUrl)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
+    @Provides
+    @Singleton
+    fun provideRetrofit(httpClient: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
+        .baseUrl(env.baseUrl)
+        .client(httpClient)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
 
-    /**
-     * All apis
-     */
-    val pic: PicApi = retrofit.create(PicApi::class.java)
+    @Provides
+    @Singleton
+    fun providePicApi(retrofit: Retrofit): PicApi = retrofit.create(PicApi::class.java)
 }

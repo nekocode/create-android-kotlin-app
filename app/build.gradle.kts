@@ -56,6 +56,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.0.2")
     implementation("androidx.recyclerview:recyclerview:1.1.0-beta01")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
 
     // Navigation
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
@@ -65,6 +66,10 @@ dependencies {
     implementation("com.uber.autodispose:autodispose:1.3.0")
     implementation("com.uber.autodispose:autodispose-android:1.3.0")
     implementation("com.uber.autodispose:autodispose-android-archcomponents:1.3.0")
+
+    // Dependency injection
+    implementation("com.google.dagger:dagger:2.24")
+    kapt("com.google.dagger:dagger-compiler:2.24")
 
     // Others
     implementation("com.squareup.picasso:picasso:2.71828")

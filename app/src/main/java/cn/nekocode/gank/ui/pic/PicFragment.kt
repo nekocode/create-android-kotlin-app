@@ -20,24 +20,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import cn.nekocode.gank.R
-import cn.nekocode.gank.apis
-import cn.nekocode.gank.backend.model.MeiziPic
 import cn.nekocode.gank.base.BaseFragment
-import com.evernote.android.state.State
 import com.squareup.picasso.Picasso
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_pic.*
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
 class PicFragment : BaseFragment() {
-    @State
-    var pic: MeiziPic? = null
+    private val vm by lazy {
+        getViewModel(PicViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,28 +43,9 @@ class PicFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showPic()
-    }
 
-    private fun showPic() {
-        if (pic != null) {
-            Single.just(pic!!)
-        } else {
-            apis.pic.getMeiziPics(1, 0)
-                .subscribeOn(Schedulers.io())
-                .firstOrError()
-                .map { response ->
-                    pic = response.results[0]
-                    pic
-                }
-        }
-            .observeOn(AndroidSchedulers.mainThread())
-            .autoDisposable()
-            .subscribe({ pic ->
-                Picasso.get().load(pic.url).centerCrop().fit().into(imageView)
-
-            }, {
-                Toast.makeText(requireActivity(), R.string.sth_went_wrong, Toast.LENGTH_SHORT).show()
-            })
+        vm.liveDataPic.observe(this, Observer {
+            Picasso.get().load(it.url).centerCrop().fit().into(imageView)
+        })
     }
 }

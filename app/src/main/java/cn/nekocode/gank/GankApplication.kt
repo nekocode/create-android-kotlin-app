@@ -17,47 +17,60 @@
 package cn.nekocode.gank
 
 import android.app.Application
-import cn.nekocode.gank.backend.Apis
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.android.utils.FlipperUtils
-import com.facebook.flipper.plugins.inspector.DescriptorMapping
-import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.facebook.soloader.SoLoader
+import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import cn.nekocode.gank.backend.di.module.ApiModule
+import cn.nekocode.gank.di.DaggerViewModelFactory
+import cn.nekocode.gank.di.component.AppComponent
+import cn.nekocode.gank.di.component.DaggerAppComponent
+import cn.nekocode.gank.di.module.AppModule
+import cn.nekocode.gank.di.module.FlipperModule
+import com.facebook.flipper.core.FlipperClient
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-class GankApplication : Application() {
-    lateinit var apis: Apis
+open class GankApplication : Application() {
+    lateinit var component: AppComponent
+    @Inject
+    lateinit var flipperClient: FlipperClient
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate() {
         super.onCreate()
+        component = createComponent()
+        component.inject(this)
 
-        val httpClientBuilder = OkHttpClient.Builder()
-
-        // Flipper https://fbflipper.com/docs/getting-started.html
-        SoLoader.init(this, false)
-        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
-            AndroidFlipperClient.getInstance(this).apply {
-                // Layout inspecting
-                addPlugin(
-                    InspectorFlipperPlugin(
-                    this@GankApplication, DescriptorMapping.withDefaults())
-                )
-
-                // Network inspecting
-                NetworkFlipperPlugin().let {
-                    addPlugin(it)
-                    httpClientBuilder.addNetworkInterceptor(FlipperOkhttpInterceptor(it))
-                }
-            }.start()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashReportingTree())
         }
+        flipperClient.start()
+    }
 
-        // Components
-        apis = Apis(httpClientBuilder, GsonBuilder())
+    protected open fun createComponent(): AppComponent {
+        val httpClientBuilder = OkHttpClient.Builder()
+        val gsonBuilder = GsonBuilder()
+
+        return DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .flipperModule(FlipperModule(this, httpClientBuilder))
+            .apiModule(ApiModule(httpClientBuilder, gsonBuilder))
+            .build()
+    }
+
+    private class CrashReportingTree : Timber.Tree() {
+        override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return
+            }
+            // Report
+        }
     }
 }

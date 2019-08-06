@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package cn.nekocode.gank
+package cn.nekocode.gank.di
 
-import android.content.Context
-import android.content.res.Resources
-import androidx.fragment.app.Fragment
+import javax.inject.Scope
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-val Context.apis get() = (this.applicationContext as GankApplication).apis
-val Fragment.apis get() = this.requireActivity().apis
-
-val Number.dp2px get() = (toInt() * Resources.getSystem().displayMetrics.density).toInt()
-val Number.px2dp get() = (toInt() / Resources.getSystem().displayMetrics.density).toInt()
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ActivityScope

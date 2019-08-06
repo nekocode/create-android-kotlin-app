@@ -19,6 +19,11 @@ package cn.nekocode.gank.base
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
+import cn.nekocode.gank.GankApplication
 import com.evernote.android.state.StateSaver
 import com.uber.autodispose.*
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -42,6 +47,18 @@ open class BaseActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         StateSaver.saveInstanceState(this, outState)
     }
+
+    fun <T : ViewModel> getViewModel(key: String, modelClass: Class<T>) =
+        getViewModelProvider(this).get(key, modelClass)
+
+    fun <T : ViewModel> getViewModel(modelClass: Class<T>) =
+        getViewModelProvider(this).get(modelClass)
+
+    fun getViewModelProvider(fragment: Fragment) =
+        ViewModelProviders.of(fragment, (application as GankApplication).viewModelFactory)
+
+    fun getViewModelProvider(activity: FragmentActivity) =
+        ViewModelProviders.of(activity, (application as GankApplication).viewModelFactory)
 
     /**
      * Modified from https://github.com/uber/AutoDispose
