@@ -17,9 +17,8 @@ APP_PACKAGE_NAME
 
 This template project includes some of the latest features in Android development:
 
-- Used kotlin completely (includes the gradle build scripts)
-- Used AndroidX & Navigation
-- Functional programming style
-- Some simple but useful extensions
+- Uses kotlin completely (includes gradle build scripts)
+- Uses AndroidX & Android Architecture Components (includes Navigation, ViewModel, LiveData)
+- Uses some powerful generic libraries like RxKotlin, Dagger2, etc
 
-For more details, you can check the code directly.
+For more details, you can check the source code directly.
