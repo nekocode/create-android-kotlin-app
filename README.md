@@ -20,5 +20,8 @@ This template project includes some of the latest features in Android developmen
 - Uses kotlin completely (includes gradle build scripts)
 - Uses AndroidX & Android Architecture Components (includes Navigation, ViewModel, LiveData)
 - Uses some powerful generic libraries like RxKotlin, Dagger2, etc
+- Includes some useful features & extensions:
+  - Provides convenient way to inject dependencies to Activity, Fragment & ViewModel
+  - Provides extension methods `autoDisposable()` for auto disposing rx streams in Activity, Fragment & ViewModel
 
 For more details, you can check the source code directly.
