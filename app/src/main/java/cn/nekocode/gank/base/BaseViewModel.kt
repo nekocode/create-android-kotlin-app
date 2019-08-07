@@ -25,14 +25,13 @@ import io.reactivex.*
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.parallel.ParallelFlowable
 import io.reactivex.subjects.BehaviorSubject
-import timber.log.Timber
 
 /**
  * Copied and modified from: https://github.com/uber/AutoDispose
  *
  * @author nekocode (nekocode.cn@gmail.com)
  */
-open class BaseViewModel : ViewModel(), LifecycleScopeProvider<BaseViewModel.ViewModelEvent> {
+abstract class BaseViewModel : ViewModel(), LifecycleScopeProvider<BaseViewModel.ViewModelEvent> {
     private val lifecycleEventsDelegate = lazy { BehaviorSubject.createDefault(ViewModelEvent.CREATED) }
     private val lifecycleEvents by lifecycleEventsDelegate
 

@@ -16,7 +16,6 @@
 
 package cn.nekocode.gank.base
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,6 +23,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import cn.nekocode.gank.GankApplication
+import cn.nekocode.gank.di.component.buildAndInject
 import com.evernote.android.state.StateSaver
 import com.uber.autodispose.*
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -34,11 +34,12 @@ import io.reactivex.parallel.ParallelFlowable
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-@SuppressLint("Registered")
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as GankApplication).component
+            .newActivityComponentBuilder().buildAndInject(this)
         super.onCreate(savedInstanceState)
         StateSaver.restoreInstanceState(this, savedInstanceState)
     }

@@ -16,36 +16,39 @@
 
 package cn.nekocode.gank.di.component
 
-import android.app.Activity
-import cn.nekocode.gank.di.ActivityScope
-import cn.nekocode.gank.di.module.ActivityModule
-import cn.nekocode.gank.ui.MainActivity
+import androidx.fragment.app.Fragment
+import cn.nekocode.gank.di.FragmentScope
+import cn.nekocode.gank.di.module.FragmentModule
+import cn.nekocode.gank.ui.home.HomeFragment
+import cn.nekocode.gank.ui.pic.PicFragment
 import dagger.Subcomponent
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-@ActivityScope
+@FragmentScope
 @Subcomponent(
     modules = [
-        ActivityModule::class
+        FragmentModule::class
     ]
 )
-interface ActivityComponent {
+interface FragmentComponent {
 
     @Subcomponent.Builder
     interface Builder {
-        fun activityModule(module: ActivityModule): Builder
-        fun build(): ActivityComponent
+        fun fragmentModule(module: FragmentModule): Builder
+        fun build(): FragmentComponent
     }
 
-    fun inject(activity: MainActivity)
+    fun inject(fragment: HomeFragment)
+    fun inject(fragment: PicFragment)
 }
 
-fun ActivityComponent.Builder.buildAndInject(activity: Activity) {
-    val component = activityModule(ActivityModule(activity)).build()
+fun FragmentComponent.Builder.buildAndInject(fragment: Fragment) {
+    val component = fragmentModule(FragmentModule(fragment)).build()
 
-    when (activity) {
-        is MainActivity -> component.inject(activity)
+    when (fragment) {
+        is HomeFragment -> component.inject(fragment)
+        is PicFragment -> component.inject(fragment)
     }
 }

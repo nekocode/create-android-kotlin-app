@@ -14,27 +14,13 @@
  * limitations under the License.
  */
 
-package cn.nekocode.gank.di.module
+package cn.nekocode.gank.di
 
-import android.app.Application
-import cn.nekocode.gank.di.AppScope
-import cn.nekocode.gank.di.component.ActivityComponent
-import cn.nekocode.gank.di.component.FragmentComponent
-import dagger.Module
-import dagger.Provides
+import javax.inject.Scope
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-@Module(
-    subcomponents = [
-        ActivityComponent::class,
-        FragmentComponent::class
-    ]
-)
-class AppModule(private val app: Application) {
-
-    @Provides
-    @AppScope
-    fun provideApp(): Application = app
-}
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentScope

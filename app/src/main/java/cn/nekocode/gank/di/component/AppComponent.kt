@@ -18,7 +18,6 @@ package cn.nekocode.gank.di.component
 
 import cn.nekocode.gank.GankApplication
 import cn.nekocode.gank.backend.di.module.ApiModule
-import cn.nekocode.gank.base.BaseActivity
 import cn.nekocode.gank.di.AppScope
 import cn.nekocode.gank.di.module.AppModule
 import cn.nekocode.gank.di.module.FlipperModule
@@ -43,5 +42,7 @@ interface AppComponent {
 
     fun inject(app: GankApplication)
 
-    fun activityComponent(): ActivityComponent.Builder
+    fun newActivityComponentBuilder(): ActivityComponent.Builder
+
+    fun newFragmentComponentBuilder(): FragmentComponent.Builder
 }

@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import cn.nekocode.gank.GankApplication
+import cn.nekocode.gank.di.component.buildAndInject
 import com.evernote.android.state.StateSaver
 import com.uber.autodispose.*
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -32,10 +33,12 @@ import io.reactivex.parallel.ParallelFlowable
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-open class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() {
     private val scopeProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (context?.applicationContext as GankApplication?)?.component
+            ?.newFragmentComponentBuilder()?.buildAndInject(this)
         super.onCreate(savedInstanceState)
         StateSaver.restoreInstanceState(this, savedInstanceState)
     }

@@ -16,25 +16,18 @@
 
 package cn.nekocode.gank.di.module
 
-import android.app.Application
-import cn.nekocode.gank.di.AppScope
-import cn.nekocode.gank.di.component.ActivityComponent
-import cn.nekocode.gank.di.component.FragmentComponent
+import androidx.fragment.app.Fragment
+import cn.nekocode.gank.di.FragmentScope
 import dagger.Module
 import dagger.Provides
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-@Module(
-    subcomponents = [
-        ActivityComponent::class,
-        FragmentComponent::class
-    ]
-)
-class AppModule(private val app: Application) {
+@Module
+class FragmentModule(private val fragment: Fragment) {
 
     @Provides
-    @AppScope
-    fun provideApp(): Application = app
+    @FragmentScope
+    fun provideFragment(): Fragment = fragment
 }
