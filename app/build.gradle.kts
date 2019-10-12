@@ -52,20 +52,20 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
 
     // Androidx
-    implementation("androidx.appcompat:appcompat:1.1.0-rc01")
-    implementation("androidx.core:core-ktx:1.0.2")
-    implementation("androidx.recyclerview:recyclerview:1.1.0-beta01")
+    implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation("androidx.core:core-ktx:1.1.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0-beta05")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
 
     // Navigation
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
     implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
 
     // ReactiveX
-    implementation("com.uber.autodispose:autodispose:1.3.0")
-    implementation("com.uber.autodispose:autodispose-android:1.3.0")
-    implementation("com.uber.autodispose:autodispose-android-archcomponents:1.3.0")
+    implementation("com.uber.autodispose:autodispose:1.4.0")
+    implementation("com.uber.autodispose:autodispose-android:1.4.0")
+    implementation("com.uber.autodispose:autodispose-android-archcomponents:1.4.0")
 
     // Dependency injection
     implementation("com.google.dagger:dagger:2.24")
@@ -78,7 +78,7 @@ dependencies {
 
     // For debugging
     debugImplementation("com.facebook.flipper:flipper:0.23.2")
-    debugImplementation("com.facebook.soloader:soloader:0.6.1")
+    debugImplementation("com.facebook.soloader:soloader:0.8.0")
     releaseImplementation("com.facebook.flipper:flipper-noop:0.23.2")
     debugImplementation("com.willowtreeapps.hyperion:hyperion-core:0.9.27")
     debugImplementation("com.willowtreeapps.hyperion:hyperion-attr:0.9.27")

@@ -33,12 +33,12 @@ dependencies {
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
 
     // Network
-    api("com.squareup.okhttp3:okhttp:4.0.1")
+    api("com.squareup.okhttp3:okhttp:4.2.2")
     api("com.google.code.gson:gson:2.8.5")
-    api("com.squareup.retrofit2:retrofit:2.6.0")
+    api("com.squareup.retrofit2:retrofit:2.6.2")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
-    testImplementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.2")
+    testImplementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
 
     // ReactiveX
     api("io.reactivex.rxjava2:rxkotlin:2.3.0")
