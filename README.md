@@ -4,7 +4,7 @@ This is an android application template project built with kotlin language and s
 
 ## Creating project
 
-Make sure you have installed Python 3 and [requests](https://pypi.org/project/requests/) library before proceeding. And then paste the following command at a terminal, replace the `PROJECT_NAME` and `APP_PACKAGE_NAME` and execute it:
+Make sure you have installed Python 3 and [requests](https://pypi.org/project/requests/) library before proceeding. And then paste the following command at a terminal in your macOS, replace the `PROJECT_NAME` and `APP_PACKAGE_NAME` and execute it :
 
 ```sh
 python3 -c \
@@ -13,11 +13,11 @@ PROJECT_NAME \
 APP_PACKAGE_NAME
 ```
 
-## What is included
+## What is included in the project
 
 This template project includes some of the latest features in Android development:
 
-- Uses kotlin completely (includes gradle build scripts)
+- Uses kotlin completely (includes gradle build scripts and valuable code)
 - Uses AndroidX & Android Architecture Components (includes Navigation, ViewModel, LiveData)
 - Uses some powerful generic libraries like RxKotlin, Dagger2, etc
 - Includes some useful features & extensions:
