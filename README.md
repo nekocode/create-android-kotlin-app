@@ -1,4 +1,4 @@
-# README
+# Simple Android Kotlin Project
 
 This is an android application template project built with kotlin language and some useful libraries. It provides a creator script to quickly create an project from template.
 
@@ -13,7 +13,7 @@ PROJECT_NAME \
 APP_PACKAGE_NAME
 ```
 
-## What is included
+## What is included in project
 
 This template project includes some of the latest features in Android development:
 
