@@ -3,19 +3,13 @@ import org.jetbrains.kotlin.config.KotlinCompilerVersion
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
-}
-
-androidExtensions {
-    isExperimental = true
-    features = setOf("parcelize")
+    id("kotlin-parcelize")
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
     defaultConfig {
-        targetSdkVersion(28)
         minSdkVersion(21)
         consumerProguardFiles("proguard-rules.pro")
     }
@@ -27,27 +21,27 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.1")
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
 
     // Network
-    api("com.squareup.okhttp3:okhttp:4.2.2")
-    api("com.google.code.gson:gson:2.8.5")
-    api("com.squareup.retrofit2:retrofit:2.6.2")
-    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.2")
-    testImplementation("com.squareup.okhttp3:logging-interceptor:4.2.2")
+    api("com.squareup.okhttp3:okhttp:4.9.1")
+    api("com.google.code.gson:gson:2.8.6")
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+    testImplementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
     // ReactiveX
-    api("io.reactivex.rxjava2:rxkotlin:2.3.0")
-    api("io.reactivex.rxjava2:rxandroid:2.1.1")
+    api("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    api("io.reactivex.rxjava3:rxandroid:3.0.0")
 
     // Dependency injection
-    implementation("com.google.dagger:dagger:2.24")
-    kapt("com.google.dagger:dagger-compiler:2.24")
-    kaptTest("com.google.dagger:dagger-compiler:2.24")
+    implementation("com.google.dagger:dagger:2.31.2")
+    kapt("com.google.dagger:dagger-compiler:2.31.2")
+    kaptTest("com.google.dagger:dagger-compiler:2.31.2")
 
     // Testing
     testImplementation(kotlin("test-junit", KotlinCompilerVersion.VERSION))

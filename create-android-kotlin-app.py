@@ -10,7 +10,8 @@ import re
 
 
 REPO_URL = 'https://github.com/nekocode/create-android-kotlin-app'
-ORIGINAL_PACKAGE_NAME = 'cn.nekocode.gank'
+ORIGINAL_PACKAGE_NAME = 'cn.nekocode.caka'
+ZIP_UNIX_SYSTEM = 3
 
 
 class ProjectCreator:
@@ -21,79 +22,84 @@ class ProjectCreator:
         self.root_dir_path = None
 
     def create(self):
-        entry_names = self.zip_file.namelist()
-        self.root_dir_path = entry_names[0]
+        infolist: [zipfile.ZipInfo] = self.zip_file.infolist()
+        self.root_dir_path = infolist[0].filename
 
-        for entry_name in entry_names:
-            if entry_name.endswith('/'):
+        for info in infolist:
+            if info.filename.endswith('/'):
                 # skip directory
                 continue
 
-            last_semgnet = entry_name.split('/')[-1]
-            if last_semgnet.endswith('.kt'):
-                self.kt_file(entry_name)
+            last_segment = info.filename.split('/')[-1]
+            if last_segment.endswith('.kt'):
+                self.kt_file(info)
 
-            elif last_semgnet.endswith('.gradle.kts'):
-                self.gradle_file(entry_name)
+            elif last_segment.endswith('.gradle.kts'):
+                self.gradle_file(info)
 
-            elif last_semgnet == 'AndroidManifest.xml':
-                self.manifest_file(entry_name)
+            elif last_segment.endswith('.xml'):
+                self.xml_file(info)
 
-            elif last_semgnet.endswith('.py') or last_semgnet == 'README.md':
+            elif last_segment.endswith('.py') or last_segment == 'README.md':
                 continue
 
             else:
-                self.common_file(entry_name)
+                self.common_file(info)
 
-    def kt_file(self, entry_name: str):
-        file_name = self.replace_root_path(entry_name)
+    def kt_file(self, info: zipfile.ZipInfo):
+        file_name = self.replace_root_path(info.filename)
         file_name = file_name.replace(
             ORIGINAL_PACKAGE_NAME.replace('.', '/'),
             self.package_name.replace('.', '/'))
-        content = TextProcesser(self.zip_file.read(entry_name).decode('utf-8'))\
+        content = TextProcessor(self.zip_file.read(info.filename).decode('utf-8'))\
             .replace_all_text(ORIGINAL_PACKAGE_NAME, self.package_name)\
             .remove_unwanted_comments().commit().encode()
 
-        self.write_to_file(file_name, content)
+        self.write_to_file(file_name, content, info)
 
-    def gradle_file(self, entry_name: str):
-        self.manifest_file(entry_name)
+    def gradle_file(self, info: zipfile.ZipInfo):
+        self.replaceable_file(info)
 
-    def manifest_file(self, entry_name: str):
-        file_name = self.replace_root_path(entry_name)
-        content = TextProcesser(self.zip_file.read(entry_name).decode('utf-8'))\
-            .replace_all_text(ORIGINAL_PACKAGE_NAME, self.package_name)\
+    def xml_file(self, info: zipfile.ZipInfo):
+        self.replaceable_file(info)
+
+    def replaceable_file(self, info: zipfile.ZipInfo):
+        file_name = self.replace_root_path(info.filename)
+        content = TextProcessor(self.zip_file.read(info.filename).decode('utf-8')) \
+            .replace_all_text(ORIGINAL_PACKAGE_NAME, self.package_name) \
             .commit().encode()
 
-        self.write_to_file(file_name, content)
+        self.write_to_file(file_name, content, info)
 
-    def common_file(self, entry_name: str):
-        file_name = self.replace_root_path(entry_name)
-        content = self.zip_file.read(entry_name)
+    def common_file(self, info: zipfile.ZipInfo):
+        file_name = self.replace_root_path(info.filename)
+        content = self.zip_file.read(info.filename)
 
-        self.write_to_file(file_name, content)
+        self.write_to_file(file_name, content, info)
 
-    def replace_root_path(self, entry_name: str) -> str:
-        return entry_name.replace(
-            self.root_dir_path,
-            self.project_name + '/')
+    def replace_root_path(self, file_name: str) -> str:
+        return file_name.replace(self.root_dir_path, self.project_name + '/')
 
     @staticmethod
-    def write_to_file(file_name: str, content: bytes):
+    def write_to_file(file_name: str, content: bytes, info: zipfile.ZipInfo):
         os.makedirs(os.path.dirname(file_name), exist_ok=True)
         open(file_name, 'wb').write(content)
+        if info.create_system == ZIP_UNIX_SYSTEM:
+            unix_attributes = info.external_attr >> 16
+            if unix_attributes:
+                os.chmod(file_name, unix_attributes)
 
 
-class TextProcesser:
+class TextProcessor:
     def __init__(self, txt: str):
         self.txt = txt
         self.commands = []
 
-    def replace_all_text(self, src: str, dst: str) -> 'TextProcesser':
+    def replace_all_text(self, src: str, dst: str) -> 'TextProcessor':
         self.commands.append(('replace_all_text', src, dst))
         return self
 
-    def remove_unwanted_comments(self) -> 'TextProcesser':
+    def remove_unwanted_comments(self) -> 'TextProcessor':
         self.commands.append(('remove_unwanted_comments', None))
         return self
 
@@ -119,10 +125,10 @@ class TextProcesser:
         return rlt
 
 
-def fetch_lastest_archive() -> bytes:
+def fetch_latest_archive() -> bytes:
     r = requests.get(REPO_URL + '/releases/latest', allow_redirects=False)
-    lastest_tag = r.headers['location'].split('/')[-1]
-    archive_url = REPO_URL + '/archive/%s.zip' % lastest_tag
+    latest_tag = r.headers['location'].split('/')[-1]
+    archive_url = REPO_URL + '/archive/%s.zip' % latest_tag
     return requests.get(archive_url).content
 
 
@@ -151,14 +157,14 @@ def main():
 
     package_name = sys.argv[2]
     if not re.match('^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$', package_name):
-        print(red('Error: ') + 'Invaild java package name %s' % green(package_name))
+        print(red('Error: ') + 'Invalid java package name %s' % green(package_name))
         return
 
     print('Creating a new android kotlin app in %s\n' % green("./" + project_name))
-    print('Fetching the lastest source code archive from %s\nThis might take a couple minutes.' % green(REPO_URL))
-    archive_data = fetch_lastest_archive()
+    print('Fetching the latest source code archive from %s\nThis might take a couple minutes.' % green(REPO_URL))
+    archive_data = fetch_latest_archive()
 
-    print('Unziping template files...\n')
+    print('Unzipping template files...\n')
     ProjectCreator(archive_data, project_name, package_name).create()
     print('Done. Happy hacking!')
 

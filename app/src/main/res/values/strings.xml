@@ -1,7 +1,4 @@
 <resources>
-    <string name="app_name">GankIo</string>
-    <string name="fetch_pic"><![CDATA[Fetch a picture from <i>gank.io</i>]]></string>
-    <string name="fetching_data">Fetching data…</string>
-    <string name="sth_went_wrong">Something went wrong</string>
-    <string name="fetch_suc">Fetched successfully</string>
+    <string name="app_name">create-android-kotlin-app</string>
+    <string name="repo_bottom_text">stargazers: %1$d forks: %2$d</string>
 </resources>
